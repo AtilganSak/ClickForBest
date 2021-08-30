@@ -18,6 +18,7 @@ public class CoinSpawner : MonoBehaviour
         GameObject coin_instance = Instantiate(coin_prefab);
         coin_instance.transform.position = new Vector3(Random.Range(-randomize, randomize), -1.5F, 0);
 
+        ReferenceKeeper.Instance.GameManager.AddScore();
         ReferenceKeeper.Instance.GameManager.AddCoin();
     }
 }

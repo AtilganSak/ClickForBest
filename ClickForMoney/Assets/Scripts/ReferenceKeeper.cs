@@ -22,4 +22,5 @@ public class ReferenceKeeper : MonoBehaviour
     public GameObject ClickButton;
     public GameObject BottomCollider;
     public ScreenLimitDetector ScreenLimitDetector;
+    public Handle Handle;
 }

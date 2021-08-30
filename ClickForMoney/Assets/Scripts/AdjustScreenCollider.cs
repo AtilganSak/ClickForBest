@@ -47,7 +47,6 @@ public class AdjustScreenCollider : MonoBehaviour
             GameObject instance_bottom = Instantiate(collider_prefab);
             instance_bottom.transform.position = world_bottom;
             instance_bottom.transform.eulerAngles = new Vector3(0, 0, 90);
-            ReferenceKeeper.Instance.ScreenLimitDetector.bottom_collider = instance_bottom;
             ReferenceKeeper.Instance.BottomCollider = instance_bottom;
         }
     }
