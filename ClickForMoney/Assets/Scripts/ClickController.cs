@@ -12,7 +12,7 @@ public class ClickController : MonoBehaviour
         click_button.onClick.AddListener(Pressed_Click_Button);
     }
 
-    private void Pressed_Click_Button()
+    public void Pressed_Click_Button()
     {
         coin_spawner.SpawnCoin();
     }

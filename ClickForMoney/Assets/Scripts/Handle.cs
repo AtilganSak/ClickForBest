@@ -35,7 +35,9 @@ public class Handle : MonoBehaviour
         pos.y = transform.parent.position.y;
         pos.z = transform.parent.position.z;
         transform.parent.position = pos;
-
+    }
+    private void Start()
+    {
         doMove.DO();
     }
     private void Update()
