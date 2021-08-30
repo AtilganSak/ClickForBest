@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7654654928706219572}
   - component: {fileID: 4160626046601388184}
   m_Layer: 5
-  m_Name: AutoClickPower
+  m_Name: AutoClickPower_30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b603771e20aa607438121e0799fb3f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 5
-  maxTime: 20
+  time: 30
   time_text: {fileID: 9008990542796684960}
+  click_interval: 0.1
 --- !u!114 &4160626046601388184
 MonoBehaviour:
   m_ObjectHideFlags: 0

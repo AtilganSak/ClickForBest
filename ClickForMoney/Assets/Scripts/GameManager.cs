@@ -8,13 +8,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text score_text;
     [SerializeField] TMP_Text level_text;
 
-    int total_coin_count;
-    int score;
-    int level;
+    private int boost = 1;
+    private int total_coin_count;
+    private int score;
+    private int level;
 
     private void Start()
     {
         Application.targetFrameRate = 90;
+
+        boost = 1;
 
         //Get score and level on the PlayerPrefs or Firebase
         score_text.text = "0";
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour
     [EasyButtons.Button]
     public void AddScore()
     {
-        if (score + 1 >= int.MaxValue || score + 1 < 0)
+        if (score + boost >= int.MaxValue || score + boost < 0)
         {
             score = 0;
             if (level == 0)
@@ -64,9 +67,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            score++;
+            score += boost;
         }
         score_text.text = score.ToKMB();
+    }
+    public void SetBoost(int _value)
+    {
+        boost = _value;
     }
     private void HandleActivated()
     {

@@ -3,13 +3,7 @@ using UnityEngine;
 
 public class AutoClick : Power
 {
-    [Range(1, 60)]
-    public int minTime = 1;
-    [Range(1, 60)]
-    public int maxTime = 1;
-
     [SerializeField] float click_interval = 0.1F;
-    [SerializeField] TMPro.TMP_Text time_text;
 
     int counter;
 
@@ -23,14 +17,18 @@ public class AutoClick : Power
         WaitForSeconds = new WaitForSeconds(1);
         WaitForSeconds2 = new WaitForSeconds(click_interval);
 
-        counter = Random.Range(minTime, maxTime);
-        time_text.text = counter.ToString();
+        counter = time;
     }
     internal override void Use()
     {
-        ReferenceKeeper.Instance.TimeCircle.StartTimer(counter);
-        StartCoroutine(Timer());
-        StartCoroutine(Process());
+        if (!used)
+        {
+            base.Use();
+
+            ReferenceKeeper.Instance.TimeCircle.StartTimer(counter);
+            StartCoroutine(Timer());
+            StartCoroutine(Process());
+        }
     }
     private IEnumerator Timer()
     {
