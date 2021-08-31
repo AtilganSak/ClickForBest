@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
             GC.Collect();
         }
     }
-    [EasyButtons.Button]
     public void AddScore()
     {
         if (boost > 1)
@@ -70,6 +69,22 @@ public class GameManager : MonoBehaviour
         else
         {
             score += boost;
+        }
+        score_text.text = score.ToKMB();
+    }
+    public void AddScore(int _value)
+    {
+        if (score + _value >= int.MaxValue || score + _value < 0)
+        {
+            score = 0;
+            if (level == 0)
+                level_text.gameObject.SetActive(true);
+            level++;
+            level_text.text = level.ToKMB();
+        }
+        else
+        {
+            score += _value;
         }
         score_text.text = score.ToKMB();
     }

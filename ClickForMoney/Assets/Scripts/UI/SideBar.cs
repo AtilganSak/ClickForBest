@@ -14,6 +14,8 @@ public class SideBar : MonoBehaviour
 
     private void Start()
     {
+        powers.Shuffle();
+
         SelectPower();
     }
     private void SelectPower()
