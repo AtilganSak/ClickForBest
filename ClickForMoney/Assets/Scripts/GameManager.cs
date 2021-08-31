@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
         if (total_coin_count <= 0)
         {
-            ReferenceKeeper.Instance.ClickButton.SetActive(true);
+            ReferenceKeeper.Instance.ClickButton.interactable = true;
             ReferenceKeeper.Instance.BottomCollider.SetActive(true);
             ReferenceKeeper.Instance.Handle.ResetUp();
 
@@ -94,12 +94,12 @@ public class GameManager : MonoBehaviour
     }
     private void HandleActivated()
     {
-        ReferenceKeeper.Instance.ClickButton.SetActive(false);
+        ReferenceKeeper.Instance.ClickButton.interactable = false;
         ReferenceKeeper.Instance.BottomCollider.SetActive(false);
     }
     private void HandleDeactivated()
     {
-        ReferenceKeeper.Instance.ClickButton.SetActive(true);
+        ReferenceKeeper.Instance.ClickButton.interactable = true;
         ReferenceKeeper.Instance.BottomCollider.SetActive(true);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReferenceKeeper : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class ReferenceKeeper : MonoBehaviour
     }
 
     public GameManager GameManager;
-    public GameObject ClickButton;
+    public Button ClickButton;
     public GameObject BottomCollider;
     public ScreenLimitDetector ScreenLimitDetector;
     public Handle Handle;

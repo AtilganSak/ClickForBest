@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 30
   time_text: {fileID: 9008990542796684960}
-  click_interval: 0.1
+  click_interval: 0.5
 --- !u!114 &4160626046601388184
 MonoBehaviour:
   m_ObjectHideFlags: 0
