@@ -5,7 +5,7 @@ using UnityEngine;
 public class SideBar : MonoBehaviour
 {
     //180,360
-    [Range(5, 10)]
+    [Range(5, 10)] // 5 dakikada bir olabilir
     public int show_interval = 60;
 
     public Power[] powers;
@@ -18,8 +18,13 @@ public class SideBar : MonoBehaviour
     }
     private void SelectPower()
     {
+        if (selected_power)
+        {
+            Destroy(selected_power.gameObject);
+            selected_power = null;
+        }
         Power power = Instantiate(powers[Random.Range(0, powers.Length)], transform);
-        power.GetComponent<DOMove>().doRevertComplete.AddListener(SelectPower);
+        power.timeIsOver += SelectPower;
         selected_power = power;
         Invoke("ShowPower", Random.Range(3, 6));
     }

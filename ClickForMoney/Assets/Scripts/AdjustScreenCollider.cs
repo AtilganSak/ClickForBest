@@ -28,23 +28,23 @@ public class AdjustScreenCollider : MonoBehaviour
 
         if (right)
         {
-            GameObject instance_right = Instantiate(collider_prefab);
+            GameObject instance_right = Instantiate(collider_prefab,transform);
             instance_right.transform.position = world_right;
         }
         if (left)
         {
-            GameObject instance_left = Instantiate(collider_prefab);
+            GameObject instance_left = Instantiate(collider_prefab, transform);
             instance_left.transform.position = world_left;
         }
         if (top)
         {
-            GameObject instance_top = Instantiate(collider_prefab);
+            GameObject instance_top = Instantiate(collider_prefab, transform);
             instance_top.transform.position = world_top;
             instance_top.transform.eulerAngles = new Vector3(0, 0, 90);
         }
         if (bottom)
         {
-            GameObject instance_bottom = Instantiate(collider_prefab);
+            GameObject instance_bottom = Instantiate(collider_prefab, transform);
             instance_bottom.transform.position = world_bottom;
             instance_bottom.transform.eulerAngles = new Vector3(0, 0, 90);
             ReferenceKeeper.Instance.BottomCollider = instance_bottom;

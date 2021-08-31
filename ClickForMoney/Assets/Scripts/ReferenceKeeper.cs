@@ -25,4 +25,5 @@ public class ReferenceKeeper : MonoBehaviour
     public Handle Handle;
     public ClickController ClickController;
     public TimeCircle TimeCircle;
+    public BoostTextControl BoostTextControl;
 }

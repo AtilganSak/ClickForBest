@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
     [EasyButtons.Button]
     public void AddScore()
     {
+        if (boost > 1)
+            ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
         if (score + boost >= int.MaxValue || score + boost < 0)
         {
             score = 0;

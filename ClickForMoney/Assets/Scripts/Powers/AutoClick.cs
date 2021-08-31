@@ -35,10 +35,10 @@ public class AutoClick : Power
         while (counter > 0)
         {
             counter--;
-
             yield return WaitForSeconds;
         }
         counter = 0;
+        TimeOver();
     }
     private IEnumerator Process()
     {
