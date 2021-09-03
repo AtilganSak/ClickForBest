@@ -6,6 +6,7 @@ using System.Globalization;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] TMP_Text score_text;
+    [SerializeField] TMP_Text full_score_text;
     [SerializeField] TMP_Text level_text;
 
     private int boost = 1;
@@ -20,7 +21,8 @@ public class GameManager : MonoBehaviour
         boost = 1;
 
         //Get score and level on the PlayerPrefs or Firebase
-        score_text.text = "0";
+        score_text.text = score.ToKMB();
+        full_score_text.text = score.ToString();
 
         if (level > 0)
         {
@@ -71,7 +73,9 @@ public class GameManager : MonoBehaviour
             score += boost;
         }
         score_text.text = score.ToKMB();
+        full_score_text.text = score.ToString();
     }
+    [EasyButtons.Button]
     public void AddScore(int _value)
     {
         if (score + _value >= int.MaxValue || score + _value < 0)
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
             score += _value;
         }
         score_text.text = score.ToKMB();
+        full_score_text.text = score.ToString();
     }
     public void SetBoost(int _value)
     {
