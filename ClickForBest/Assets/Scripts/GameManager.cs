@@ -49,7 +49,10 @@ public class GameManager : MonoBehaviour
         }
         if (total_coin_count <= 0)
         {
-            ReferenceKeeper.Instance.ClickButton.interactable = true;
+            ReferenceKeeper.Instance.ClickButton.raycastTarget = true;
+            Color c = ReferenceKeeper.Instance.ClickButton.color;
+            c.a = 1.0F;
+            ReferenceKeeper.Instance.ClickButton.color = c;
             ReferenceKeeper.Instance.BottomCollider.SetActive(true);
             ReferenceKeeper.Instance.Handle.ResetUp();
 
@@ -99,12 +102,18 @@ public class GameManager : MonoBehaviour
     }
     private void HandleActivated()
     {
-        ReferenceKeeper.Instance.ClickButton.interactable = false;
+        ReferenceKeeper.Instance.ClickButton.raycastTarget = false;
+        Color c = ReferenceKeeper.Instance.ClickButton.color;
+        c.a = 0.5F;
+        ReferenceKeeper.Instance.ClickButton.color = c;
         ReferenceKeeper.Instance.BottomCollider.SetActive(false);
     }
     private void HandleDeactivated()
     {
-        ReferenceKeeper.Instance.ClickButton.interactable = true;
+        ReferenceKeeper.Instance.ClickButton.raycastTarget = true;
+        Color c = ReferenceKeeper.Instance.ClickButton.color;
+        c.a = 1.0F;
+        ReferenceKeeper.Instance.ClickButton.color = c;
         ReferenceKeeper.Instance.BottomCollider.SetActive(true);
     }
 }

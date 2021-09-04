@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class ClickController : MonoBehaviour
 {
     [SerializeField] float interval = 0.2F;
-    [SerializeField] Button click_button;
     CoinSpawner coin_spawner;
 
     private bool holding;
@@ -13,7 +12,6 @@ public class ClickController : MonoBehaviour
     void Start()
     {
         coin_spawner = FindObjectOfType<CoinSpawner>();
-        click_button.onClick.AddListener(Pressed_Click_Button);
     }
     public void Pressed_Click_Button()
     {

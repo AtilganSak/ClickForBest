@@ -30,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 809571272740555732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.61672425, y: 0.61672425, z: 0.61672425}
+  m_LocalScale: {x: 0.48721218, y: 0.48721218, z: 0.48721218}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
     ok: 0
   connect: 1
   orderIndex: 0
-  startValue: {x: 0.61672425, y: 0.61672425, z: 0.61672425}
-  endValue: {x: 0.997896, y: 0.997896, z: 0.997896}
+  startValue: {x: 0.48721218, y: 0.48721218, z: 0.48721218}
+  endValue: {x: 0.66699344, y: 0.66699344, z: 0.66699344}
 --- !u!114 &809571272740555738
 MonoBehaviour:
   m_ObjectHideFlags: 0
