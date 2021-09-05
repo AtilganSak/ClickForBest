@@ -27,7 +27,7 @@ public class Power : MonoBehaviour
     internal virtual void VirtualEnable()
     {
         if(time_text)
-            time_text.text = time.ToString();
+            time_text.text = time.ToString() + "s";
 
         doMove = GetComponent<DOMove>();
         button = GetComponentInChildren<Button>();

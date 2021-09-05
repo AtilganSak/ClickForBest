@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Handle : MonoBehaviour
 {
@@ -27,18 +28,18 @@ public class Handle : MonoBehaviour
 
     private void OnEnable()
     {
-        camera = Camera.main;
+        //camera = Camera.main;
 
-        doMove = GetComponent<DOMove>();
+        //doMove = GetComponent<DOMove>();
 
-        Vector3 pos = camera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
-        pos.y = transform.parent.position.y;
-        pos.z = transform.parent.position.z;
-        transform.parent.position = pos;
+        //Vector3 pos = camera.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
+        //pos.y = transform.parent.position.y;
+        //pos.z = transform.parent.position.z;
+        //transform.parent.position = pos;
     }
     private void Start()
     {
-        doMove.DO();
+        //doMove.DO();
     }
     private void Update()
     {
@@ -68,8 +69,12 @@ public class Handle : MonoBehaviour
     }
     public void ResetUp()
     {
-        touched_head = false;
-        PivotUp();
+        if (isOn)
+        {
+            ONOFF();
+        }
+        //touched_head = false;
+        //PivotUp();
     }
     private void DetectSwipe()
     {
@@ -105,4 +110,27 @@ public class Handle : MonoBehaviour
     {
         return Mathf.Abs(fingerDownPosition.y - fingerUpPosition.y);
     }
+
+    #region Handle Simple
+    public TMPro.TMP_Text text;
+    public Image image;
+    private bool isOn;
+    public void ONOFF()
+    {
+        if (!isOn)
+        {
+            isOn = true;
+            text.text = "ON";
+            image.color = UtilitiesMethods.HexToColor("76F341");
+            onActive.Invoke();
+        }
+        else
+        {
+            isOn = false;
+            text.text = "OFF";
+            image.color = UtilitiesMethods.HexToColor("F34F41");
+            onDeactive.Invoke();
+        }
+    }
+    #endregion
 }

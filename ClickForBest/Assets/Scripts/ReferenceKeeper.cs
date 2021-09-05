@@ -27,4 +27,5 @@ public class ReferenceKeeper : MonoBehaviour
     public ClickController ClickController;
     public TimeCircle TimeCircle;
     public BoostTextControl BoostTextControl;
+    public GooglePlayServices GooglePlayServices;
 }

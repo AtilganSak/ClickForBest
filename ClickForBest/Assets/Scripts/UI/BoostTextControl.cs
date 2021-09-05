@@ -22,10 +22,11 @@ public class BoostTextControl : MonoBehaviour
     public void Show(string _text)
     {
         RectTransform tr = Instantiate(txt_prefab);
-        tr.transform.SetParent(canvas.transform);
         tr.anchoredPosition = origin_position;
         tr.gameObject.SetActive(true);
         tr.GetComponent<TMPro.TMP_Text>().text = _text;
+        tr.transform.SetParent(transform);
+        tr.transform.localScale = Vector3.one;
         Vector3 newPos = start_position;
         newPos.x += Random.Range(-200.0F, 200.0F);
         DOAnchorPos dOAnchorPos = tr.GetComponent<DOAnchorPos>();
