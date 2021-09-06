@@ -14,8 +14,12 @@ public class GameManager : MonoBehaviour
     private int score;
     private int level;
 
+    private DOScale handle_doscale;
+
     private void Start()
     {
+        handle_doscale = ReferenceKeeper.Instance.Handle.GetComponent<DOScale>();
+
         Application.targetFrameRate = 90;
 
         boost = 1;
@@ -40,6 +44,15 @@ public class GameManager : MonoBehaviour
     public void AddCoin()
     {
         total_coin_count++;
+
+        if (total_coin_count >= 230)
+        {
+            if (!PlayerPrefs.HasKey(PlayerKeys.FIRST_HANDLE_SHOW))
+            {
+                PlayerPrefs.SetInt(PlayerKeys.FIRST_HANDLE_SHOW, 1);
+                handle_doscale.DO();
+            }
+        }
     }
     public void RemoveCoin()
     {

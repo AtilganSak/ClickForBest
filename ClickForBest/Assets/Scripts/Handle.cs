@@ -25,9 +25,11 @@ public class Handle : MonoBehaviour
     private Ray ray;
     private RaycastHit2D raycastHit;
     private DOMove doMove;
+    private DOScale doscale;
 
     private void OnEnable()
     {
+        doscale = GetComponent<DOScale>();
         //camera = Camera.main;
 
         //doMove = GetComponent<DOMove>();
@@ -119,6 +121,7 @@ public class Handle : MonoBehaviour
     {
         if (!isOn)
         {
+            doscale.ResetDO();
             isOn = true;
             text.text = "ON";
             image.color = UtilitiesMethods.HexToColor("76F341");

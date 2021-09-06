@@ -47,7 +47,13 @@ public class DOAnchorPos : DOBase
         }
         else
         {
+#if UNITY_EDITOR
+            Undo.RegisterCompleteObjectUndo(transform, "Changed Transform Poisition");
+#endif
             GetComponent<RectTransform>().anchoredPosition = endValue;
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(transform);
+#endif
         }
     }
     public override void DORevert()
