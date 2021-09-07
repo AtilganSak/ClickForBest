@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    public Store store_menu;
+
     public Button pause_button;
     public Button scoreboard_button;
 
@@ -22,7 +24,7 @@ public class PauseMenu : MonoBehaviour
         pause_button.onClick.AddListener(Pressed_Pause_Button);
         doMove = GetComponent<DOMove>();
     }
-    private void Pressed_Pause_Button()
+    public void Pressed_Pause_Button()
     {
         if (!active)
         {
@@ -44,6 +46,16 @@ public class PauseMenu : MonoBehaviour
 
             active = false;
             doMove.DORevert();
+        }
+    }
+    public void Pressed_Store_Button()
+    {
+        if (store_menu)
+        {
+            active = false;
+            doMove.DORevert();
+
+            store_menu.OpenCloseMenu();
         }
     }
     private void PreProcessBeforeOpen()
