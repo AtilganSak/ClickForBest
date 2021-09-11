@@ -28,4 +28,5 @@ public class ReferenceKeeper : MonoBehaviour
     public TimeCircle TimeCircle;
     public BoostTextControl BoostTextControl;
     public GooglePlayServices GooglePlayServices;
+    public Store Store;
 }

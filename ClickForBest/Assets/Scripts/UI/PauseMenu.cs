@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     public Button pause_button;
     public Button scoreboard_button;
 
+    public Image google_connect_image;
+
     private DOMove doMove;
 
     private bool active;
@@ -23,7 +25,13 @@ public class PauseMenu : MonoBehaviour
         pause_button_domove = pause_button.GetComponent<DOMove>();
         pause_button.onClick.AddListener(Pressed_Pause_Button);
         doMove = GetComponent<DOMove>();
+
+        if (ReferenceKeeper.Instance.GooglePlayServices.LoginState)
+            google_connect_image.color = Color.green;
+        else
+            google_connect_image.color = Color.red;
     }
+
     public void Pressed_Pause_Button()
     {
         if (!active)
@@ -58,6 +66,7 @@ public class PauseMenu : MonoBehaviour
             store_menu.OpenCloseMenu();
         }
     }
+
     private void PreProcessBeforeOpen()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -80,13 +89,14 @@ public class PauseMenu : MonoBehaviour
         DORotates(true);
         DOScales(true);
     }
+
     private void DORotates(bool _stop = false)
     {
         if (rotates != null)
         {
             for (int i = 0; i < rotates.Length; i++)
             {
-                if(_stop)
+                if (_stop)
                     rotates[i].ResetDO();
                 else
                     rotates[i].DOLoop();
