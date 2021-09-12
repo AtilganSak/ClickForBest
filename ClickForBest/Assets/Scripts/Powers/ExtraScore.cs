@@ -11,7 +11,7 @@ public class ExtraScore : Power
     {
         base.VirtualEnable();
 
-        score_text.text = score_value.ToString();
+        score_text.text = "+" + score_value.ToString();
     }
     internal override void Use()
     {

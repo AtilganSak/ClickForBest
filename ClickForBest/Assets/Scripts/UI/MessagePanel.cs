@@ -43,6 +43,17 @@ public class MessagePanel : MonoBehaviour
         if (_callback != null)
             messageCallback += _callback;
     }
+    public void Change(string _title = "", string _message = "", string _yesText = "", string _noText = "")
+    {
+        if (title_text && _title != "")
+            title_text.text = _title;
+        if (message_text && _message != "")
+            message_text.text = _message;
+        if (yes_text && _yesText != "")
+            yes_text.text = _yesText;
+        if (no_text && _noText != "")
+            no_text.text = _noText;
+    }
     public void Show()
     {
         dimed.enabled = true;

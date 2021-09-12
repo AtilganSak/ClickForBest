@@ -13,8 +13,9 @@ public class StoreItem : MonoBehaviour
     [SerializeField] Image check_image;
     [SerializeField] DOFade frame_image;
 
+    public bool isPurchased;
+    
     private Button button;
-    private bool isPurchased;
 
     private void Start()
     {
@@ -22,6 +23,11 @@ public class StoreItem : MonoBehaviour
         button.onClick.AddListener(Pressed_Button);
 
         ReferenceKeeper.Instance.Store.onPurchase += OnPurchased;
+
+        if (isPurchased)
+        {
+            Purchased();
+        }
     }
     public void Init(byte _id, int _price, Sprite _icon, Sprite _background, Color _bgColor)
     {
@@ -53,7 +59,7 @@ public class StoreItem : MonoBehaviour
             Purchased();
         }
     }
-    private void Purchased()
+    public void Purchased()
     {
         isPurchased = true;
 

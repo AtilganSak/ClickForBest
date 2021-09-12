@@ -10,15 +10,22 @@ public class Store : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] PauseMenu pause_menu;
     [SerializeField] MessagePanel message_panel;
+    [SerializeField] RewardItem reward_item_500;
+    [SerializeField] RewardItem reward_item_1000;
+    [SerializeField] RewardItem reward_item_1500;
+    [SerializeField] RewardItem reward_item_2000;
 
     public System.Action<byte> onPurchase;
+    public System.Action<int> onTakenReward;
 
     private StoreItem selected_item;
 
     private DOMove domove;
 
+    private bool pressed_reward;
     private bool isopen;
     private byte will_buy_item;
+    private int will_taken_reward;
 
     [System.Serializable]
     public struct Item
@@ -34,8 +41,19 @@ public class Store : MonoBehaviour
 
         if (message_panel)
         {
-            message_panel.Subscribe("But A Coin", "Are you sure?", "Yes", "No", MessagePanelResult);
+            message_panel.Subscribe("Window", "Are you sure?", "Yes", "No", MessagePanelResult);
         }
+
+        if (reward_item_500)
+            reward_item_500.onClick += Pressed_Reward_Item;
+        if (reward_item_1000)
+            reward_item_1000.onClick += Pressed_Reward_Item;
+        if (reward_item_1500)
+            reward_item_1500.onClick += Pressed_Reward_Item;
+        if (reward_item_2000)
+            reward_item_2000.onClick += Pressed_Reward_Item;
+
+        Load();
     }
 
     public void OpenCloseMenu()
@@ -62,27 +80,94 @@ public class Store : MonoBehaviour
 
         if (message_panel)
         {
+            message_panel.Change(_message: "Are you sure you want to buy?");
             message_panel.Show();
         }
     }
     public void Pressed_Item_Select(StoreItem _item)
     {
-        if(selected_item)
+        if (selected_item)
             selected_item.UnSelect();
         selected_item = _item;
         selected_item.Select();
+        SelectStoreItemDB(_item.ID);
     }
     private void MessagePanelResult(bool _result)
     {
         if (_result)
         {
-            if (onPurchase != null)
+            if (pressed_reward)
             {
-                onPurchase.Invoke(will_buy_item);
+                if (onTakenReward != null)
+                {
+                    onTakenReward.Invoke(will_taken_reward);
+                }
+                pressed_reward = false;
+            }
+            else
+            {
+                if (onPurchase != null)
+                {
+                    onPurchase.Invoke(will_buy_item);
+
+                    PurchasedStoreItemDB(will_buy_item);
+                }
+            }
+        }
+        else
+        {
+            will_buy_item = 0;
+            will_taken_reward = 0;
+            pressed_reward = false;
+        }
+    }
+    private void Pressed_Reward_Item(int _itemValue)
+    {
+        pressed_reward = true;
+        will_taken_reward = _itemValue;
+
+        if (message_panel)
+        {
+            message_panel.Change(_message: "Are you sure you want to watch ads?");
+            message_panel.Show();
+        }
+    }
+    private void Load()
+    {
+        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+        {
+            StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+            if (items != null)
+            {
+                List<int> ids = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems;
+                if (ids != null && ids.Count > 0)
+                {
+                    for (int i = 0; i < ids.Count; i++)
+                    {
+                        if(!items[ids[i]].isPurchased)
+                            items[ids[i]].Purchased();
+                    }
+                }
+                items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
+                selected_item = items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item];
             }
         }
     }
-
+    public void PurchasedStoreItemDB(int _id)
+    {
+        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+        {
+            if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
+                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Add(_id);
+        }
+    }
+    public void SelectStoreItemDB(int _id)
+    {
+        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+        {
+            ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item = _id;
+        }
+    }
 #if UNITY_EDITOR
     private byte _id;
     [EasyButtons.Button]
@@ -120,7 +205,8 @@ public class Store : MonoBehaviour
         {
             for (int i = 0; i < child_count; i++)
             {
-                DestroyImmediate(content.GetChild(0).gameObject);
+                if (content.GetChild(0).GetComponent<StoreItem>())
+                    DestroyImmediate(content.GetChild(0).gameObject);
             }
         }
     }

@@ -7,12 +7,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] TMP_Text score_text;
     [SerializeField] TMP_Text full_score_text;
-    //[SerializeField] TMP_Text level_text;
+    public GameDB gameDB { get; private set; }
 
     private int boost = 1;
     private int total_coin_count;
-    //private int score;
-    //private int level;
 
     private DOScale handle_doscale;
 
@@ -29,6 +27,21 @@ public class GameManager : MonoBehaviour
     int N;
     int D;
 
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            SaveGame();
+        }
+    }
+    private void OnEnable()
+    {
+        LoadGame();
+    }
     private void Start()
     {
         handle_doscale = ReferenceKeeper.Instance.Handle.GetComponent<DOScale>();
@@ -41,26 +54,10 @@ public class GameManager : MonoBehaviour
         //score_text.text = score.ToKMB();
         //full_score_text.text = score.ToString();
 
-        //if (level > 0)
-        //{
-        //    level_text.gameObject.SetActive(true);
-        //    level_text.text = level.ToKMB();
-        //}
-        //else
-        //{
-        //    level_text.gameObject.SetActive(false);
-        //}
-
         ReferenceKeeper.Instance.Handle.onActive.AddListener(HandleActivated);
         ReferenceKeeper.Instance.Handle.onDeactive.AddListener(HandleDeactivated);
     }
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            AddScore(900);
-        }
-    }
+
     public void AddCoin()
     {
         total_coin_count++;
@@ -96,40 +93,13 @@ public class GameManager : MonoBehaviour
     {
         if (boost > 1)
             ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
-        //if (score + boost >= int.MaxValue || score + boost < 0)
-        //{
-        //    score = 0;
-        //    if (level == 0)
-        //        level_text.gameObject.SetActive(true);
-        //    level++;
-        //    level_text.text = level.ToKMB();
-        //}
-        //else
-        //{
-        //    score += boost;
-        //}
+
         score_text.text = ScoreCalculate(boost);
-        //full_score_text.text = (underK + K + M + B + T).ToString();
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
     {
-        //if (score + _value >= int.MaxValue || score + _value < 0)
-        //{
-        //    score = 0;
-        //    if (level == 0)
-        //        level_text.gameObject.SetActive(true);
-        //    level++;
-        //    level_text.text = level.ToKMB();
-        //}
-        //else
-        //{
-        //    score += _value;
-        //}
         score_text.text = ScoreCalculate(_value);
-        //full_score_text.text = (T + B + M + ).ToString();
-        //score_text.text = score.ToKMB();
-        //full_score_text.text = score.ToString();
     }
     public void SetBoost(int _value)
     {
@@ -219,6 +189,50 @@ public class GameManager : MonoBehaviour
             result = D + "." + N + "D";
 
         return result;
+    }
+    private void SaveGame()
+    {
+        if (gameDB == null)
+            gameDB = new GameDB();
+        gameDB.score = new Score
+        {
+            underK = underK,
+            k = K,
+            m = M,
+            b = B,
+            t = T,
+            q = Q,
+            qt = QT,
+            s = S,
+            sp = SP,
+            o = O,
+            n = N,
+            d = D
+        };
+
+        EasyJson.SaveJsonToFile(gameDB);
+    }
+    private void LoadGame()
+    {
+        gameDB = EasyJson.GetJsonToFile<GameDB>();
+        if (gameDB != null)
+        {
+            Score score = gameDB.score;
+            underK = score.underK;
+            K = score.k;
+            M = score.m;
+            B = score.b;
+            T = score.t;
+            Q = score.q;
+            QT = score.qt;
+            S = score.s;
+            SP = score.sp;
+            O = score.o;
+            N = score.n;
+            D = score.d;
+
+            score_text.text = ScoreCalculate(0);
+        }
     }
     private void HandleActivated()
     {
