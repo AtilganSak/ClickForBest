@@ -7,14 +7,27 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] TMP_Text score_text;
     [SerializeField] TMP_Text full_score_text;
-    [SerializeField] TMP_Text level_text;
+    //[SerializeField] TMP_Text level_text;
 
     private int boost = 1;
     private int total_coin_count;
-    private int score;
-    private int level;
+    //private int score;
+    //private int level;
 
     private DOScale handle_doscale;
+
+    int underK;
+    int K;
+    int M;
+    int B;
+    int T;
+    int Q;
+    int QT;
+    int S;
+    int SP;
+    int O;
+    int N;
+    int D;
 
     private void Start()
     {
@@ -25,21 +38,28 @@ public class GameManager : MonoBehaviour
         boost = 1;
 
         //Get score and level on the PlayerPrefs or Firebase
-        score_text.text = score.ToKMB();
-        full_score_text.text = score.ToString();
+        //score_text.text = score.ToKMB();
+        //full_score_text.text = score.ToString();
 
-        if (level > 0)
-        {
-            level_text.gameObject.SetActive(true);
-            level_text.text = level.ToKMB();
-        }
-        else
-        {
-            level_text.gameObject.SetActive(false);
-        }
+        //if (level > 0)
+        //{
+        //    level_text.gameObject.SetActive(true);
+        //    level_text.text = level.ToKMB();
+        //}
+        //else
+        //{
+        //    level_text.gameObject.SetActive(false);
+        //}
 
         ReferenceKeeper.Instance.Handle.onActive.AddListener(HandleActivated);
         ReferenceKeeper.Instance.Handle.onDeactive.AddListener(HandleDeactivated);
+    }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            AddScore(900);
+        }
     }
     public void AddCoin()
     {
@@ -76,42 +96,129 @@ public class GameManager : MonoBehaviour
     {
         if (boost > 1)
             ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
-        if (score + boost >= int.MaxValue || score + boost < 0)
-        {
-            score = 0;
-            if (level == 0)
-                level_text.gameObject.SetActive(true);
-            level++;
-            level_text.text = level.ToKMB();
-        }
-        else
-        {
-            score += boost;
-        }
-        score_text.text = score.ToKMB();
-        full_score_text.text = score.ToString();
+        //if (score + boost >= int.MaxValue || score + boost < 0)
+        //{
+        //    score = 0;
+        //    if (level == 0)
+        //        level_text.gameObject.SetActive(true);
+        //    level++;
+        //    level_text.text = level.ToKMB();
+        //}
+        //else
+        //{
+        //    score += boost;
+        //}
+        score_text.text = ScoreCalculate(boost);
+        //full_score_text.text = (underK + K + M + B + T).ToString();
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
     {
-        if (score + _value >= int.MaxValue || score + _value < 0)
-        {
-            score = 0;
-            if (level == 0)
-                level_text.gameObject.SetActive(true);
-            level++;
-            level_text.text = level.ToKMB();
-        }
-        else
-        {
-            score += _value;
-        }
-        score_text.text = score.ToKMB();
-        full_score_text.text = score.ToString();
+        //if (score + _value >= int.MaxValue || score + _value < 0)
+        //{
+        //    score = 0;
+        //    if (level == 0)
+        //        level_text.gameObject.SetActive(true);
+        //    level++;
+        //    level_text.text = level.ToKMB();
+        //}
+        //else
+        //{
+        //    score += _value;
+        //}
+        score_text.text = ScoreCalculate(_value);
+        //full_score_text.text = (T + B + M + ).ToString();
+        //score_text.text = score.ToKMB();
+        //full_score_text.text = score.ToString();
     }
     public void SetBoost(int _value)
     {
         boost = _value;
+    }
+    private string ScoreCalculate(int _value)
+    {
+        string result = "";
+        underK += _value;
+        result = underK.ToString();
+        if (underK > 999)
+        {
+            K += underK / 999;
+            underK = 0;
+        }
+        if (K >= 1)
+            result = K + "." + underK + "K";
+        if (K > 999)
+        {
+            M += K / 999;
+            K = 0;
+        }
+        if (M >= 1)
+            result = M + "." + K + "M";
+        if (M > 999)
+        {
+            B += M / 999;
+            M = 0;
+        }
+        if (B >= 1)
+            result = B + "." + M + "B";
+        if (B > 999)
+        {
+            T += B / 999;
+            B = 0;
+        }
+        if (T >= 1)
+            result = T + "." + B + "T";
+        if (T > 999)
+        {
+            Q += T / 999;
+            Q = 0;
+        }
+        if (Q >= 1)
+            result = Q + "." + T + "Q";
+        if (Q > 999)
+        {
+            QT += Q / 999;
+            Q = 0;
+        }
+        if (QT >= 1)
+            result = QT + "." + Q + "QT";
+        if (QT > 999)
+        {
+            S += QT / 999;
+            QT = 0;
+        }
+        if (S >= 1)
+            result = S + "." + QT + "S";
+        if (S > 999)
+        {
+            SP += S / 999;
+            S = 0;
+        }
+        if (SP >= 1)
+            result = SP + "." + S + "SP";
+        if (SP > 999)
+        {
+            O += SP / 999;
+            SP = 0;
+        }
+        if (O >= 1)
+            result = O + "." + SP + "O";
+        if (O > 999)
+        {
+            N += O / 999;
+            O = 0;
+        }
+        if (N >= 1)
+            result = N + "." + O + "N";
+        if (N > 999)
+        {
+            D += N / 999;
+            N = 0;
+        }
+        if (D >= 1)
+            result = D + "." + N + "D";
+
+        return result;
     }
     private void HandleActivated()
     {

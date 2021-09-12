@@ -494,7 +494,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score_text: {fileID: 1238297087}
   full_score_text: {fileID: 991772952}
-  level_text: {fileID: 519393542}
 --- !u!4 &112917759
 Transform:
   m_ObjectHideFlags: 0
@@ -1858,7 +1857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &299550505
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3125,7 +3124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &519393541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12059,7 +12058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1549839090
 RectTransform:
   m_ObjectHideFlags: 0
