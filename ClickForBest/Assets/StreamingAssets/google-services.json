@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "607387490616",
-    "project_id": "clickforbest-e0a97",
-    "storage_bucket": "clickforbest-e0a97.appspot.com"
+    "project_number": "648428780121",
+    "project_id": "click-for-best-32600433",
+    "storage_bucket": "click-for-best-32600433.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:607387490616:android:96ead02de9edb33ad609cd",
+        "mobilesdk_app_id": "1:648428780121:android:f999af9256afee3fd8cf48",
         "android_client_info": {
           "package_name": "com.SakGames.ClickForBest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "607387490616-nhh92cos8t2i40fusgh9ft0r25kt03eq.apps.googleusercontent.com",
+          "client_id": "648428780121-fd7n14ndksat44e4hfmb9a7roai0tf2t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.SakGames.ClickForBest",
-            "certificate_hash": "31f67178ad1bd9dadbc9f47c38f139957e2cb66d"
+            "certificate_hash": "8928bf286701cea33c9bf92bccc9eb831a49dde7"
           }
         },
         {
-          "client_id": "607387490616-00idq3s63korfbej3enlmvfandovehkr.apps.googleusercontent.com",
+          "client_id": "648428780121-cq3csh0gvn2cfvi3hbum40jav8k7k96d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAtTx3wRRzcoF-2SsxSIwlwukbPHJjgwgA"
+          "current_key": "AIzaSyA8Y3Y374sJO7-i1BnHz_3L7qmrsrN-BsE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "607387490616-00idq3s63korfbej3enlmvfandovehkr.apps.googleusercontent.com",
+              "client_id": "648428780121-cq3csh0gvn2cfvi3hbum40jav8k7k96d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
