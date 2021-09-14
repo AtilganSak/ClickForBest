@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class GameDB
@@ -10,7 +8,7 @@ public class GameDB
     public int selected_store_item;
 }
 [System.Serializable]
-public struct Score
+public class Score
 {
     public int underK;
     public int k;

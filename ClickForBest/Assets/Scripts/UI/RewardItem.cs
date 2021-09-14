@@ -19,7 +19,7 @@ public class RewardItem : MonoBehaviour
     
     private Button button;
 
-    private void OnEnable()
+    private void Start()
     {
         button = GetComponent<Button>();
 

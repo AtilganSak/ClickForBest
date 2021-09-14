@@ -57,10 +57,6 @@ public class GooglePlayServices : MonoBehaviour
         GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 #endif
     }
-    private void Start()
-    {
-        Login();
-    }
     private void Update()
     {
         if (closingAccount)
@@ -203,13 +199,5 @@ public class GooglePlayServices : MonoBehaviour
         {
             onLoadedFrends.Invoke(state);
         }
-    }
-
-    void GetAchievements()
-    {
-        Social.Active.LoadAchievements((ac) =>
-        {
-            achievements = ac;
-        });
     }
 }

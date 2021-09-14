@@ -211,6 +211,12 @@ public class GameManager : MonoBehaviour
         };
 
         EasyJson.SaveJsonToFile(gameDB);
+
+        SaveToFirebase();
+    }
+    private void SaveToFirebase()
+    {
+        ReferenceKeeper.Instance.FirebaseService.SetGameDBAsync(gameDB);
     }
     private void LoadGame()
     {

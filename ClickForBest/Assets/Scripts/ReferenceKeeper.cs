@@ -28,5 +28,12 @@ public class ReferenceKeeper : MonoBehaviour
     public TimeCircle TimeCircle;
     public BoostTextControl BoostTextControl;
     public GooglePlayServices GooglePlayServices;
+    public FirebaseService FirebaseService;
     public Store Store;
+
+    private void OnEnable()
+    {
+        GooglePlayServices = FindObjectOfType<GooglePlayServices>();
+        FirebaseService = FindObjectOfType<FirebaseService>();
+    }
 }

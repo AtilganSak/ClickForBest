@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
+  <string name="firebase_database_url" translatable="false">https://click-for-best-32600433-default-rtdb.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">648428780121</string>
+  <string name="google_storage_bucket" translatable="false">click-for-best-32600433.appspot.com</string>
+  <string name="project_id" translatable="false">click-for-best-32600433</string>
+  <string name="google_api_key" translatable="false">AIzaSyA8Y3Y374sJO7-i1BnHz_3L7qmrsrN-BsE</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA8Y3Y374sJO7-i1BnHz_3L7qmrsrN-BsE</string>
+  <string name="google_app_id" translatable="false">1:648428780121:android:f999af9256afee3fd8cf48</string>
+  <string name="default_android_client_id" translatable="false">648428780121-fd7n14ndksat44e4hfmb9a7roai0tf2t.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">648428780121-cq3csh0gvn2cfvi3hbum40jav8k7k96d.apps.googleusercontent.com</string>
+</resources>
