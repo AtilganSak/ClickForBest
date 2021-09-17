@@ -105,6 +105,31 @@ public class GameManager : MonoBehaviour
     {
         boost = _value;
     }
+    public void RemoveScore(int _underK, int _k)
+    {
+        underK -= _underK;
+        if (underK < 0)
+        {
+            underK = 1000 - underK;
+        }
+        K -= _k;
+        score_text.text = ScoreCalculate(0);
+    }
+    public bool HaveScore(int _underK, int _k)
+    {
+        if (K > _k)
+        {
+            return true;
+        }
+        else if(K == _k)
+        {
+            if (underK >= _underK)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private string ScoreCalculate(int _value)
     {
         string result = "";
@@ -113,7 +138,7 @@ public class GameManager : MonoBehaviour
         if (underK > 999)
         {
             K += underK / 999;
-            underK = 0;
+            underK = underK - 1000;
         }
         if (K >= 1)
             result = K + "." + underK + "K";
@@ -216,7 +241,8 @@ public class GameManager : MonoBehaviour
     }
     private void SaveToFirebase()
     {
-        ReferenceKeeper.Instance.FirebaseService.SetGameDBAsync(gameDB);
+        if(ReferenceKeeper.Instance.FirebaseService)
+            ReferenceKeeper.Instance.FirebaseService.SetGameDBAsync(gameDB);
     }
     private void LoadGame()
     {

@@ -108,7 +108,7 @@ public class FirebaseService : MonoBehaviour
             }
         });
     }
-    public void GettGameDBAsync(Action<GameDB> firebaseGetGameDBCallBack)
+    public void GetGameDBAsync(Action<GameDB> firebaseGetGameDBCallBack)
     {
         if (firebase_user == null) return;
 

@@ -109,7 +109,6 @@ public class GooglePlayServices : MonoBehaviour
 #if UNITY_ANDROID
             authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
             Debug.LogError(authCode);
-            //Services.Instance.Firebase_Service.FirebaseLogin(authCode);
 #endif
             //GetAchievements();
         }

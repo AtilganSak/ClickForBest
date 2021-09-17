@@ -6,17 +6,10 @@ public class CoinSpawner : MonoBehaviour
 
     [SerializeField] float randomize;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnCoin();
-        }
-    }
     public void SpawnCoin()
     {
         GameObject coin_instance = Instantiate(coin_prefab);
-        coin_instance.transform.position = Vector3.zero;//new Vector3(Random.Range(-randomize, randomize), -1.5F, 0);
+        coin_instance.transform.position = Vector3.zero;
 
         ReferenceKeeper.Instance.GameManager.AddScore();
         ReferenceKeeper.Instance.GameManager.AddCoin();

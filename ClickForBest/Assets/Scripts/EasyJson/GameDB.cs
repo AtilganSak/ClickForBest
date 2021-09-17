@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameDB
 {
     public Score score;
-    public List<int> purchaseStoreItems = new List<int>();
+    public int[] purchaseStoreItems;
     public int selected_store_item;
 }
 [System.Serializable]

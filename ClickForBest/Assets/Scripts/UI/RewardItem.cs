@@ -25,7 +25,7 @@ public class RewardItem : MonoBehaviour
 
         button.onClick.AddListener(Pressed_Button);
 
-        if (ReferenceKeeper.Instance.GooglePlayServices.internet)
+        if (ReferenceKeeper.Instance.GooglePlayServices != null && ReferenceKeeper.Instance.GooglePlayServices.internet)
         {
             no_connection_icon.enabled = false;
             ads_icon.enabled = true;

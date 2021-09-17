@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour
         pause_button.onClick.AddListener(Pressed_Pause_Button);
         doMove = GetComponent<DOMove>();
 
-        if (ReferenceKeeper.Instance.GooglePlayServices.LoginState)
+        if (ReferenceKeeper.Instance.GooglePlayServices != null && ReferenceKeeper.Instance.GooglePlayServices.LoginState)
             google_connect_image.color = Color.green;
         else
             google_connect_image.color = Color.red;

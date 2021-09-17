@@ -14,7 +14,9 @@ public class StoreItem : MonoBehaviour
     [SerializeField] DOFade frame_image;
 
     public bool isPurchased;
-    
+    public int p_underK;
+    public int p_K;
+
     private Button button;
 
     private void Start()
@@ -24,16 +26,23 @@ public class StoreItem : MonoBehaviour
 
         ReferenceKeeper.Instance.Store.onPurchase += OnPurchased;
 
-        if (isPurchased)
-        {
-            Purchased();
-        }
+        //if (isPurchased)
+        //{
+        //    Purchased(true);
+        //}
     }
-    public void Init(byte _id, int _price, Sprite _icon, Sprite _background, Color _bgColor)
+    public void Init(byte _id, int _p_underK, int _p_k, Sprite _icon, Sprite _background, Color _bgColor)
     {
-        if (_price <= 0)
-            _price = 0;
-        price_text.text = _price.ToString();
+        p_underK = _p_underK;
+        p_K = _p_k;
+        if (p_K > 0)
+        {
+            price_text.text = p_K + "." + (p_underK > 0 ? p_underK.ToString().Substring(0, 1) : p_underK.ToString()) + "K";
+        }
+        else
+        {
+            price_text.text = p_underK.ToString();
+        }
 
         ID = _id;
 
@@ -45,7 +54,7 @@ public class StoreItem : MonoBehaviour
     {
         if (!isPurchased)
         {
-            ReferenceKeeper.Instance.Store.Pressed_Item_Button(ID);
+            ReferenceKeeper.Instance.Store.Pressed_Item_Button(ID, ReferenceKeeper.Instance.GameManager.HaveScore(p_underK, p_K));
         }
         else
         {
@@ -59,12 +68,15 @@ public class StoreItem : MonoBehaviour
             Purchased();
         }
     }
-    public void Purchased()
+    public void Purchased(bool _onStart = false)
     {
         isPurchased = true;
 
         price_text.enabled = false;
         check_image.enabled = true;
+
+        if(!_onStart)
+            ReferenceKeeper.Instance.GameManager.RemoveScore(p_underK, p_K);
     }
     public void Select()
     {

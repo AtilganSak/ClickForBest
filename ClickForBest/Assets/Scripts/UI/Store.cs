@@ -10,6 +10,7 @@ public class Store : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] PauseMenu pause_menu;
     [SerializeField] MessagePanel message_panel;
+    [SerializeField] MessagePanel noscore_message_panel;
     [SerializeField] RewardItem reward_item_500;
     [SerializeField] RewardItem reward_item_1000;
     [SerializeField] RewardItem reward_item_1500;
@@ -30,7 +31,8 @@ public class Store : MonoBehaviour
     [System.Serializable]
     public struct Item
     {
-        public int price;
+        public int price_underK;
+        public int price_k;
         public Sprite icon;
         public Sprite background;
     }
@@ -42,6 +44,10 @@ public class Store : MonoBehaviour
         if (message_panel)
         {
             message_panel.Subscribe("Window", "Are you sure?", "Yes", "No", MessagePanelResult);
+        }
+        if (noscore_message_panel)
+        {
+            noscore_message_panel.Subscribe("Window", "You don't have enough score!", "+1K", "OK", NoScoreMessagePanelResult);
         }
 
         if (reward_item_500)
@@ -74,14 +80,24 @@ public class Store : MonoBehaviour
             }
         }
     }
-    public void Pressed_Item_Button(byte _id)
+    public void Pressed_Item_Button(byte _id, bool _enoughScore)
     {
-        will_buy_item = _id;
-
-        if (message_panel)
+        if (_enoughScore)
         {
-            message_panel.Change(_message: "Are you sure you want to buy?");
-            message_panel.Show();
+            will_buy_item = _id;
+
+            if (message_panel)
+            {
+                message_panel.Change(_message: "Are you sure you want to buy?");
+                message_panel.Show();
+            }
+        }
+        else
+        {
+            if (noscore_message_panel)
+            {
+                noscore_message_panel.Show();
+            }
         }
     }
     public void Pressed_Item_Select(StoreItem _item)
@@ -121,6 +137,13 @@ public class Store : MonoBehaviour
             pressed_reward = false;
         }
     }
+    private void NoScoreMessagePanelResult(bool _result)
+    {
+        if (_result)
+        {
+            //watch ads and give 1K score
+        }
+    }
     private void Pressed_Reward_Item(int _itemValue)
     {
         pressed_reward = true;
@@ -139,13 +162,14 @@ public class Store : MonoBehaviour
             StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
             if (items != null)
             {
-                List<int> ids = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems;
-                if (ids != null && ids.Count > 0)
+                items[0].Purchased(true);
+                int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems;
+                if (ids != null && ids.Length > 0)
                 {
-                    for (int i = 0; i < ids.Count; i++)
+                    for (int i = 0; i < ids.Length; i++)
                     {
                         if(!items[ids[i]].isPurchased)
-                            items[ids[i]].Purchased();
+                            items[ids[i]].Purchased(true);
                     }
                 }
                 items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
@@ -157,8 +181,17 @@ public class Store : MonoBehaviour
     {
         if (ReferenceKeeper.Instance.GameManager.gameDB != null)
         {
-            if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
-                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Add(_id);
+            if (ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems == null)
+                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = new int[1] { _id };
+            else
+            {
+                if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
+                {
+                    List<int> list = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.ToList();
+                    list.Add(_id);
+                    ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = list.ToArray();
+                }
+            }
         }
     }
     public void SelectStoreItemDB(int _id)
@@ -192,7 +225,7 @@ public class Store : MonoBehaviour
             for (int i = 0; i < _items.Length; i++)
             {
                 StoreItem item_instance = (StoreItem)PrefabUtility.InstantiatePrefab(item_prefab, content);
-                item_instance.Init(_id, _items[i].price, _items[i].icon, _items[i].background, _bgColor);
+                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].icon, _items[i].background, _bgColor);
                 _id++;
             }
         }
@@ -212,50 +245,51 @@ public class Store : MonoBehaviour
     }
 
     [EasyButtons.Button]
-    private void ChangeSilverPrice(int _value)
+    private void ChangSilverItemsPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.silver_items, _value);
+        ChangeItemsPrice(data.silver_items, _underK, _k);
     }
     [EasyButtons.Button]
-    private void ChangGreenPrice(int _value)
+    private void ChangeGreenItemsPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.green_items, _value);
+        ChangeItemsPrice(data.green_items, _underK, _k);
     }
     [EasyButtons.Button]
-    private void ChangRedPrice(int _value)
+    private void ChangRedItemsPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.red_items, _value);
+        ChangeItemsPrice(data.red_items, _underK, _k);
     }
     [EasyButtons.Button]
-    private void ChangGoldPrice(int _value)
+    private void ChangGoldItemsPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.gold_items, _value);
+        ChangeItemsPrice(data.gold_items, _underK, _k);
     }
     [EasyButtons.Button]
-    private void ChangGemPrice(int _value)
+    private void ChangGemItemsPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.gem_items, _value);
+        ChangeItemsPrice(data.gem_items, _underK, _k);
     }
     [EasyButtons.Button]
-    private void ChangSpecialPrice(int _value)
+    private void ChangSpecialPrice(int _underK, int _k)
     {
         StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
-        ChangeItemsPrice(data.special_items, _value);
+        ChangeItemsPrice(data.special_items, _underK, _k);
+        EditorUtility.SetDirty(data);
+        AssetDatabase.SaveAssets();
     }
-    private void ChangeItemsPrice(Item[] _items, int _value)
+    private void ChangeItemsPrice(Item[] _items, int _p_underK, int _p_k)
     {
         if (_items != null)
         {
-            if (_value <= 0) _value = 100;
-
             for (int i = 0; i < _items.Length; i++)
             {
-                _items[i].price = _value;
+                _items[i].price_underK = _p_underK;
+                _items[i].price_k = _p_k;
             }
         }
     }

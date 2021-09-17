@@ -13,9 +13,11 @@ public class TextAnimation : MonoBehaviour
     private TMP_Text text_object;
     private WaitForSeconds wait;
     private char[] chars;
+    private bool stop;
 
     private void OnEnable()
     {
+        stop = false;
         wait = new WaitForSeconds(interval);
         text_object = GetComponent<TMP_Text>();
         if (text_object)
@@ -29,10 +31,14 @@ public class TextAnimation : MonoBehaviour
             }
         }
     }
+    private void OnDisable()
+    {
+        stop = true;
+    }
     private IEnumerator Animation()
     {
         bool done = false;
-        while (true)
+        while (!stop)
         {
             if (done)
             {

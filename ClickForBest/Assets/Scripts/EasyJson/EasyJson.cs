@@ -21,7 +21,7 @@ public static class EasyJson
     {
         string json_text = JsonUtility.ToJson(_data);
         if (_is_crypto)
-            json_text = CryptoHelper.Encrypt(json_text, "-Zinky-Games2021*-");
+            json_text = CryptoHelper.Encrypt(json_text, "-SakGames2021*-");
         File.WriteAllText(json_path, json_text);
     }
     public static void SaveJsonToFile(object _data,string _file_name, bool _is_crypto = false)
@@ -29,7 +29,7 @@ public static class EasyJson
         string _path = Path.Combine(Application.persistentDataPath, _file_name);
         string json_text = JsonUtility.ToJson(_data);
         if (_is_crypto)
-            json_text = CryptoHelper.Encrypt(json_text, "-Zinky-Games2021*-");
+            json_text = CryptoHelper.Encrypt(json_text, "-SakGames2021*-");
 
         File.WriteAllText(_path, json_text);
     }
@@ -39,7 +39,7 @@ public static class EasyJson
         {
             string get_json_text = File.ReadAllText(json_path);
             if (_is_crypto)
-                 get_json_text = CryptoHelper.Decrypt(get_json_text, "-Zinky-Games2021*-");
+                 get_json_text = CryptoHelper.Decrypt(get_json_text, "-SakGames2021*-");
 
             return (T)JsonUtility.FromJson(get_json_text, typeof(T));
         }
@@ -52,7 +52,7 @@ public static class EasyJson
         {
             string get_json_text = File.ReadAllText(_path);
             if (_is_crypto)
-                get_json_text = CryptoHelper.Decrypt(get_json_text, "-Zinky-Games2021*-");
+                get_json_text = CryptoHelper.Decrypt(get_json_text, "-SakGames2021*-");
 
             return (T)JsonUtility.FromJson(get_json_text, typeof(T));
         }
@@ -64,7 +64,7 @@ public static class EasyJson
         {
             File.Delete(json_path);
         }
-        string _path = Path.Combine(Application.persistentDataPath, "PlayerData.dat");
+        string _path = Path.Combine(Application.persistentDataPath, "GameData.dat");
         if (File.Exists(_path))
         {
             File.Delete(_path);
