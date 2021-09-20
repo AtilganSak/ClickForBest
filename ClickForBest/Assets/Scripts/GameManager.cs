@@ -5,7 +5,7 @@ using System.Globalization;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TMP_Text score_text;
+    public TMP_Text score_text;
     [SerializeField] TMP_Text full_score_text;
     public GameDB gameDB { get; private set; }
 

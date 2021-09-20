@@ -17,6 +17,7 @@ public class GooglePlayServices : MonoBehaviour
     public Action<bool> onLoadedFrends;
     public Action<Sprite> onLoadedProfileImage;
     public Action onLogout;
+    public Action<bool> onInternetChanged;
     public float try_connection_time=10f;
     public string authCode { get; set; }
 
@@ -56,6 +57,8 @@ public class GooglePlayServices : MonoBehaviour
 #elif UNITY_IOS
         GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 #endif
+        internet_state = internet;
+        StartCoroutine(CheckInternet());
     }
     private void Update()
     {
@@ -100,7 +103,7 @@ public class GooglePlayServices : MonoBehaviour
             });
         }
     }
-    void LoginCallback(bool state)
+    private void LoginCallback(bool state)
     {
         if (state)
         {
@@ -132,7 +135,7 @@ public class GooglePlayServices : MonoBehaviour
             closingAccount = true;
         }
     }
-    void LogoutCallback()
+    private void LogoutCallback()
     {
         closingAccount = false;
         LoginState = false;
@@ -181,7 +184,7 @@ public class GooglePlayServices : MonoBehaviour
         PlayGamesPlatform.Instance.LoadFriends(Social.localUser, GetFrendsCallback);
 #endif
     }
-    void GetFrendsCallback(bool state)
+    private void GetFrendsCallback(bool state)
     {
         isLoadedFrends = state;
         if (state)
@@ -197,6 +200,32 @@ public class GooglePlayServices : MonoBehaviour
         if (onLoadedFrends != null)
         {
             onLoadedFrends.Invoke(state);
+        }
+    }
+    bool internet_state;
+    private IEnumerator CheckInternet()
+    {
+        while (true)
+        {
+            if (internet)
+            {
+                if (!internet_state)
+                {
+                    if (onInternetChanged != null)
+                        onInternetChanged.Invoke(true);
+                    internet_state = true;
+                }
+            }
+            else
+            {
+                if (internet_state)
+                {
+                    if (onInternetChanged != null)
+                        onInternetChanged.Invoke(false);
+                    internet_state = false;
+                }
+            }
+            yield return new WaitForSeconds(3);
         }
     }
 }

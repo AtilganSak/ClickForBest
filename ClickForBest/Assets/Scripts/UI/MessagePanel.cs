@@ -16,18 +16,34 @@ public class MessagePanel : MonoBehaviour
     [SerializeField] Button yes_button;
     [SerializeField] Button no_button;
     [SerializeField] Button exit_button;
+    [SerializeField] Toggle dont_show_toggle;
     [SerializeField] Image dimed;
 
     private DOScale doScale;
+    private bool dont_show_again;
+    private string player_key;
 
     private void Start()
     {
+        player_key = "mp_" + name;
+
         doScale = GetComponent<DOScale>();
         dimed.enabled = false;
 
-        yes_button.onClick.AddListener(Pressed_Yes);
-        no_button.onClick.AddListener(Pressed_No);
-        exit_button.onClick.AddListener(Pressed_No);
+        if(yes_button)
+            yes_button.onClick.AddListener(Pressed_Yes);
+        if (no_button)
+            no_button.onClick.AddListener(Pressed_No);
+        if (exit_button)
+            exit_button.onClick.AddListener(Pressed_No);
+        if (dont_show_toggle)
+        {
+            dont_show_toggle.onValueChanged.AddListener(ChangedDontShow);
+            if (PlayerPrefs.HasKey(player_key))
+            {
+                dont_show_again = PlayerPrefs.GetInt(player_key) == 1 ? true : false;
+            }
+        }
     }
     public void Subscribe(string _title, string _message, string _yesText, string _noText, Action<bool> _callback)
     {
@@ -56,9 +72,17 @@ public class MessagePanel : MonoBehaviour
     }
     public void Show()
     {
-        dimed.enabled = true;
+        if (!dont_show_again)
+        {
+            dimed.enabled = true;
 
-        doScale.DO();
+            doScale.DO();
+        }
+        else
+        {
+            if (messageCallback != null)
+                messageCallback.Invoke(true);
+        }
     }
     public void Hide()
     {
@@ -81,5 +105,10 @@ public class MessagePanel : MonoBehaviour
             messageCallback.Invoke(false);
         }
         Hide();
+    }
+    private void ChangedDontShow(bool _value)
+    {
+        dont_show_again = _value;
+        PlayerPrefs.SetInt(player_key, _value ? 1 : 0);
     }
 }

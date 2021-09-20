@@ -38,6 +38,22 @@ public class RewardItem : MonoBehaviour
             button.interactable = false;
         }
 
+        ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += (state) =>
+        {
+            if (state)
+            {
+                no_connection_icon.enabled = false;
+                ads_icon.enabled = true;
+                button.interactable = true;
+            }
+            else
+            {
+                ads_icon.enabled = false;
+                no_connection_icon.enabled = true;
+                button.interactable = false;
+            }
+        };
+
         price_text.text = "+" + reward_value.ToString();
 
         ReferenceKeeper.Instance.Store.onTakenReward += RewardTaken;

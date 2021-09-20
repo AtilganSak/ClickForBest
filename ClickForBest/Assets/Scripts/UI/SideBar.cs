@@ -32,6 +32,29 @@ public class SideBar : MonoBehaviour
     }
     private void ShowPower()
     {
-        selected_power.Appear();
+        if (ReferenceKeeper.Instance.GooglePlayServices.internet)
+        {
+            if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
+                selected_power.Appear();
+        }
+        else
+        {
+            StartCoroutine(TryShow());
+        }
+    }
+    private IEnumerator TryShow()
+    {
+        while (true)
+        {
+            if (ReferenceKeeper.Instance.GooglePlayServices.internet)
+            {
+                if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
+                {
+                    selected_power.Appear();
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 }

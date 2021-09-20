@@ -10,11 +10,13 @@ public class Store : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] PauseMenu pause_menu;
     [SerializeField] MessagePanel message_panel;
+    [SerializeField] MessagePanel noads_message_panel;
     [SerializeField] MessagePanel noscore_message_panel;
     [SerializeField] RewardItem reward_item_500;
     [SerializeField] RewardItem reward_item_1000;
     [SerializeField] RewardItem reward_item_1500;
     [SerializeField] RewardItem reward_item_2000;
+    [SerializeField] TMPro.TMP_Text score_text;
 
     public System.Action<byte> onPurchase;
     public System.Action<int> onTakenReward;
@@ -49,6 +51,10 @@ public class Store : MonoBehaviour
         {
             noscore_message_panel.Subscribe("Window", "You don't have enough score!", "+1K", "OK", NoScoreMessagePanelResult);
         }
+        if (noads_message_panel)
+        {
+            noads_message_panel.Subscribe("Window", "No ads available!", "OK", "OK", null);
+        }
 
         if (reward_item_500)
             reward_item_500.onClick += Pressed_Reward_Item;
@@ -59,6 +65,7 @@ public class Store : MonoBehaviour
         if (reward_item_2000)
             reward_item_2000.onClick += Pressed_Reward_Item;
 
+        GetCurrentScore();
         Load();
     }
 
@@ -114,11 +121,15 @@ public class Store : MonoBehaviour
         {
             if (pressed_reward)
             {
-                if (onTakenReward != null)
+                ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
                 {
-                    onTakenReward.Invoke(will_taken_reward);
-                }
-                pressed_reward = false;
+                    if (onTakenReward != null)
+                    {
+                        onTakenReward.Invoke(will_taken_reward);
+                    }
+                    pressed_reward = false;
+                };
+                ReferenceKeeper.Instance.RewardAdsController.ShowAd();
             }
             else
             {
@@ -129,6 +140,7 @@ public class Store : MonoBehaviour
                     PurchasedStoreItemDB(will_buy_item);
                 }
             }
+            GetCurrentScore();
         }
         else
         {
@@ -141,7 +153,21 @@ public class Store : MonoBehaviour
     {
         if (_result)
         {
-            //watch ads and give 1K score
+            if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
+            {
+                ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
+                {
+                    ReferenceKeeper.Instance.GameManager.AddScore(will_taken_reward);
+                };
+                ReferenceKeeper.Instance.RewardAdsController.ShowAd();
+            }
+            else
+            {
+                if (noads_message_panel)
+                {
+                    noads_message_panel.Show();
+                }
+            }
         }
     }
     private void Pressed_Reward_Item(int _itemValue)
@@ -149,10 +175,20 @@ public class Store : MonoBehaviour
         pressed_reward = true;
         will_taken_reward = _itemValue;
 
-        if (message_panel)
+        if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
         {
-            message_panel.Change(_message: "Are you sure you want to watch ads?");
-            message_panel.Show();
+            if (message_panel)
+            {
+                message_panel.Change(_message: "Do you want to watch ads?");
+                message_panel.Show();
+            }
+        }
+        else
+        {
+            if (noads_message_panel)
+            {
+                noads_message_panel.Show();
+            }
         }
     }
     private void Load()
@@ -200,6 +236,10 @@ public class Store : MonoBehaviour
         {
             ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item = _id;
         }
+    }
+    private void GetCurrentScore()
+    {
+        score_text.text = "Score: " + ReferenceKeeper.Instance.GameManager.score_text.text;
     }
 #if UNITY_EDITOR
     private byte _id;

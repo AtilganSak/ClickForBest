@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,11 +31,29 @@ public class Power : MonoBehaviour
         button = GetComponentInChildren<Button>();
         if (button)
         {
-            button.onClick.AddListener(Use);
+            button.onClick.AddListener(ClickedPower);
         }
+
+        ReferenceKeeper.Instance.AdsMessagePanel.Subscribe("Window", "Do you want to watch ads?", "Yes", "No",
+            (state) => {
+                if (state)
+                {   
+                    ReferenceKeeper.Instance.RewardAdsController.ShowAd();
+                }
+            });
     }
-    internal virtual void Use() 
+    internal virtual void ClickedPower()
     {
+        ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
+        {
+            Use();
+        };
+        ReferenceKeeper.Instance.AdsMessagePanel.Show();
+    }
+    internal virtual void Use()
+    {
+        Debug.Log("Used Power");
+
         used = true;
         Hide();
     }

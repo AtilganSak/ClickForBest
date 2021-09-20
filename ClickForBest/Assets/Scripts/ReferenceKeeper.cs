@@ -30,6 +30,9 @@ public class ReferenceKeeper : MonoBehaviour
     public GooglePlayServices GooglePlayServices;
     public FirebaseService FirebaseService;
     public Store Store;
+    public AdsInitializer AdsInitializer;
+    public RewardAdsController RewardAdsController;
+    public MessagePanel AdsMessagePanel;
 
     private void OnEnable()
     {
