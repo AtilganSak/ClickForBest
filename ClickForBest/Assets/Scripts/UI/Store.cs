@@ -37,6 +37,7 @@ public class Store : MonoBehaviour
         public int price_k;
         public Sprite icon;
         public Sprite background;
+        public GameObject prefab;
     }
 
     private void Start()
@@ -113,6 +114,10 @@ public class Store : MonoBehaviour
             selected_item.UnSelect();
         selected_item = _item;
         selected_item.Select();
+        if (selected_item.coin_prefab != null)
+            ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(selected_item.coin_prefab);
+        else
+            ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(selected_item.coin_sprite);
         SelectStoreItemDB(_item.ID);
     }
     private void MessagePanelResult(bool _result)
@@ -265,7 +270,7 @@ public class Store : MonoBehaviour
             for (int i = 0; i < _items.Length; i++)
             {
                 StoreItem item_instance = (StoreItem)PrefabUtility.InstantiatePrefab(item_prefab, content);
-                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].icon, _items[i].background, _bgColor);
+                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].icon, _items[i].background, _items[i].prefab, _bgColor);
                 _id++;
             }
         }

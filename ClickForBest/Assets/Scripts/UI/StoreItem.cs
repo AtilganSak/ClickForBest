@@ -13,6 +13,9 @@ public class StoreItem : MonoBehaviour
     [SerializeField] Image check_image;
     [SerializeField] DOFade frame_image;
 
+    public GameObject coin_prefab;
+    public Sprite coin_sprite;
+
     public bool isPurchased;
     public int p_underK;
     public int p_K;
@@ -31,8 +34,10 @@ public class StoreItem : MonoBehaviour
         //    Purchased(true);
         //}
     }
-    public void Init(byte _id, int _p_underK, int _p_k, Sprite _icon, Sprite _background, Color _bgColor)
+    public void Init(byte _id, int _p_underK, int _p_k, Sprite _icon, Sprite _background, GameObject _prefab, Color _bgColor)
     {
+        coin_sprite = _icon;
+        coin_prefab = _prefab;
         p_underK = _p_underK;
         p_K = _p_k;
         if (p_K > 0)

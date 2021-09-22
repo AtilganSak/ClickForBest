@@ -33,6 +33,7 @@ public class ReferenceKeeper : MonoBehaviour
     public AdsInitializer AdsInitializer;
     public RewardAdsController RewardAdsController;
     public MessagePanel AdsMessagePanel;
+    public CoinSpawner CoinSpawner;
 
     private void OnEnable()
     {

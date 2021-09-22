@@ -17,244 +17,309 @@ MonoBehaviour:
     price_k: 1
     icon: {fileID: 21300000, guid: d84e1a05a4e706f46b143485d1f94de7, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 78b3bdbeea6123d4d93c72492d452c9e, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: af26dc6abae3b4b4bb0012391e239696, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: c5a10ddeb53c3914895ba761cff4ac33, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: f79b9941961e92d4d8b0a885cf501118, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 6714a4412109f7a468ac112a008afbc6, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 8514321c587f4fd4ab56ad659409a0ab, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 934fd811252f3094c9d1daf05b5fce5a, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 5c635108b82a36645bd621d7f509c3f0, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 550f4326662ee494ba58210a47636138, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 1
     icon: {fileID: 21300000, guid: 2ff7a37a40f9fa84a80ead0b170e4c02, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   green_items:
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: dc525047577c6ff43be4450186e9a99e, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: a037fb8e8dfbb0d4aaa623cb0a94f04e, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: 8ab0f168baf08c34291e512f2c01c10c, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: f0af6fc94bcd1ed4ba2e6c07a76636b7, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: 9b7426da53545dd4dbfa85e382304fe9, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: 9334b604569cca541aa136d341b92912, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 0
     price_k: 2
     icon: {fileID: 21300000, guid: eac3a5f324827804ea611694b6af1834, type: 3}
     background: {fileID: 21300000, guid: 5dafce0ed4237f149ad092bf511899d8, type: 3}
+    prefab: {fileID: 0}
   red_items:
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 3f378dc1c05245d4184004cc411a279d, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 04fc46b8abd240c41abecf7e780e1944, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: bccb55d98aece9241a8df6751cc5bef9, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: b18b5ff2bc680774d8c7781897caf8f1, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 0b56e3cb420598d408f3350c66bb8139, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: f079b4d4bff764b458266dff107ea087, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 98590b1fa4cd15a47a065aaf3634e879, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: b5074f711d3305542bff8cf8079db6a3, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 0e9ad695f08519c4cb65a1c1d4da6ef8, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 4
     icon: {fileID: 21300000, guid: 6d638466a3c884d4dbee0b5a44676a62, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   gold_items:
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: 21a6d2c0445cbb8439f6c979700d8c70, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: e4c6289503c17754e8289648017f3d11, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: 1d6f6aa8d7a6e334584fd061d7e8afab, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: 08dc90939f642fc449d92ba17d692a59, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: 4aafb9fa6ca985b45a84ead82d57a5b1, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: fccb0fcebea34364691d6ebfa33eede7, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   - price_underK: 500
     price_k: 7
     icon: {fileID: 21300000, guid: 8ca5354f8ba9af445941e86ab7e5aa93, type: 3}
     background: {fileID: 21300000, guid: a6717a3a15f22fb4eab1d6fb9bd5905a, type: 3}
+    prefab: {fileID: 0}
   gem_items:
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 2a0577490aabdfc488a1e7d5bf7353be, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: c18979331b19f474eb5a9364612b74e2, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 05495a91e5af12145ba8b7e27bdfd9d9, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: ba1493a4f09e0b84eb5e32f31eadbf8c, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: ddfc6c469979bda4a8ac87703d1f8e88, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 6e98639ffeb61914086c6ffe0818cd23, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 382fdd7f01b8e32459419553c55ecc71, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 392d1e5373d8bda4490ca7aa73c8ad64, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 4c74deb586db7c2419b2341c63fe3656, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 4a45a25cbd5448548b3e55b4150791df, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: e3134ccb52a0cba4d8100599d94365d3, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 047822d867fef28448772e472f382cfb, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 28d964090483cb944b1d18e46d000eb4, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: bb3c50682348f2443bce34773af3ebcf, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 7cd30fc0a2e454c4aa3f54fc82aa261d, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 6ee46afb15a455746b2309cfc6f4efdd, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: ba573181adb37884cbf6467e40fa3f46, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 6af9f7986a2e0d544a0ce0e8a1b7f535, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: cf7712b9df455f44cb5646c57daaf4d4, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: fa7f0b91358b38144a27750c103153e9, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 63e5cf099f70b06479724562a9941518, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 473ba0886a477f745a599e8e6ade7934, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 8a520465b6595d145b7dac0f7fa062f6, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 473ba0886a477f745a599e8e6ade7934, type: 3}
   - price_underK: 500
     price_k: 10
     icon: {fileID: 21300000, guid: 16fee74e0c0a5e643b6785dcbd6b9d9f, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 15339cba5612a48418269588d9ce9d6e, type: 3}
+  - price_underK: 500
+    price_k: 10
+    icon: {fileID: 21300000, guid: 8a520465b6595d145b7dac0f7fa062f6, type: 3}
+    background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 7a66e3fcecac6aa498e31ea8cadfbe35, type: 3}
   special_items:
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: a3142b5ee187795479390a79925ce4ba, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 30be4a9d519e2474e9bdc58aceb4f6f3, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 9623da54c12be8d468fb795dade97de1, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: f2ed5ad16a73632409081a96e6cdf54f, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: fef8611497ca91a42b5edf33889bb0f8, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: a1c32d19997884f42b9ab3cbf06f5f11, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 4560e09a7765fe641ab2babc1cb06872, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: afdf5b38800af1044b23c11876711137, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 3265ce42a575de947a92116aaf2281bd, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: efb00dca1ae5c994299d345bec2ed113, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: e0e6443624384a64faf34ce2a9dbccf7, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: a263ce9efddac67458260e761a47395a, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: be3d7e6a69a4c0d4fb31d01b2d31e0db, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 44a00130b706a30458c4ab03d0317eb3, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 73b24869e05ad804a94bd9f79ab87e56, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: a7467a3d5eaf6be4ca77fd9ed451ac8c, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 5cfaa4a321664f54db4576bfa4f6e5cc, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 1722094979676e6498a5a288e6f9313c, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 6b2c6689e6df0da42abb02963300b87b, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 73db901153fedda4aa680c9892108b12, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: cdcafef96100eb04d919e634349fc5f4, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: eff247e0794d9f844971e36343d2676c, type: 3}
   - price_underK: 0
     price_k: 20
     icon: {fileID: 21300000, guid: 3ab09e06d089d1f4a89ee393fb1ca2ee, type: 3}
     background: {fileID: 21300000, guid: 13a8f66170add7d4185f2152fd2ad608, type: 3}
+    prefab: {fileID: 1914371617767461910, guid: 910d8a00a6a29da4d99eae714aab1a08, type: 3}

@@ -14,4 +14,16 @@ public class CoinSpawner : MonoBehaviour
         ReferenceKeeper.Instance.GameManager.AddScore();
         ReferenceKeeper.Instance.GameManager.AddCoin();
     }
+    public void SetCoinPrefab(GameObject _go)
+    {
+        if (_go != null)
+        {
+            coin_prefab = _go;
+        }
+    }
+    public void SetCoinSprite(Sprite _sprite)
+    {
+        if(_sprite != null)
+            coin_prefab.GetComponent<SpriteRenderer>().sprite = _sprite;
+    }
 }
