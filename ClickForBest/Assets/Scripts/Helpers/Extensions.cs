@@ -8,12 +8,12 @@ public static class Extensions
     {
         if (num > 999999999 || num < -999999999)
         {
-            return num.ToString("0,,,.##B", CultureInfo.InvariantCulture);
+            return num.ToString("0,,,.###B", CultureInfo.InvariantCulture);
         }
         else
         if (num > 999999 || num < -999999)
         {
-            return num.ToString("0,,.##M", CultureInfo.InvariantCulture);
+            return num.ToString("0,,.###M", CultureInfo.InvariantCulture);
         }
         else
         if (num > 999 || num < -999)

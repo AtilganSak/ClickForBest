@@ -69,6 +69,19 @@ public class GameRouter : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    [EasyButtons.Button]
+    private void Test()
+    {
+        GameDB cloudDB = new GameDB
+        {
+            score = new Score
+            {
+                k = 6,
+            },
+            purchaseStoreItems = new int[2] { 2, 3 },
+        };
+        LoadGameDB(cloudDB);
+    }
     private void LoadGameDB(GameDB _db)
     {
         Debug.LogFormat("Loaded GameDB: " + _db);
@@ -92,6 +105,8 @@ public class GameRouter : MonoBehaviour
             else
             {
                 Debug.LogFormat("LocalDB isnot null");
+                Debug.LogFormat("CloudDB: " + cloud_db);
+                Debug.LogFormat(@"CloudDB Score: " + "k:" + cloud_db.score.k + "\n" + "underK: " + cloud_db.score.underK);
                 Score grater_score = CompareScoreReturn(cloud_db.score, local_db.score);
                 if (grater_score != null)
                 {
@@ -108,6 +123,7 @@ public class GameRouter : MonoBehaviour
                 }
                 else
                 {
+                    Debug.LogFormat("CloudDB not diff");
                     grater_score = CompareScoreReturn(local_db.score, cloud_db.score);
                     if (grater_score != null)
                     {
@@ -121,6 +137,10 @@ public class GameRouter : MonoBehaviour
                         cloud_score_text.color = Color.red;
 
                         diff = true;
+                    }
+                    else
+                    {
+                        Debug.LogFormat("LocalDB not diff");
                     }
                 }
                 cloud_purchased_text.text = "0";

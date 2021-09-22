@@ -41,7 +41,7 @@ public class FirebaseService : MonoBehaviour
     void InitializeFirebase()
     {
         firebase_database = FirebaseDatabase.GetInstance("https://click-for-best-32600433-default-rtdb.firebaseio.com/");
-        firebase_database.SetPersistenceEnabled(true);
+        //firebase_database.SetPersistenceEnabled(true);
         FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
     }
     private void OnLoginGoogle(bool _state)
@@ -65,6 +65,7 @@ public class FirebaseService : MonoBehaviour
             {
                 Debug.LogError("SignInWithCredentialAsync was canceled.");
                 state = false;
+
             }
             else if (task.IsFaulted)
             {

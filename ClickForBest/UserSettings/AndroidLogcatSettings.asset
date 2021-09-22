@@ -3,75 +3,51 @@
     "m_SelectedPackage": {
         "deviceId": "127.0.0.1:62001",
         "name": "com.SakGames.ClickForBest",
-        "processId": 3847,
+        "processId": 7832,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "127.0.0.1:62001",
-            "name": "com.vphone.launcher",
-            "processId": 2022,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 12335,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 12755,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 13140,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 13608,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 14014,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 14183,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 4567,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 4619,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 5247,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
             "processId": 3847,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 5562,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 5804,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 6706,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 6909,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 7429,
+            "exited": false
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 7832,
             "exited": false
         }
     ],

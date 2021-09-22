@@ -14,18 +14,18 @@ public class GameManager : MonoBehaviour
 
     private DOScale handle_doscale;
 
-    int underK;
-    int K;
-    int M;
-    int B;
-    int T;
-    int Q;
-    int QT;
-    int S;
-    int SP;
-    int O;
-    int N;
-    int D;
+    public int underK;
+    public int K;
+    public int M;
+    public int B;
+    public int T;
+    public int Q;
+    public int QT;
+    public int S;
+    public int SP;
+    public int O;
+    public int N;
+    public int D;
 
     private void OnApplicationQuit()
     {
@@ -110,14 +110,108 @@ public class GameManager : MonoBehaviour
         underK -= _underK;
         if (underK < 0)
         {
-            underK = 1000 - underK;
+            underK = 1000 + underK;
         }
         K -= _k;
+        if (K < 0)
+        {
+            K = 0;
+            if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 ||  S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+            {
+                K = 1000 - _k;
+                M--;
+                if (M < 0)
+                {
+                    M = 0;
+                    if (B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+                    {
+                        M = 999;
+                        B--;
+                        if (B < 0)
+                        {
+                            B = 0;
+                            if (T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+                            {
+                                B = 999;
+                                T--;
+                                if (T < 0)
+                                {
+                                    T = 0;
+                                    if (Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+                                    {
+                                        T = 999;
+                                        Q--;
+                                        if (Q < 0)
+                                        {
+                                            Q = 0;
+                                            if (QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+                                            {
+                                                Q = 999;
+                                                QT--;
+                                                if (QT < 0)
+                                                {
+                                                    QT = 0;
+                                                    if (S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+                                                    {
+                                                        QT = 999;
+                                                        S--;
+                                                        if (S < 0)
+                                                        {
+                                                            S = 0;
+                                                            if (SP > 0 || O > 0 || N > 0 || D > 0)
+                                                            {
+                                                                S = 999;
+                                                                SP--;
+                                                                if (SP < 0)
+                                                                {
+                                                                    SP = 0;
+                                                                    if (O > 0 || N > 0 || D > 0)
+                                                                    {
+                                                                        SP = 999;
+                                                                        O--;
+                                                                        if (O < 0)
+                                                                        {
+                                                                            O = 0;
+                                                                            if (N > 0 || D > 0)
+                                                                            {
+                                                                                O = 999;
+                                                                                N--;
+                                                                                if (N < 0)
+                                                                                {
+                                                                                    N = 0;
+                                                                                    if (D > 0)
+                                                                                    {
+                                                                                        N = 999;
+                                                                                        D--;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         score_text.text = ScoreCalculate(0);
     }
     public bool HaveScore(int _underK, int _k)
     {
-        if (K > _k)
+        if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+        {
+            return true;
+        }
+        else if (K > _k)
         {
             return true;
         }
@@ -135,83 +229,138 @@ public class GameManager : MonoBehaviour
         string result = "";
         underK += _value;
         result = underK.ToString();
-        if (underK > 999)
+        if (underK >= 1000)
         {
-            K += underK / 999;
-            underK = underK - 1000;
+            K += underK / 1000;
+            underK = underK - 1000 * (underK / 1000);
         }
         if (K >= 1)
-            result = K + "." + underK + "K";
-        if (K > 999)
         {
-            M += K / 999;
-            K = 0;
+            if(underK < 10)
+                result = K + ".0" + underK + "K";
+            else
+                result = K + "." + underK + "K";
+        }
+        if (K > 1000)
+        {
+            M += K / 1000;
+            K = K - 1000 * (K / 1000);
         }
         if (M >= 1)
-            result = M + "." + K + "M";
-        if (M > 999)
         {
-            B += M / 999;
-            M = 0;
+            if (K < 10)
+                result = M + ".0" + K + "M";
+            else
+                result = M + "." + K + "M";
+        }
+        if (M > 1000)
+        {
+            B += M / 1000;
+            M = M - 1000 * (M / 1000);
         }
         if (B >= 1)
-            result = B + "." + M + "B";
-        if (B > 999)
         {
-            T += B / 999;
-            B = 0;
+            if (M < 10)
+                result = B + ".0" + M + "B";
+            else
+                result = B + "." + M + "B";
+        }
+        if (B > 1000)
+        {
+            T += B / 1000;
+            B = B - 1000 * (B / 1000);
         }
         if (T >= 1)
-            result = T + "." + B + "T";
-        if (T > 999)
         {
-            Q += T / 999;
-            Q = 0;
+            if (B < 10)
+                result = T + ".0" + B + "T";
+            else
+                result = T + "." + B + "T";
+        }
+        if (T > 1000)
+        {
+            Q += T / 1000;
+            T = T - 1000 * (T / 1000);
         }
         if (Q >= 1)
-            result = Q + "." + T + "Q";
-        if (Q > 999)
         {
-            QT += Q / 999;
-            Q = 0;
+            if (T < 10)
+                result = Q + ".0" + T + "Q";
+            else
+                result = Q + "." + T + "Q";
+        }
+        if (Q > 1000)
+        {
+            QT += Q / 1000;
+            Q = Q - 1000 * (Q / 1000);
         }
         if (QT >= 1)
-            result = QT + "." + Q + "QT";
-        if (QT > 999)
         {
-            S += QT / 999;
-            QT = 0;
+            if (Q < 10)
+                result = QT + ".0" + Q + "QT";
+            else
+                result = QT + "." + Q + "QT";
+        }
+        if (QT > 1000)
+        {
+            S += QT / 1000;
+            QT = QT - 1000 * (QT / 1000);
         }
         if (S >= 1)
-            result = S + "." + QT + "S";
-        if (S > 999)
         {
-            SP += S / 999;
-            S = 0;
+            if (QT < 10)
+                result = S + ".0" + QT + "S";
+            else
+                result = S + "." + QT + "S";
+        }
+        if (S > 1000)
+        {
+            SP += S / 1000;
+            S = S - 1000 * (S / 1000);
         }
         if (SP >= 1)
-            result = SP + "." + S + "SP";
-        if (SP > 999)
         {
-            O += SP / 999;
-            SP = 0;
+            if (S < 10)
+                result = SP + ".0" + S + "SP";
+            else
+                result = SP + "." + S + "SP";
+        }
+        if (SP > 1000)
+        {
+            O += SP / 1000;
+            SP = SP - (SP / 1000);
         }
         if (O >= 1)
-            result = O + "." + SP + "O";
-        if (O > 999)
         {
-            N += O / 999;
-            O = 0;
+            if (SP < 10)
+                result = O + ".0" + SP + "O";
+            else
+                result = O + "." + SP + "O";
+        }
+        if (O > 1000)
+        {
+            N += O / 1000;
+            O = O - 1000 * (O / 1000);
         }
         if (N >= 1)
-            result = N + "." + O + "N";
-        if (N > 999)
         {
-            D += N / 999;
-            N = 0;
+            if (O < 10)
+                result = N + ".0" + O + "N";
+            else
+                result = N + "." + O + "N";
+        }
+        if (N > 1000)
+        {
+            D += N / 1000;
+            N = N - 1000 * (N / 1000);
         }
         if (D >= 1)
-            result = D + "." + N + "D";
+        {
+            if (N < 10)
+                result = D + ".0" + N + "D";
+            else
+                result = D + "." + N + "D";
+        }
 
         return result;
     }
