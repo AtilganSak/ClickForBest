@@ -77,13 +77,16 @@ public class PauseMenu : MonoBehaviour
         {
             scoreboard_button.interactable = true;
         }
+        ReferenceKeeper.Instance.GameManager.ReportScore();
         ReferenceKeeper.Instance.Handle.enabled = false;
+        Screen.sleepTimeout = PlayerPrefs.GetInt(PlayerKeys.SCREEN_SLEEP_TIME);
         pause_button_domove.DO();
         DORotates();
         DOScales();
     }
     private void PreProcessBeforeClose()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         ReferenceKeeper.Instance.Handle.enabled = true;
         pause_button_domove.DORevert();
         DORotates(true);

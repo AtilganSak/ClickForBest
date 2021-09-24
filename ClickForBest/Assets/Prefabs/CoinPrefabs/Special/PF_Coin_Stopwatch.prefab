@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2563839245373411070, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
+      propertyPath: m_Radius
+      value: 0.39618
+      objectReference: {fileID: 0}
+    - target: {fileID: 2563839245373411070, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.018426634
+      objectReference: {fileID: 0}
+    - target: {fileID: 2563839245373411070, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.04524214
+      objectReference: {fileID: 0}
     - target: {fileID: 3459003719449477440, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336452654601738247, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
       propertyPath: m_Name
-      value: PF_Coin_Star_Red 1
+      value: PF_Coin_Stopwatch
       objectReference: {fileID: 0}
     - target: {fileID: 6566858796733229579, guid: 499fa912763a48d4da99055c2d92866f, type: 3}
       propertyPath: m_Sprite

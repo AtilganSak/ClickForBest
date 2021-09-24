@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using TMPro;
-using System.Globalization;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,27 +13,32 @@ public class GameManager : MonoBehaviour
 
     private DOScale handle_doscale;
 
-    public int underK;
-    public int K;
-    public int M;
-    public int B;
-    public int T;
-    public int Q;
-    public int QT;
-    public int S;
-    public int SP;
-    public int O;
-    public int N;
-    public int D;
+    private int earning_current_score;
+    private int spending_score;
+
+    int underK;
+    int K;
+    int M;
+    int B;
+    int T;
+    int Q;
+    int QT;
+    int S;
+    int SP;
+    int O;
+    int N;
+    int D;
 
     private void OnApplicationQuit()
     {
+        ReportScore();
         SaveGame();
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
+            ReportScore();
             SaveGame();
         }
     }
@@ -50,14 +54,28 @@ public class GameManager : MonoBehaviour
 
         boost = 1;
 
-        //Get score and level on the PlayerPrefs or Firebase
-        //score_text.text = score.ToKMB();
-        //full_score_text.text = score.ToString();
+        WriteFullScore();
 
         ReferenceKeeper.Instance.Handle.onActive.AddListener(HandleActivated);
         ReferenceKeeper.Instance.Handle.onDeactive.AddListener(HandleDeactivated);
+
+        PlayerPrefs.SetInt(PlayerKeys.SCREEN_SLEEP_TIME, Screen.sleepTimeout);
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
+    public void ReportScore()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (earning_current_score > spending_score)
+        {
+            Debug.LogFormat("Reported " + (earning_current_score - spending_score) + " Score");
+            ReferenceKeeper.Instance.GooglePlayServices.EarnScore(earning_current_score - spending_score);
+            earning_current_score = 0;
+            spending_score = 0;
+        }
+#endif
+    }
     public void AddCoin()
     {
         total_coin_count++;
@@ -95,116 +113,124 @@ public class GameManager : MonoBehaviour
             ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
 
         score_text.text = ScoreCalculate(boost);
+        WriteFullScore();
+
+        earning_current_score += boost;
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
     {
         score_text.text = ScoreCalculate(_value);
+        WriteFullScore();
+
+        earning_current_score += _value;
     }
     public void SetBoost(int _value)
     {
         boost = _value;
     }
-    public void RemoveScore(int _underK, int _k)
-    {
-        underK -= _underK;
-        if (underK < 0)
-        {
-            underK = 1000 + underK;
-        }
-        K -= _k;
-        if (K < 0)
-        {
-            K = 0;
-            if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 ||  S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-            {
-                K = 1000 - _k;
-                M--;
-                if (M < 0)
-                {
-                    M = 0;
-                    if (B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-                    {
-                        M = 999;
-                        B--;
-                        if (B < 0)
-                        {
-                            B = 0;
-                            if (T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-                            {
-                                B = 999;
-                                T--;
-                                if (T < 0)
-                                {
-                                    T = 0;
-                                    if (Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-                                    {
-                                        T = 999;
-                                        Q--;
-                                        if (Q < 0)
-                                        {
-                                            Q = 0;
-                                            if (QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-                                            {
-                                                Q = 999;
-                                                QT--;
-                                                if (QT < 0)
-                                                {
-                                                    QT = 0;
-                                                    if (S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
-                                                    {
-                                                        QT = 999;
-                                                        S--;
-                                                        if (S < 0)
-                                                        {
-                                                            S = 0;
-                                                            if (SP > 0 || O > 0 || N > 0 || D > 0)
-                                                            {
-                                                                S = 999;
-                                                                SP--;
-                                                                if (SP < 0)
-                                                                {
-                                                                    SP = 0;
-                                                                    if (O > 0 || N > 0 || D > 0)
-                                                                    {
-                                                                        SP = 999;
-                                                                        O--;
-                                                                        if (O < 0)
-                                                                        {
-                                                                            O = 0;
-                                                                            if (N > 0 || D > 0)
-                                                                            {
-                                                                                O = 999;
-                                                                                N--;
-                                                                                if (N < 0)
-                                                                                {
-                                                                                    N = 0;
-                                                                                    if (D > 0)
-                                                                                    {
-                                                                                        N = 999;
-                                                                                        D--;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        score_text.text = ScoreCalculate(0);
-    }
+    //public void RemoveScore(int _underK, int _k)
+    //{
+    //    spending_score = _k * 1000 + underK;
+
+    //    underK -= _underK;
+    //    if (underK < 0)
+    //    {
+    //        underK = 1000 + underK;
+    //    }
+    //    K -= _k;
+    //    if (K < 0)
+    //    {
+    //        K = 0;
+    //        if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //        {
+    //            K = 1000 - _k;
+    //            M--;
+    //            if (M < 0)
+    //            {
+    //                M = 0;
+    //                if (B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //                {
+    //                    M = 999;
+    //                    B--;
+    //                    if (B < 0)
+    //                    {
+    //                        B = 0;
+    //                        if (T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //                        {
+    //                            B = 999;
+    //                            T--;
+    //                            if (T < 0)
+    //                            {
+    //                                T = 0;
+    //                                if (Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //                                {
+    //                                    T = 999;
+    //                                    Q--;
+    //                                    if (Q < 0)
+    //                                    {
+    //                                        Q = 0;
+    //                                        if (QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //                                        {
+    //                                            Q = 999;
+    //                                            QT--;
+    //                                            if (QT < 0)
+    //                                            {
+    //                                                QT = 0;
+    //                                                if (S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+    //                                                {
+    //                                                    QT = 999;
+    //                                                    S--;
+    //                                                    if (S < 0)
+    //                                                    {
+    //                                                        S = 0;
+    //                                                        if (SP > 0 || O > 0 || N > 0 || D > 0)
+    //                                                        {
+    //                                                            S = 999;
+    //                                                            SP--;
+    //                                                            if (SP < 0)
+    //                                                            {
+    //                                                                SP = 0;
+    //                                                                if (O > 0 || N > 0 || D > 0)
+    //                                                                {
+    //                                                                    SP = 999;
+    //                                                                    O--;
+    //                                                                    if (O < 0)
+    //                                                                    {
+    //                                                                        O = 0;
+    //                                                                        if (N > 0 || D > 0)
+    //                                                                        {
+    //                                                                            O = 999;
+    //                                                                            N--;
+    //                                                                            if (N < 0)
+    //                                                                            {
+    //                                                                                N = 0;
+    //                                                                                if (D > 0)
+    //                                                                                {
+    //                                                                                    N = 999;
+    //                                                                                    D--;
+    //                                                                                }
+    //                                                                            }
+    //                                                                        }
+    //                                                                    }
+    //                                                                }
+    //                                                            }
+    //                                                        }
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //    score_text.text = ScoreCalculate(0);
+    //}
     public bool HaveScore(int _underK, int _k)
     {
         if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
@@ -215,7 +241,7 @@ public class GameManager : MonoBehaviour
         {
             return true;
         }
-        else if(K == _k)
+        else if (K == _k)
         {
             if (underK >= _underK)
             {
@@ -236,12 +262,12 @@ public class GameManager : MonoBehaviour
         }
         if (K >= 1)
         {
-            if(underK < 10)
+            if (underK < 10)
                 result = K + ".0" + underK + "K";
             else
                 result = K + "." + underK + "K";
         }
-        if (K > 1000)
+        if (K >= 1000)
         {
             M += K / 1000;
             K = K - 1000 * (K / 1000);
@@ -253,7 +279,7 @@ public class GameManager : MonoBehaviour
             else
                 result = M + "." + K + "M";
         }
-        if (M > 1000)
+        if (M >= 1000)
         {
             B += M / 1000;
             M = M - 1000 * (M / 1000);
@@ -265,7 +291,7 @@ public class GameManager : MonoBehaviour
             else
                 result = B + "." + M + "B";
         }
-        if (B > 1000)
+        if (B >= 1000)
         {
             T += B / 1000;
             B = B - 1000 * (B / 1000);
@@ -277,7 +303,7 @@ public class GameManager : MonoBehaviour
             else
                 result = T + "." + B + "T";
         }
-        if (T > 1000)
+        if (T >= 1000)
         {
             Q += T / 1000;
             T = T - 1000 * (T / 1000);
@@ -289,7 +315,7 @@ public class GameManager : MonoBehaviour
             else
                 result = Q + "." + T + "Q";
         }
-        if (Q > 1000)
+        if (Q >= 1000)
         {
             QT += Q / 1000;
             Q = Q - 1000 * (Q / 1000);
@@ -301,7 +327,7 @@ public class GameManager : MonoBehaviour
             else
                 result = QT + "." + Q + "QT";
         }
-        if (QT > 1000)
+        if (QT >= 1000)
         {
             S += QT / 1000;
             QT = QT - 1000 * (QT / 1000);
@@ -313,7 +339,7 @@ public class GameManager : MonoBehaviour
             else
                 result = S + "." + QT + "S";
         }
-        if (S > 1000)
+        if (S >= 1000)
         {
             SP += S / 1000;
             S = S - 1000 * (S / 1000);
@@ -325,7 +351,7 @@ public class GameManager : MonoBehaviour
             else
                 result = SP + "." + S + "SP";
         }
-        if (SP > 1000)
+        if (SP >= 1000)
         {
             O += SP / 1000;
             SP = SP - (SP / 1000);
@@ -337,7 +363,7 @@ public class GameManager : MonoBehaviour
             else
                 result = O + "." + SP + "O";
         }
-        if (O > 1000)
+        if (O >= 1000)
         {
             N += O / 1000;
             O = O - 1000 * (O / 1000);
@@ -349,7 +375,7 @@ public class GameManager : MonoBehaviour
             else
                 result = N + "." + O + "N";
         }
-        if (N > 1000)
+        if (N >= 1000)
         {
             D += N / 1000;
             N = N - 1000 * (N / 1000);
@@ -363,6 +389,112 @@ public class GameManager : MonoBehaviour
         }
 
         return result;
+    }
+    private void WriteFullScore()
+    {
+        string result = "0";
+        if (underK > 0)
+            result = underK.ToString();
+        if (K > 0)
+        {
+            if (underK < 10)
+                result = K + "00" + underK;
+            else if(underK < 100)
+                result = K + "0" + underK;
+            else
+                result = K + "" + underK;
+        }
+        if (M > 0)
+        {
+            if (K < 10)
+                result = M + "00" + result;
+            else if (K < 100)
+                result = M + "0" + result;
+            else
+                result = M + "" + result;
+        }
+        if (B > 0)
+        {
+            if (M < 10)
+                result = B + "00" + result;
+            else if (M < 100)
+                result = B + "0" + result;
+            else
+                result = B + "" + result;
+        }
+        if (T > 0)
+        {
+            if (B < 10)
+                result = T + "00" + result;
+            else if (B < 100)
+                result = T + "0" + result;
+            else
+                result = T + "" + result;
+        }
+        if (Q > 0)
+        {
+            if (T < 10)
+                result = Q + "00" + result;
+            else if (T < 100)
+                result = Q + "0" + result;
+            else
+                result = Q + "" + result;
+        }
+        if (QT > 0)
+        {
+            if (Q < 10)
+                result = QT + "00" + result;
+            else if (Q < 100)
+                result = QT + "0" + result;
+            else
+                result = QT + "" + result;
+        }
+        if (S > 0)
+        {
+            if (QT < 10)
+                result = S + "00" + result;
+            else if (QT < 100)
+                result = S + "0" + result;
+            else
+                result = S + "" + result;
+        }
+        if (SP > 0)
+        {
+            if (S < 10)
+                result = SP + "00" + result;
+            else if (S < 100)
+                result = SP + "0" + result;
+            else
+                result = SP + "" + result;
+        }
+        if (O > 0)
+        {
+            if (SP < 10)
+                result = O + "00" + result;
+            else if (SP < 100)
+                result = O + "0" + result;
+            else
+                result = O + "" + result;
+        }
+        if (N > 0)
+        {
+            if (O < 10)
+                result = N + "00" + result;
+            else if (O < 100)
+                result = N + "0" + result;
+            else
+                result = N + "" + result;
+        }
+        if (D > 0)
+        {
+            if (N < 10)
+                result = D + "00" + result;
+            else if (N < 100)
+                result = D + "0" + result;
+            else
+                result = D + "" + result;
+        }
+        full_score_text.text = result;
     }
     private void SaveGame()
     {
@@ -383,6 +515,8 @@ public class GameManager : MonoBehaviour
             n = N,
             d = D
         };
+        gameDB.earning_score = earning_current_score;
+        gameDB.spending_score = spending_score;
 
         EasyJson.SaveJsonToFile(gameDB);
 
@@ -390,7 +524,7 @@ public class GameManager : MonoBehaviour
     }
     private void SaveToFirebase()
     {
-        if(ReferenceKeeper.Instance.FirebaseService)
+        if (ReferenceKeeper.Instance.FirebaseService)
             ReferenceKeeper.Instance.FirebaseService.SetGameDBAsync(gameDB);
     }
     private void LoadGame()
@@ -411,6 +545,8 @@ public class GameManager : MonoBehaviour
             O = score.o;
             N = score.n;
             D = score.d;
+            earning_current_score = gameDB.earning_score;
+            spending_score = gameDB.spending_score;
 
             score_text.text = ScoreCalculate(0);
         }
@@ -431,4 +567,13 @@ public class GameManager : MonoBehaviour
         ReferenceKeeper.Instance.ClickButton.color = c;
         ReferenceKeeper.Instance.BottomCollider.SetActive(true);
     }
+
+    /*Ekstra score basamagi eklenmek istenirse degisecek olan yerler:
+     * ScoreCalculate()
+     * RemoveScore()
+     * HaveScore()
+     * WriteFullScore()
+     * SaveGame()
+     * LoadGame()
+    */
 }

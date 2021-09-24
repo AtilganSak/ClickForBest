@@ -11,14 +11,14 @@ public class Store : MonoBehaviour
     [SerializeField] PauseMenu pause_menu;
     [SerializeField] MessagePanel message_panel;
     [SerializeField] MessagePanel noads_message_panel;
-    [SerializeField] MessagePanel noscore_message_panel;
+    //[SerializeField] MessagePanel noscore_message_panel;
     [SerializeField] RewardItem reward_item_500;
     [SerializeField] RewardItem reward_item_1000;
     [SerializeField] RewardItem reward_item_1500;
     [SerializeField] RewardItem reward_item_2000;
     [SerializeField] TMPro.TMP_Text score_text;
 
-    public System.Action<byte> onPurchase;
+    //public System.Action<byte> onPurchase;
     public System.Action<int> onTakenReward;
 
     private StoreItem selected_item;
@@ -35,6 +35,7 @@ public class Store : MonoBehaviour
     {
         public int price_underK;
         public int price_k;
+        public int price_m;
         public Sprite icon;
         public Sprite background;
         public GameObject prefab;
@@ -48,10 +49,10 @@ public class Store : MonoBehaviour
         {
             message_panel.Subscribe("Window", "Are you sure?", "Yes", "No", MessagePanelResult);
         }
-        if (noscore_message_panel)
-        {
-            noscore_message_panel.Subscribe("Window", "You don't have enough score!", "+1K", "OK", NoScoreMessagePanelResult);
-        }
+        //if (noscore_message_panel)
+        //{
+        //    noscore_message_panel.Subscribe("Window", "You don't have enough score!", "+1K", "OK", NoScoreMessagePanelResult);
+        //}
         if (noads_message_panel)
         {
             noads_message_panel.Subscribe("Window", "No ads available!", "OK", "OK", null);
@@ -66,6 +67,7 @@ public class Store : MonoBehaviour
         if (reward_item_2000)
             reward_item_2000.onClick += Pressed_Reward_Item;
 
+        CheckAvailableStoreItems();
         GetCurrentScore();
         Load();
     }
@@ -74,6 +76,7 @@ public class Store : MonoBehaviour
     {
         if (!isopen)
         {
+            CheckAvailableStoreItems();
             isopen = true;
             domove.DO();
         }
@@ -88,26 +91,26 @@ public class Store : MonoBehaviour
             }
         }
     }
-    public void Pressed_Item_Button(byte _id, bool _enoughScore)
-    {
-        if (_enoughScore)
-        {
-            will_buy_item = _id;
+    //public void Pressed_Item_Button(byte _id, bool _enoughScore)
+    //{
+    //    if (_enoughScore)
+    //    {
+    //        will_buy_item = _id;
 
-            if (message_panel)
-            {
-                message_panel.Change(_message: "Are you sure you want to buy?");
-                message_panel.Show();
-            }
-        }
-        else
-        {
-            if (noscore_message_panel)
-            {
-                noscore_message_panel.Show();
-            }
-        }
-    }
+    //        if (message_panel)
+    //        {
+    //            message_panel.Change(_message: "Are you sure you want to buy?");
+    //            message_panel.Show();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (noscore_message_panel)
+    //        {
+    //            noscore_message_panel.Show();
+    //        }
+    //    }
+    //}
     public void Pressed_Item_Select(StoreItem _item)
     {
         if (selected_item)
@@ -136,16 +139,16 @@ public class Store : MonoBehaviour
                 };
                 ReferenceKeeper.Instance.RewardAdsController.ShowAd();
             }
-            else
-            {
-                if (onPurchase != null)
-                {
-                    onPurchase.Invoke(will_buy_item);
+            //else
+            //{
+            //    if (onPurchase != null)
+            //    {
+            //        onPurchase.Invoke(will_buy_item);
 
-                    PurchasedStoreItemDB(will_buy_item);
-                }
-            }
-            GetCurrentScore();
+            //        PurchasedStoreItemDB(will_buy_item);
+            //    }
+            //}
+            //GetCurrentScore();
         }
         else
         {
@@ -154,27 +157,27 @@ public class Store : MonoBehaviour
             pressed_reward = false;
         }
     }
-    private void NoScoreMessagePanelResult(bool _result)
-    {
-        if (_result)
-        {
-            if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
-            {
-                ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
-                {
-                    ReferenceKeeper.Instance.GameManager.AddScore(will_taken_reward);
-                };
-                ReferenceKeeper.Instance.RewardAdsController.ShowAd();
-            }
-            else
-            {
-                if (noads_message_panel)
-                {
-                    noads_message_panel.Show();
-                }
-            }
-        }
-    }
+    //private void NoScoreMessagePanelResult(bool _result)
+    //{
+    //    if (_result)
+    //    {
+    //        if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
+    //        {
+    //            ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
+    //            {
+    //                ReferenceKeeper.Instance.GameManager.AddScore(will_taken_reward);
+    //            };
+    //            ReferenceKeeper.Instance.RewardAdsController.ShowAd();
+    //        }
+    //        else
+    //        {
+    //            if (noads_message_panel)
+    //            {
+    //                noads_message_panel.Show();
+    //            }
+    //        }
+    //    }
+    //}
     private void Pressed_Reward_Item(int _itemValue)
     {
         pressed_reward = true;
@@ -196,45 +199,63 @@ public class Store : MonoBehaviour
             }
         }
     }
+    private void CheckAvailableStoreItems()
+    {
+        StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+        if (items != null)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K))
+                {
+                    items[i].Activate();
+                }
+            }
+        }
+    }
     private void Load()
     {
+        StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+        items[0].Activate();
         if (ReferenceKeeper.Instance.GameManager.gameDB != null)
         {
-            StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
             if (items != null)
             {
-                items[0].Purchased(true);
-                int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems;
+                int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.activeStoreItems;
                 if (ids != null && ids.Length > 0)
                 {
                     for (int i = 0; i < ids.Length; i++)
                     {
-                        if(!items[ids[i]].isPurchased)
-                            items[ids[i]].Purchased(true);
+                        if(!items[ids[i]].isActive)
+                            items[ids[i]].Activate();
                     }
                 }
                 items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
+                if (items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab != null)
+                    ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab);
+                else
+                    ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_sprite);
                 selected_item = items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item];
             }
         }
     }
-    public void PurchasedStoreItemDB(int _id)
-    {
-        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
-        {
-            if (ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems == null)
-                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = new int[1] { _id };
-            else
-            {
-                if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
-                {
-                    List<int> list = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.ToList();
-                    list.Add(_id);
-                    ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = list.ToArray();
-                }
-            }
-        }
-    }
+    //public void PurchasedStoreItemDB(int _id)
+    //{
+    //    if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+    //    {
+    //        if (ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems == null)
+    //            ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = new int[1] { _id };
+    //        else
+    //        {
+    //            if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
+    //            {
+    //                List<int> list = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.ToList();
+    //                list.Add(_id);
+    //                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = list.ToArray();
+    //            }
+    //        }
+    //    }
+    //}
     public void SelectStoreItemDB(int _id)
     {
         if (ReferenceKeeper.Instance.GameManager.gameDB != null)
@@ -246,6 +267,8 @@ public class Store : MonoBehaviour
     {
         score_text.text = "Score: " + ReferenceKeeper.Instance.GameManager.score_text.text;
     }
+
+    #region Editor
 #if UNITY_EDITOR
     private byte _id;
     [EasyButtons.Button]
@@ -270,7 +293,7 @@ public class Store : MonoBehaviour
             for (int i = 0; i < _items.Length; i++)
             {
                 StoreItem item_instance = (StoreItem)PrefabUtility.InstantiatePrefab(item_prefab, content);
-                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].icon, _items[i].background, _items[i].prefab, _bgColor);
+                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].price_m, _items[i].icon, _items[i].background, _items[i].prefab, _bgColor);
                 _id++;
             }
         }
@@ -339,4 +362,5 @@ public class Store : MonoBehaviour
         }
     }
 #endif
+    #endregion
 }

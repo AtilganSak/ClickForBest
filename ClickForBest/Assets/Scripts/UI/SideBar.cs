@@ -32,6 +32,9 @@ public class SideBar : MonoBehaviour
     }
     private void ShowPower()
     {
+#if UNITY_EDITOR
+        selected_power.Appear();
+#else
         if (ReferenceKeeper.Instance.GooglePlayServices.internet)
         {
             if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
@@ -41,6 +44,7 @@ public class SideBar : MonoBehaviour
         {
             StartCoroutine(TryShow());
         }
+#endif
     }
     private IEnumerator TryShow()
     {

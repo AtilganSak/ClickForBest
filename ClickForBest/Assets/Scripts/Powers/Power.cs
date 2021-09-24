@@ -33,7 +33,7 @@ public class Power : MonoBehaviour
         {
             button.onClick.AddListener(ClickedPower);
         }
-
+#if UNITY_ANDROID && !UNITY_EDITOR
         ReferenceKeeper.Instance.AdsMessagePanel.Subscribe("Window", "Do you want to watch ads?", "Yes", "No",
             (state) => {
                 if (state)
@@ -41,14 +41,19 @@ public class Power : MonoBehaviour
                     ReferenceKeeper.Instance.RewardAdsController.ShowAd();
                 }
             });
+#endif
     }
     internal virtual void ClickedPower()
     {
+#if UNITY_EDITOR
+        Use();
+#else
         ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
         {
             Use();
         };
         ReferenceKeeper.Instance.AdsMessagePanel.Show();
+#endif
     }
     internal virtual void Use()
     {
