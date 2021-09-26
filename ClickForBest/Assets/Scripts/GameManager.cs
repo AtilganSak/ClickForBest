@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
 
     private int boost = 1;
     private int total_coin_count;
+    private int earning_current_score;
 
     private DOScale handle_doscale;
+
 
     int underK;
     int K;
@@ -65,12 +67,10 @@ public class GameManager : MonoBehaviour
     public void ReportScore()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        if (earning_current_score > spending_score)
+        if (earning_current_score > 0)
         {
-            Debug.LogFormat("Reported " + (earning_current_score - spending_score) + " Score");
-            ReferenceKeeper.Instance.GooglePlayServices.EarnScore(earning_current_score - spending_score);
+            ReferenceKeeper.Instance.GooglePlayServices.EarnScore(earning_current_score);
             earning_current_score = 0;
-            spending_score = 0;
         }
 #endif
     }
@@ -111,12 +111,14 @@ public class GameManager : MonoBehaviour
             ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
 
         score_text.text = ScoreCalculate(boost);
+        earning_current_score += boost;
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
     {
+        earning_current_score += _value;
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);

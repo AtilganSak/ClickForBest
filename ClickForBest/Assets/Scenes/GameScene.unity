@@ -1486,22 +1486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6030c99aaea52c14fa466bf88edd1172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items2:
-  - icon: {fileID: 21300000, guid: 55c7cae2e0ee87a4eab584fc40add03d, type: 3}
-    score_k: 1
-    score_m: 0
-    score_b: 0
-    earned: 0
-  - icon: {fileID: 21300000, guid: b28cec5020b8359428d585cbc3e8b7aa, type: 3}
-    score_k: 0
-    score_m: 1
-    score_b: 0
-    earned: 0
-  - icon: {fileID: 21300000, guid: db8497992ee4e4e9ebb3c1dbdf4fbe6a, type: 3}
-    score_k: 0
-    score_m: 0
-    score_b: 1
-    earned: 0
   items:
   - icon: {fileID: 21300000, guid: 55c7cae2e0ee87a4eab584fc40add03d, type: 3}
     score_k: 5
