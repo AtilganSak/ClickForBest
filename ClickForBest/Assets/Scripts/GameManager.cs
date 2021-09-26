@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public TMP_Text score_text;
     [SerializeField] TMP_Text full_score_text;
+    public bool save = true;
     public GameDB gameDB { get; private set; }
 
     private int boost = 1;
@@ -114,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         score_text.text = ScoreCalculate(boost);
         WriteFullScore();
-
+        ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
         earning_current_score += boost;
     }
     [EasyButtons.Button]
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
-
+        ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
         earning_current_score += _value;
     }
     public void SetBoost(int _value)
@@ -498,6 +499,8 @@ public class GameManager : MonoBehaviour
     }
     private void SaveGame()
     {
+        if (!save) return;
+
         if (gameDB == null)
             gameDB = new GameDB();
         gameDB.score = new Score
@@ -549,6 +552,7 @@ public class GameManager : MonoBehaviour
             spending_score = gameDB.spending_score;
 
             score_text.text = ScoreCalculate(0);
+            ReferenceKeeper.Instance.RosetteController.LoadRosettes(K, M, B);
         }
     }
     private void HandleActivated()

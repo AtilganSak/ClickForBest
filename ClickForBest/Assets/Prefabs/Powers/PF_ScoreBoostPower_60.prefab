@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 8329008694960337097}
   - component: {fileID: 8329008694960337102}
   m_Layer: 5
-  m_Name: ScoreBoostPower_60
+  m_Name: PF_ScoreBoostPower_60
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

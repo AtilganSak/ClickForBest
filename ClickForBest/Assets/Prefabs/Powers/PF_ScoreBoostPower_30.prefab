@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 8329008694960337097}
   - component: {fileID: 8329008694960337102}
   m_Layer: 5
-  m_Name: ScoreBoostPower_15
+  m_Name: PF_ScoreBoostPower_30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb9180f2a28b1945a9f1b601a949a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 15
+  time: 30
   time_text: {fileID: 3975916740744195830}
   boost_text: {fileID: 6202765924610427405}
   boost_options: 020000000400000006000000080000000a000000

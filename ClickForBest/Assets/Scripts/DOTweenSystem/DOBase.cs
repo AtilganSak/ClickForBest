@@ -99,6 +99,7 @@ public class DOBase : MonoBehaviour
     #region Encapsulate
     public void SetDuration(float value) => duration = value;
     public float GetDureation() => duration;
+    public void SetEase(int index) => ease = (Ease)index;
     #endregion
 
     public bool IsTweening()
