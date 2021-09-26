@@ -78,7 +78,7 @@ public class GameRouter : MonoBehaviour
             {
                 k = 6,
             },
-            activeStoreItems = new int[2] { 2, 3 },
+            //activeStoreItems = new int[2] { 2, 3 },
         };
         LoadGameDB(cloudDB);
     }
@@ -97,10 +97,10 @@ public class GameRouter : MonoBehaviour
                 info_part2.alpha = 1;
                 loading_part.alpha = 0;
                 cloud_score_text2.text = cloud_db.score.Calculate(0);
-                if (cloud_db.activeStoreItems != null)
-                    cloud_purchased_text2.text = cloud_db.activeStoreItems.Length.ToString();
-                else
-                    cloud_purchased_text2.text = "0";
+                //if (cloud_db.activeStoreItems != null)
+                //    cloud_purchased_text2.text = cloud_db.activeStoreItems.Length.ToString();
+                //else
+                //    cloud_purchased_text2.text = "0";
             }
             else
             {
@@ -143,31 +143,31 @@ public class GameRouter : MonoBehaviour
                         Debug.LogFormat("LocalDB not diff");
                     }
                 }
-                cloud_purchased_text.text = "0";
-                local_purchased_text.text = "0";
-                if (cloud_db.activeStoreItems != null && local_db.activeStoreItems != null)
-                {
-                    if (cloud_db.activeStoreItems.Length > local_db.activeStoreItems.Length)
-                    {
-                        diff = true;
-                        cloud_purchased_text.color = Color.green;
-                        local_purchased_text.color = Color.red;
-                    }
-                    else if (cloud_db.activeStoreItems.Length < local_db.activeStoreItems.Length)
-                    {
-                        diff = true;
-                        cloud_purchased_text.color = Color.red;
-                        local_purchased_text.color = Color.green;
-                    }
-                    if (diff)
-                    {
-                        loading_part.alpha = 0;
-                        info_part.alpha = 1;
+                //cloud_purchased_text.text = "0";
+                //local_purchased_text.text = "0";
+                //if (cloud_db.activeStoreItems != null && local_db.activeStoreItems != null)
+                //{
+                //    if (cloud_db.activeStoreItems.Length > local_db.activeStoreItems.Length)
+                //    {
+                //        diff = true;
+                //        cloud_purchased_text.color = Color.green;
+                //        local_purchased_text.color = Color.red;
+                //    }
+                //    else if (cloud_db.activeStoreItems.Length < local_db.activeStoreItems.Length)
+                //    {
+                //        diff = true;
+                //        cloud_purchased_text.color = Color.red;
+                //        local_purchased_text.color = Color.green;
+                //    }
+                //    if (diff)
+                //    {
+                //        loading_part.alpha = 0;
+                //        info_part.alpha = 1;
 
-                        cloud_purchased_text.text = cloud_db.activeStoreItems.Length.ToString();
-                        local_purchased_text.text = local_db.activeStoreItems.Length.ToString();
-                    }
-                }
+                //        cloud_purchased_text.text = cloud_db.activeStoreItems.Length.ToString();
+                //        local_purchased_text.text = local_db.activeStoreItems.Length.ToString();
+                //    }
+                //}
 
                 if (!diff)
                 {

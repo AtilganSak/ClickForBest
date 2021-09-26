@@ -67,9 +67,8 @@ public class Store : MonoBehaviour
         if (reward_item_2000)
             reward_item_2000.onClick += Pressed_Reward_Item;
 
-        CheckAvailableStoreItems();
         GetCurrentScore();
-        Load();
+        //Load();
     }
 
     public void OpenCloseMenu()
@@ -213,32 +212,32 @@ public class Store : MonoBehaviour
             }
         }
     }
-    private void Load()
-    {
-        StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
-        items[0].Activate();
-        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
-        {
-            if (items != null)
-            {
-                int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.activeStoreItems;
-                if (ids != null && ids.Length > 0)
-                {
-                    for (int i = 0; i < ids.Length; i++)
-                    {
-                        if(!items[ids[i]].isActive)
-                            items[ids[i]].Activate();
-                    }
-                }
-                items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
-                if (items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab != null)
-                    ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab);
-                else
-                    ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_sprite);
-                selected_item = items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item];
-            }
-        }
-    }
+    //private void Load()
+    //{
+    //    StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+    //    items[0].Activate();
+    //    if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+    //    {
+    //        if (items != null)
+    //        {
+    //            int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.activeStoreItems;
+    //            if (ids != null && ids.Length > 0)
+    //            {
+    //                for (int i = 0; i < ids.Length; i++)
+    //                {
+    //                    if(!items[ids[i]].isActive)
+    //                        items[ids[i]].Activate();
+    //                }
+    //            }
+    //            items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
+    //            if (items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab != null)
+    //                ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab);
+    //            else
+    //                ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_sprite);
+    //            selected_item = items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item];
+    //        }
+    //    }
+    //}
     //public void PurchasedStoreItemDB(int _id)
     //{
     //    if (ReferenceKeeper.Instance.GameManager.gameDB != null)

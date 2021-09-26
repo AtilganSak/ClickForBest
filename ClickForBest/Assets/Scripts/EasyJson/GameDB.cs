@@ -4,10 +4,8 @@ using System.Collections.Generic;
 public class GameDB
 {
     public Score score;
-    public int[] activeStoreItems;
+    //public int[] activeStoreItems;
     public int selected_store_item;
-    public int earning_score;
-    public int spending_score;
 }
 [System.Serializable]
 public class Score

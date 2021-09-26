@@ -14,9 +14,6 @@ public class GameManager : MonoBehaviour
 
     private DOScale handle_doscale;
 
-    private int earning_current_score;
-    private int spending_score;
-
     int underK;
     int K;
     int M;
@@ -116,7 +113,6 @@ public class GameManager : MonoBehaviour
         score_text.text = ScoreCalculate(boost);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
-        earning_current_score += boost;
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
@@ -124,7 +120,6 @@ public class GameManager : MonoBehaviour
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
-        earning_current_score += _value;
     }
     public void SetBoost(int _value)
     {
@@ -518,8 +513,6 @@ public class GameManager : MonoBehaviour
             n = N,
             d = D
         };
-        gameDB.earning_score = earning_current_score;
-        gameDB.spending_score = spending_score;
 
         EasyJson.SaveJsonToFile(gameDB);
 
@@ -548,8 +541,6 @@ public class GameManager : MonoBehaviour
             O = score.o;
             N = score.n;
             D = score.d;
-            earning_current_score = gameDB.earning_score;
-            spending_score = gameDB.spending_score;
 
             score_text.text = ScoreCalculate(0);
             ReferenceKeeper.Instance.RosetteController.LoadRosettes(K, M, B);
