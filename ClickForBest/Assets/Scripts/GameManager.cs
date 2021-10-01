@@ -110,10 +110,7 @@ public class GameManager : MonoBehaviour
         if (boost > 1)
             ReferenceKeeper.Instance.BoostTextControl.Show(boost + "x");
 
-        score_text.text = ScoreCalculate(boost);
-        earning_current_score += boost;
-        WriteFullScore();
-        ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
+        AddScore(boost);
     }
     [EasyButtons.Button]
     public void AddScore(int _value)
@@ -229,21 +226,28 @@ public class GameManager : MonoBehaviour
     //    }
     //    score_text.text = ScoreCalculate(0);
     //}
-    public bool HaveScore(int _underK, int _k)
+    public bool HaveScore(int _underK, int _k, int _m)
     {
-        if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
+        if (B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             return true;
         }
-        else if (K > _k)
+        else if(M > _m)
         {
             return true;
         }
-        else if (K == _k)
+        else if(M == _m)
         {
-            if (underK >= _underK)
+            if (K > _k)
             {
                 return true;
+            }
+            else if (K == _k)
+            {
+                if (underK >= _underK)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -393,7 +397,7 @@ public class GameManager : MonoBehaviour
         string result = "0";
         if (underK > 0)
             result = underK.ToString();
-        if (K > 0)
+        if (K > 0 || M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (underK < 10)
                 result = K + "00" + underK;
@@ -402,7 +406,7 @@ public class GameManager : MonoBehaviour
             else
                 result = K + "" + underK;
         }
-        if (M > 0)
+        if (M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (K < 10)
                 result = M + "00" + result;
@@ -411,7 +415,7 @@ public class GameManager : MonoBehaviour
             else
                 result = M + "" + result;
         }
-        if (B > 0)
+        if (B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (M < 10)
                 result = B + "00" + result;
@@ -420,7 +424,7 @@ public class GameManager : MonoBehaviour
             else
                 result = B + "" + result;
         }
-        if (T > 0)
+        if (T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (B < 10)
                 result = T + "00" + result;
@@ -429,7 +433,7 @@ public class GameManager : MonoBehaviour
             else
                 result = T + "" + result;
         }
-        if (Q > 0)
+        if (Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (T < 10)
                 result = Q + "00" + result;
@@ -438,7 +442,7 @@ public class GameManager : MonoBehaviour
             else
                 result = Q + "" + result;
         }
-        if (QT > 0)
+        if (QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (Q < 10)
                 result = QT + "00" + result;
@@ -447,7 +451,7 @@ public class GameManager : MonoBehaviour
             else
                 result = QT + "" + result;
         }
-        if (S > 0)
+        if (S > 0 || SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (QT < 10)
                 result = S + "00" + result;
@@ -456,7 +460,7 @@ public class GameManager : MonoBehaviour
             else
                 result = S + "" + result;
         }
-        if (SP > 0)
+        if (SP > 0 || O > 0 || N > 0 || D > 0)
         {
             if (S < 10)
                 result = SP + "00" + result;
@@ -465,7 +469,7 @@ public class GameManager : MonoBehaviour
             else
                 result = SP + "" + result;
         }
-        if (O > 0)
+        if (O > 0 || N > 0 || D > 0)
         {
             if (SP < 10)
                 result = O + "00" + result;
@@ -474,7 +478,7 @@ public class GameManager : MonoBehaviour
             else
                 result = O + "" + result;
         }
-        if (N > 0)
+        if (N > 0 || D > 0)
         {
             if (O < 10)
                 result = N + "00" + result;

@@ -205,7 +205,7 @@ public class Store : MonoBehaviour
         {
             for (int i = 0; i < items.Length; i++)
             {
-                if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K))
+                if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K, items[i].p_M))
                 {
                     items[i].Activate();
                 }

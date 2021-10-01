@@ -173,7 +173,7 @@ public class GooglePlayServices : MonoBehaviour
         if (!internet || !LoginState) return;
 
 #if UNITY_ANDROID
-        Social.Active.ReportScore(score, GPGSIds.leaderboard_score_table, state => { });
+        Social.Active.ReportScore(score, GPGSIds.leaderboard_leaderboard, state => { });
 #endif
     }
     public void EarnScore(string id, int score)
