@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class UISound : MonoBehaviour
 {
+    public AudioMixer audio_mixer;
+
     public AudioClip button_sound;
     public AudioClip slide_sound;
     public AudioClip select_sound;
@@ -14,7 +18,16 @@ public class UISound : MonoBehaviour
     public AudioClip popup_sound;
     public AudioClip fail_sound;
 
+    public Image sfx_image;
+    public Sprite sfx_on;
+    public Sprite sfx_off;
+
     private AudioSource source;
+
+    private bool sfx;
+
+    private AudioMixerSnapshot sfx_on_snapshot;
+    private AudioMixerSnapshot sfx_off_snapshot;
 
     public enum Sound
     {
@@ -31,7 +44,23 @@ public class UISound : MonoBehaviour
 
     private void OnEnable()
     {
+        sfx = true;
+
         source = GetComponent<AudioSource>();
+
+        sfx_on_snapshot = audio_mixer.FindSnapshot("SFX_ON");
+        sfx_off_snapshot = audio_mixer.FindSnapshot("SFX_OFF");
+    }
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey(PlayerKeys.SFX))
+        {
+            sfx = PlayerPrefs.GetInt(PlayerKeys.SFX) == 0 ? false : true;
+        }
+        if (sfx)
+            _sfxon();
+        else
+            _sfxoff();
     }
     public void PlaySound(Sound _sound, bool _play = false)
     {
@@ -173,6 +202,48 @@ public class UISound : MonoBehaviour
         {
             if(source.isPlaying)
                 source.Stop();
+        }
+    }
+    public void SFXOnOff()
+    {
+        if (sfx)
+        {
+            _sfxoff();
+        }
+        else
+        {
+            _sfxon();
+        }
+        PlayerPrefs.SetInt(PlayerKeys.SFX, sfx == true ? 1 : 0);
+    }
+    private void _sfxon()
+    {
+        sfx = true;
+        if (sfx_image)
+        {
+            if (sfx_on)
+            {
+                sfx_image.sprite = sfx_on;
+            }
+        }
+        if (sfx_on_snapshot != null)
+        {
+            sfx_on_snapshot.TransitionTo(0);
+        }
+    }
+    private void _sfxoff()
+    {
+        sfx = false;
+        if (sfx_image)
+        {
+            if (sfx_off)
+            {
+                sfx_image.sprite = sfx_off;
+            }
+        }
+        if (sfx_off_snapshot != null)
+        {
+            sfx_off_snapshot.TransitionTo(0);
         }
     }
 }

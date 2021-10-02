@@ -48,7 +48,8 @@ public class PauseMenu : MonoBehaviour
     public void Pressed_ScoreBoard_Button()
     {
         ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
-        ReferenceKeeper.Instance.GooglePlayServices.ShowLeaderboard();
+        if(ReferenceKeeper.Instance.GooglePlayServices)
+            ReferenceKeeper.Instance.GooglePlayServices.ShowLeaderboard();
     }
     public void Pressed_Resume_Button()
     {
@@ -74,6 +75,11 @@ public class PauseMenu : MonoBehaviour
 
             store_menu.OpenCloseMenu();
         }
+    }
+    public void Pressed_SFX_Button()
+    {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
+        ReferenceKeeper.Instance.UISound.SFXOnOff();
     }
 
     private void PreProcessBeforeOpen()

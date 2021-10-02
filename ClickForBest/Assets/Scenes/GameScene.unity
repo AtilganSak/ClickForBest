@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 57801951}
   - component: {fileID: 57801950}
   m_Layer: 5
-  m_Name: SettingsButton
+  m_Name: SFXButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,7 +636,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1031276106}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Pressed_ScoreBoard_Button
+        m_MethodName: Pressed_SFX_Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5250,7 +5250,7 @@ AudioSource:
   m_GameObject: {fileID: 412374504}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 041668cc2c482d342851a6de5c466f7c, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -17711,7 +17711,7 @@ RectTransform:
   m_GameObject: {fileID: 1642257937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75620544, y: 0.75620544, z: 0.75620544}
+  m_LocalScale: {x: 0.89232236, y: 0.89232236, z: 0.89232236}
   m_Children: []
   m_Father: {fileID: 57801949}
   m_RootOrder: 3
@@ -17719,7 +17719,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 79}
+  m_SizeDelta: {x: 67, y: 61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1642257939
 MonoBehaviour:
@@ -17741,7 +17741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 12d31c2dbfd12b34da5e8a43c5595b8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6915d1e706c97d6449a7735adfe4415d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19124,7 +19124,7 @@ AudioSource:
   m_GameObject: {fileID: 1742860533}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 041668cc2c482d342851a6de5c466f7c, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -19223,6 +19223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec5836902fa56c45a9d15814b877f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio_mixer: {fileID: 24100000, guid: 041668cc2c482d342851a6de5c466f7c, type: 2}
   button_sound: {fileID: 8300000, guid: 9df4c2e414fd7d847978300d2a2b0213, type: 3}
   slide_sound: {fileID: 8300000, guid: 02cda2d8f16350147bcd6c97d4c0382d, type: 3}
   select_sound: {fileID: 8300000, guid: 1d7bbe96e4e5a4d1d813600b3f24630b, type: 3}
@@ -19232,6 +19233,9 @@ MonoBehaviour:
   rosette_won_sound: {fileID: 8300000, guid: 0505e5fda330a18498c4ae20b4424b71, type: 3}
   popup_sound: {fileID: 8300000, guid: 09bc124b561827447b704fcebeea1df7, type: 3}
   fail_sound: {fileID: 8300000, guid: f3f5c42d917c62b408706ae47fa77c7b, type: 3}
+  sfx_image: {fileID: 1642257939}
+  sfx_on: {fileID: 21300000, guid: 6915d1e706c97d6449a7735adfe4415d, type: 3}
+  sfx_off: {fileID: 21300000, guid: db677b467e59fe2438029d5f57438f4f, type: 3}
 --- !u!1001 &1755583544
 PrefabInstance:
   m_ObjectHideFlags: 0
