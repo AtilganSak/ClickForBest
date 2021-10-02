@@ -45,6 +45,7 @@ public class Power : MonoBehaviour
     }
     internal virtual void ClickedPower()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
 #if UNITY_EDITOR
         Use();
 #else
@@ -59,11 +60,14 @@ public class Power : MonoBehaviour
     {
         Debug.Log("Used Power");
 
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Time, true);
+
         used = true;
         Hide();
     }
     internal void TimeOver()
     {
+        ReferenceKeeper.Instance.UISound.StopSound();
         if (timeIsOver != null)
         {
             timeIsOver.Invoke();

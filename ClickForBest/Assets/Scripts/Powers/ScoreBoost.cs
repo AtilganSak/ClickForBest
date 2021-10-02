@@ -29,6 +29,7 @@ public class ScoreBoost : Power
     }
     private void DeactivePower()
     {
+        TimeOver();
         ReferenceKeeper.Instance.GameManager.SetBoost(1);
     }
 }

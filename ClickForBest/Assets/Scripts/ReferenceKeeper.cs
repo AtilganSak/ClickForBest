@@ -35,6 +35,8 @@ public class ReferenceKeeper : MonoBehaviour
     public MessagePanel AdsMessagePanel;
     public CoinSpawner CoinSpawner;
     public RosetteController RosetteController;
+    public RosetteSpawner RosetteSpawner;
+    public UISound UISound;
 
     private void OnEnable()
     {

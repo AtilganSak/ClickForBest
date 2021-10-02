@@ -75,7 +75,6 @@ public class MessagePanel : MonoBehaviour
         if (!dont_show_again)
         {
             dimed.enabled = true;
-
             doScale.DO();
         }
         else
@@ -86,12 +85,13 @@ public class MessagePanel : MonoBehaviour
     }
     public void Hide()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.PopUp);
         dimed.enabled = false;
-
         doScale.DORevert();
     }
     private void Pressed_Yes()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
         if (messageCallback != null)
         {
             messageCallback.Invoke(true);
@@ -100,6 +100,7 @@ public class MessagePanel : MonoBehaviour
     }
     private void Pressed_No()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
         if (messageCallback != null)
         {
             messageCallback.Invoke(false);
@@ -108,6 +109,7 @@ public class MessagePanel : MonoBehaviour
     }
     private void ChangedDontShow(bool _value)
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
         dont_show_again = _value;
         PlayerPrefs.SetInt(player_key, _value ? 1 : 0);
     }

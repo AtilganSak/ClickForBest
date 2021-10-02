@@ -75,6 +75,8 @@ public class Store : MonoBehaviour
     {
         if (!isopen)
         {
+            GetCurrentScore();
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Slide);
             CheckAvailableStoreItems();
             isopen = true;
             domove.DO();
@@ -181,11 +183,11 @@ public class Store : MonoBehaviour
     {
         pressed_reward = true;
         will_taken_reward = _itemValue;
-
         if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
         {
             if (message_panel)
             {
+                ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.PopUp);
                 message_panel.Change(_message: "Do you want to watch ads?");
                 message_panel.Show();
             }
@@ -194,6 +196,7 @@ public class Store : MonoBehaviour
         {
             if (noads_message_panel)
             {
+                ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Fail);
                 noads_message_panel.Show();
             }
         }

@@ -33,6 +33,7 @@ public class Handle : MonoBehaviour
     {
         if (!isOn)
         {
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.SwitchOpen);
             doscale.ResetDO();
             isOn = true;
             text.text = "ON";
@@ -41,6 +42,7 @@ public class Handle : MonoBehaviour
         }
         else
         {
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.SwitchClose);
             isOn = false;
             text.text = "OFF";
             image.color = UtilitiesMethods.HexToColor("F34F41");

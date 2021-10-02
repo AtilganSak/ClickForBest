@@ -38,12 +38,16 @@ public class PauseMenu : MonoBehaviour
         {
             PreProcessBeforeOpen();
 
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Slide);
+
             active = true;
             doMove.DO();
         }
     }
     public void Pressed_ScoreBoard_Button()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
         ReferenceKeeper.Instance.GooglePlayServices.ShowLeaderboard();
     }
     public void Pressed_Resume_Button()
@@ -51,6 +55,9 @@ public class PauseMenu : MonoBehaviour
         if (active)
         {
             PreProcessBeforeClose();
+
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Slide);
 
             active = false;
             doMove.DORevert();
@@ -62,6 +69,8 @@ public class PauseMenu : MonoBehaviour
         {
             active = false;
             doMove.DORevert();
+
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
 
             store_menu.OpenCloseMenu();
         }

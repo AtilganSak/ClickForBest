@@ -29,12 +29,6 @@ public class RosetteController : MonoBehaviour
 
     [SerializeField] Item[] items;
 
-    private RosetteSpawner spawner;
-
-    private void OnEnable()
-    {
-        spawner = FindObjectOfType<RosetteSpawner>();
-    }
     public void CheckOut(int _k, int _m, int _b)
     {
         if (items != null)
@@ -45,7 +39,8 @@ public class RosetteController : MonoBehaviour
                 {
                     if (items[i].IsTrue(_k,_m,_b))
                     {
-                        spawner.GenerateRossette(items[i]);
+                        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.RosetteWon);
+                        ReferenceKeeper.Instance.RosetteSpawner.GenerateRossette(items[i]);
                     }
                 }
             }
@@ -61,7 +56,7 @@ public class RosetteController : MonoBehaviour
                 {
                     if (items[i].IsTrue(_k, _m, _b))
                     {
-                        spawner.LoadRosette(items[i]);
+                        ReferenceKeeper.Instance.RosetteSpawner.LoadRosette(items[i]);
                     }
                 }
             }
