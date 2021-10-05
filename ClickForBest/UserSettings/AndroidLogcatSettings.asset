@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "127.0.0.1:62001",
         "name": "com.SakGames.ClickForBest",
-        "processId": 3865,
+        "processId": 4956,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -66,6 +66,12 @@
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
             "processId": 3865,
+            "exited": false
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 4956,
             "exited": false
         },
         {

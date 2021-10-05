@@ -4,8 +4,13 @@ using System.Collections.Generic;
 public class GameDB
 {
     public Score score;
-    //public int[] activeStoreItems;
     public int selected_store_item;
+}
+[System.Serializable]
+public class ScoreBoardPlayer
+{
+    public string name;
+    public int score;
 }
 [System.Serializable]
 public class Score

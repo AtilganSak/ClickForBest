@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public Store store_menu;
+    public Scoreboard scoreboard;
 
     public Button pause_button;
     public Button scoreboard_button;
@@ -48,8 +49,13 @@ public class PauseMenu : MonoBehaviour
     public void Pressed_ScoreBoard_Button()
     {
         ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
-        if(ReferenceKeeper.Instance.GooglePlayServices)
-            ReferenceKeeper.Instance.GooglePlayServices.ShowLeaderboard();
+        if (scoreboard)
+        {
+            active = false;
+            doMove.DORevert();
+
+            scoreboard.OpenCloseMenu();
+        }
     }
     public void Pressed_Resume_Button()
     {
@@ -66,12 +72,12 @@ public class PauseMenu : MonoBehaviour
     }
     public void Pressed_Store_Button()
     {
+        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
         if (store_menu)
         {
             active = false;
             doMove.DORevert();
 
-            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
 
             store_menu.OpenCloseMenu();
         }

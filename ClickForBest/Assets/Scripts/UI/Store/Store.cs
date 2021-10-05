@@ -92,26 +92,6 @@ public class Store : MonoBehaviour
             }
         }
     }
-    //public void Pressed_Item_Button(byte _id, bool _enoughScore)
-    //{
-    //    if (_enoughScore)
-    //    {
-    //        will_buy_item = _id;
-
-    //        if (message_panel)
-    //        {
-    //            message_panel.Change(_message: "Are you sure you want to buy?");
-    //            message_panel.Show();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (noscore_message_panel)
-    //        {
-    //            noscore_message_panel.Show();
-    //        }
-    //    }
-    //}
     public void Pressed_Item_Select(StoreItem _item)
     {
         if (selected_item)
@@ -158,27 +138,6 @@ public class Store : MonoBehaviour
             pressed_reward = false;
         }
     }
-    //private void NoScoreMessagePanelResult(bool _result)
-    //{
-    //    if (_result)
-    //    {
-    //        if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
-    //        {
-    //            ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
-    //            {
-    //                ReferenceKeeper.Instance.GameManager.AddScore(will_taken_reward);
-    //            };
-    //            ReferenceKeeper.Instance.RewardAdsController.ShowAd();
-    //        }
-    //        else
-    //        {
-    //            if (noads_message_panel)
-    //            {
-    //                noads_message_panel.Show();
-    //            }
-    //        }
-    //    }
-    //}
     private void Pressed_Reward_Item(int _itemValue)
     {
         pressed_reward = true;
@@ -215,49 +174,6 @@ public class Store : MonoBehaviour
             }
         }
     }
-    //private void Load()
-    //{
-    //    StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
-    //    items[0].Activate();
-    //    if (ReferenceKeeper.Instance.GameManager.gameDB != null)
-    //    {
-    //        if (items != null)
-    //        {
-    //            int[] ids = ReferenceKeeper.Instance.GameManager.gameDB.activeStoreItems;
-    //            if (ids != null && ids.Length > 0)
-    //            {
-    //                for (int i = 0; i < ids.Length; i++)
-    //                {
-    //                    if(!items[ids[i]].isActive)
-    //                        items[ids[i]].Activate();
-    //                }
-    //            }
-    //            items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].Select();
-    //            if (items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab != null)
-    //                ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_prefab);
-    //            else
-    //                ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item].coin_sprite);
-    //            selected_item = items[ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item];
-    //        }
-    //    }
-    //}
-    //public void PurchasedStoreItemDB(int _id)
-    //{
-    //    if (ReferenceKeeper.Instance.GameManager.gameDB != null)
-    //    {
-    //        if (ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems == null)
-    //            ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = new int[1] { _id };
-    //        else
-    //        {
-    //            if (!ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.Contains(_id))
-    //            {
-    //                List<int> list = ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems.ToList();
-    //                list.Add(_id);
-    //                ReferenceKeeper.Instance.GameManager.gameDB.purchaseStoreItems = list.ToArray();
-    //            }
-    //        }
-    //    }
-    //}
     public void SelectStoreItemDB(int _id)
     {
         if (ReferenceKeeper.Instance.GameManager.gameDB != null)
