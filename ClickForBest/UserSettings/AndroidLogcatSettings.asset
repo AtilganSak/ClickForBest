@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "127.0.0.1:62001",
         "name": "com.SakGames.ClickForBest",
-        "processId": 4956,
+        "processId": 7710,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,67 +11,55 @@
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 3847,
+            "processId": 8699,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 5562,
+            "processId": 9226,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 5804,
+            "processId": 9680,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 6706,
+            "processId": 10046,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 6909,
+            "processId": 5180,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 7429,
+            "name": "com.vphone.launcher",
+            "processId": 4129,
             "exited": false
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 7832,
+            "processId": 5981,
             "exited": false
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 4357,
+            "processId": 6960,
             "exited": false
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 5563,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 3865,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 4956,
+            "processId": 7710,
             "exited": false
         },
         {

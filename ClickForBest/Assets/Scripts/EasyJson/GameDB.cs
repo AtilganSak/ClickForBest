@@ -11,6 +11,8 @@ public class ScoreBoardPlayer
 {
     public string name;
     public int score;
+    public int order;
+    public bool isMine;
 }
 [System.Serializable]
 public class Score

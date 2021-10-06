@@ -11,5 +11,14 @@ public class ListItem : MonoBehaviour
     {
         name_text.text = _player.name;
         score_text.text = _player.score.ToString();
+        if(_player.order == -1)
+            order_text.text = "5000+";
+        else
+            order_text.text = _player.order.ToString();
+
+        if (_player.isMine)
+        {
+            name_text.color = UtilitiesMethods.HexToColor("EF43D6");
+        }
     }
 }

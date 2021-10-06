@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text full_score_text;
     public bool save = true;
     public GameDB gameDB { get; private set; }
+    public ScoreBoardPlayer scoreBoardPlayer { get; private set; }
 
     private int boost = 1;
     private int total_coin_count;
@@ -67,7 +68,9 @@ public class GameManager : MonoBehaviour
     {
         if (earning_current_score > 0)
         {
-            SaveGame();
+            scoreBoardPlayer.score += earning_current_score;
+            SaveScoreToFirebase();
+            SaveScore();
             earning_current_score = 0;
         }
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -416,15 +419,33 @@ public class GameManager : MonoBehaviour
             n = N,
             d = D
         };
-
         EasyJson.SaveJsonToFile(gameDB);
 
+        SaveScore();
+
         SaveToFirebase();
+        SaveScoreToFirebase();
+    }
+    private void SaveScore()
+    {
+        if (scoreBoardPlayer == null)
+            scoreBoardPlayer = new ScoreBoardPlayer();
+        scoreBoardPlayer.score = 0;
+        EasyJson.SaveJsonToFile(scoreBoardPlayer);
     }
     private void SaveToFirebase()
     {
         if (ReferenceKeeper.Instance.FirebaseService)
+        {
             ReferenceKeeper.Instance.FirebaseService.SetGameDBAsync(gameDB);
+        }
+    }
+    private void SaveScoreToFirebase()
+    {
+        if (ReferenceKeeper.Instance.FirebaseService)
+        {
+            ReferenceKeeper.Instance.FirebaseService.SetScoreAsync(scoreBoardPlayer);
+        }
     }
     private void LoadGame()
     {
@@ -447,6 +468,11 @@ public class GameManager : MonoBehaviour
 
             score_text.text = ScoreCalculate(0);
             ReferenceKeeper.Instance.RosetteController.LoadRosettes(K, M, B);
+        }
+        scoreBoardPlayer = EasyJson.GetJsonToFile<ScoreBoardPlayer>();
+        if (scoreBoardPlayer == null)
+        {
+            scoreBoardPlayer = new ScoreBoardPlayer { score = 0 };
         }
     }
     private void HandleActivated()

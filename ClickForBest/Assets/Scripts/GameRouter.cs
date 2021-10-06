@@ -49,7 +49,6 @@ public class GameRouter : MonoBehaviour
     {
         if (_state)
         {
-            Debug.LogFormat("Getting GameDB");
             f_service.GetGameDBAsync((gameData => { LoadGameDB(gameData); }));
         }
         else
@@ -62,6 +61,14 @@ public class GameRouter : MonoBehaviour
         if (cloud_db != null)
         {
             EasyJson.SaveJsonToFile(cloud_db);
+            f_service.GetMyScoreAsync((data) => { LoadedScoreboardPlayer(data); });
+        }
+    }
+    private void LoadedScoreboardPlayer(ScoreBoardPlayer _player)
+    {
+        if (_player != null)
+        {
+            EasyJson.SaveJsonToFile(_player);
             SceneManager.LoadScene(1);
         }
     }
@@ -69,44 +76,21 @@ public class GameRouter : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    [EasyButtons.Button]
-    private void Test()
-    {
-        GameDB cloudDB = new GameDB
-        {
-            score = new Score
-            {
-                k = 6,
-            },
-            //activeStoreItems = new int[2] { 2, 3 },
-        };
-        LoadGameDB(cloudDB);
-    }
     private void LoadGameDB(GameDB _db)
     {
-        Debug.LogFormat("Loaded GameDB: " + _db);
         if (_db != null)
         {
             bool diff = false;
             cloud_db = _db;
             GameDB local_db = EasyJson.GetJsonToFile<GameDB>();
-            Debug.LogFormat("LocalDB: " + local_db);
             if (local_db == null)
             {
-                //Debug.LogFormat("LocalDB is null");
                 info_part2.alpha = 1;
                 loading_part.alpha = 0;
                 cloud_score_text2.text = cloud_db.score.Calculate(0);
-                //if (cloud_db.activeStoreItems != null)
-                //    cloud_purchased_text2.text = cloud_db.activeStoreItems.Length.ToString();
-                //else
-                //    cloud_purchased_text2.text = "0";
             }
             else
             {
-                Debug.LogFormat("LocalDB isnot null");
-                Debug.LogFormat("CloudDB: " + cloud_db);
-                Debug.LogFormat(@"CloudDB Score: " + "k:" + cloud_db.score.k + "\n" + "underK: " + cloud_db.score.underK);
                 Score grater_score = CompareScoreReturn(cloud_db.score, local_db.score);
                 if (grater_score != null)
                 {
@@ -123,7 +107,6 @@ public class GameRouter : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogFormat("CloudDB not diff");
                     grater_score = CompareScoreReturn(local_db.score, cloud_db.score);
                     if (grater_score != null)
                     {
@@ -138,37 +121,7 @@ public class GameRouter : MonoBehaviour
 
                         diff = true;
                     }
-                    else
-                    {
-                        Debug.LogFormat("LocalDB not diff");
-                    }
                 }
-                //cloud_purchased_text.text = "0";
-                //local_purchased_text.text = "0";
-                //if (cloud_db.activeStoreItems != null && local_db.activeStoreItems != null)
-                //{
-                //    if (cloud_db.activeStoreItems.Length > local_db.activeStoreItems.Length)
-                //    {
-                //        diff = true;
-                //        cloud_purchased_text.color = Color.green;
-                //        local_purchased_text.color = Color.red;
-                //    }
-                //    else if (cloud_db.activeStoreItems.Length < local_db.activeStoreItems.Length)
-                //    {
-                //        diff = true;
-                //        cloud_purchased_text.color = Color.red;
-                //        local_purchased_text.color = Color.green;
-                //    }
-                //    if (diff)
-                //    {
-                //        loading_part.alpha = 0;
-                //        info_part.alpha = 1;
-
-                //        cloud_purchased_text.text = cloud_db.activeStoreItems.Length.ToString();
-                //        local_purchased_text.text = local_db.activeStoreItems.Length.ToString();
-                //    }
-                //}
-
                 if (!diff)
                 {
                     SceneManager.LoadScene(1);

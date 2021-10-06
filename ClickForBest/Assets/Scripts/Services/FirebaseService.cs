@@ -26,25 +26,23 @@ public class FirebaseService : MonoBehaviour
         google_play_service.onLogin += OnLoginGoogle;
 
         auth = FirebaseAuth.DefaultInstance;
-        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        //{
-        //    dependencyStatus = task.Result;
-        //    if (dependencyStatus == DependencyStatus.Available)
-        //    {
-        //        InitializeFirebase();
-        //    }
-        //    else
-        //    {
-        //        Debug.LogError(
-        //          "Could not resolve all Firebase dependencies: " + dependencyStatus);
-        //    }
-        //});
-        InitializeFirebase();
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        {
+            dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                InitializeFirebase();
+            }
+            else
+            {
+                Debug.LogError(
+                  "Could not resolve all Firebase dependencies: " + dependencyStatus);
+            }
+        });
     }
     void InitializeFirebase()
     {
         firebase_database = FirebaseDatabase.GetInstance("https://click-for-best-32600433-default-rtdb.firebaseio.com/");
-        //firebase_database.SetPersistenceEnabled(true);
         FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
     }
     private void OnLoginGoogle(bool _state)
@@ -133,28 +131,30 @@ public class FirebaseService : MonoBehaviour
     }
     public void GetGameDBAsync(Action<GameDB> firebaseGetGameDBCallBack)
     {
-        if (firebase_user == null) return;
+        if (firebase_user == null || !google_play_service.internet) return;
 
         firebase_database.GetReference(PlayerKeys.FIREBASE_PLAYER).Child(firebase_user.UserId).Child(firebase_user.DisplayName).GetValueAsync().ContinueWith(task =>
         {
-            string data = task.Result.GetRawJsonValue();
-            if (data != null)
+            if (task.IsFaulted || task.IsCanceled)
             {
-                firebaseGetGameDBCallBack.Invoke(JsonUtility.FromJson<GameDB>(data));
-            }
-            else
-            {
+                Debug.LogError("Task failud: " + task.Exception);
                 firebaseGetGameDBCallBack.Invoke(null);
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.LogFormat("Task completed");
+                string data = task.Result.GetRawJsonValue();
+                firebaseGetGameDBCallBack.Invoke(JsonUtility.FromJson<GameDB>(data));
             }
         });
     }
     public void SetScoreAsync(ScoreBoardPlayer _value, Action<bool> firebaseSetScoreCallBack = null)
     {
-        //if (firebase_user == null || !google_play_service.internet) return;
+        if (firebase_user == null || !google_play_service.internet) return;
 
-        _value.name = "ATLGAN";
+        _value.name = firebase_user.DisplayName;
         string json_value = JsonUtility.ToJson(_value);
-        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).Child("nZCfw0AZQxW7H584SLg4RFCt7872").SetRawJsonValueAsync(json_value).ContinueWith(task =>
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).Child(firebase_user.UserId).SetRawJsonValueAsync(json_value).ContinueWith(task =>
         {
             if (task.IsFaulted || task.IsCanceled)
             {
@@ -163,32 +163,103 @@ public class FirebaseService : MonoBehaviour
             }
             else if (task.IsCompleted)
             {
-                Debug.LogError("Task completed");
+                Debug.LogFormat("Task completed");
                 firebaseSetScoreCallBack.Invoke(true);
             }
         });
     }
-    public void GetScoresAsync(Action<ScoreBoardPlayer[]> _callback)
+    public void GetScoresOrderLimitAsync(Action<ScoreBoardPlayer[]> _callback)
     {
-        //if (firebase_user == null) return;
+        if (firebase_user == null || !google_play_service.internet) return;
 
-        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").GetValueAsync().ContinueWithOnMainThread(task =>
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").LimitToLast(10).GetValueAsync().ContinueWithOnMainThread(task =>
         {
-            DataSnapshot data = task.Result;
-            List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
-            foreach (DataSnapshot item in data.Children)
+            if (task.IsFaulted || task.IsCanceled)
             {
-                ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
-                string name = player.name;
-                int score = player.score;
-                ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
-                {
-                    name = name,
-                    score = score
-                };
-                result.Add(newPlayer);
+                Debug.LogError("Task failud: " + task.Exception);
+                _callback.Invoke(null);
             }
-            _callback.Invoke(result.ToArray());
+            else if (task.IsCompleted)
+            {
+                Debug.LogFormat("Task completed");
+                DataSnapshot data = task.Result;
+                List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
+                int order = (int)data.ChildrenCount;
+                foreach (DataSnapshot item in data.Children)
+                {
+                    ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
+                    string name = player.name;
+                    int score = player.score;
+                    bool isMine = firebase_user.UserId == item.Key;
+                    ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
+                    {
+                        name = name,
+                        score = score,
+                        order = order,
+                        isMine = isMine
+                    };
+                    result.Add(newPlayer);
+                    order--;
+                }
+                result.Reverse();
+                _callback.Invoke(result.ToArray());
+            }
+        });
+    }
+    public void GetFirst5000ScoresAsync(Action<ScoreBoardPlayer[]> _callback)
+    {
+        if (firebase_user == null || !google_play_service.internet) return;
+
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").LimitToLast(100).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.LogError("Task failud: " + task.Exception);
+                _callback.Invoke(null);
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.LogFormat("Task completed");
+                DataSnapshot data = task.Result;
+                List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
+                foreach (DataSnapshot item in data.Children)
+                {
+                    ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
+                    string name = player.name;
+                    int score = player.score;
+                    bool isMine = firebase_user.UserId == item.Key;
+                    ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
+                    {
+                        name = name,
+                        score = score,
+                        isMine = isMine
+                    };
+                    result.Add(newPlayer);
+                }
+                result.Reverse();
+                _callback.Invoke(result.ToArray());
+            }
+        });
+    }
+    public void GetMyScoreAsync(Action<ScoreBoardPlayer> _callback)
+    {
+        if (firebase_user == null || !google_play_service.internet) return;
+
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).Child(firebase_user.UserId).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.LogError("Task failud: " + task.Exception);
+                _callback.Invoke(null);
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.LogFormat("Task completed");
+                string data = task.Result.GetRawJsonValue();
+                ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(data);
+                player.isMine = true;
+                _callback.Invoke(player);
+            }
         });
     }
     public void SetStoreItemsAsync(int[] _values, Action<bool> firebaseSetStoreItemsCallBack = null)
@@ -222,16 +293,6 @@ public class FirebaseService : MonoBehaviour
                 firebaseSetSelectedStoreItemCallBack.Invoke(true);
             }
         });
-    }
-}
-public class Player
-{
-    public string username;
-
-    public Player() { }
-    public Player(string _name)
-    {
-        username = _name;
     }
 }
 
