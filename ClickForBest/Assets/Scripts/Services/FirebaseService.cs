@@ -68,7 +68,7 @@ public class FirebaseService : MonoBehaviour
             }
 
             firebase_user = task.Result;
-            Debug.LogError("User signed in successfully: " + firebase_user.DisplayName +" "+ firebase_user.UserId);
+            Debug.LogError("User signed in successfully: " + firebase_user.DisplayName + " " + firebase_user.UserId);
         });
     }
     private void LoginFirabese()
@@ -144,7 +144,10 @@ public class FirebaseService : MonoBehaviour
             {
                 Debug.LogFormat("Task completed");
                 string data = task.Result.GetRawJsonValue();
-                firebaseGetGameDBCallBack.Invoke(JsonUtility.FromJson<GameDB>(data));
+                if (data != null)
+                    firebaseGetGameDBCallBack.Invoke(JsonUtility.FromJson<GameDB>(data));
+                else
+                    firebaseGetGameDBCallBack.Invoke(null);
             }
         });
     }
@@ -168,45 +171,7 @@ public class FirebaseService : MonoBehaviour
             }
         });
     }
-    public void GetScoresOrderLimitAsync(Action<ScoreBoardPlayer[]> _callback)
-    {
-        if (firebase_user == null || !google_play_service.internet) return;
-
-        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").LimitToLast(10).GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsFaulted || task.IsCanceled)
-            {
-                Debug.LogError("Task failud: " + task.Exception);
-                _callback.Invoke(null);
-            }
-            else if (task.IsCompleted)
-            {
-                Debug.LogFormat("Task completed");
-                DataSnapshot data = task.Result;
-                List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
-                int order = (int)data.ChildrenCount;
-                foreach (DataSnapshot item in data.Children)
-                {
-                    ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
-                    string name = player.name;
-                    int score = player.score;
-                    bool isMine = firebase_user.UserId == item.Key;
-                    ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
-                    {
-                        name = name,
-                        score = score,
-                        order = order,
-                        isMine = isMine
-                    };
-                    result.Add(newPlayer);
-                    order--;
-                }
-                result.Reverse();
-                _callback.Invoke(result.ToArray());
-            }
-        });
-    }
-    public void GetFirst5000ScoresAsync(Action<ScoreBoardPlayer[]> _callback)
+    public void GetScoresOrderLimit5000Async(Action<ScoreBoardPlayer[]> _callback)
     {
         if (firebase_user == null || !google_play_service.internet) return;
 
@@ -221,23 +186,25 @@ public class FirebaseService : MonoBehaviour
             {
                 Debug.LogFormat("Task completed");
                 DataSnapshot data = task.Result;
-                List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
-                foreach (DataSnapshot item in data.Children)
+                if (data != null)
                 {
-                    ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
-                    string name = player.name;
-                    int score = player.score;
-                    bool isMine = firebase_user.UserId == item.Key;
-                    ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
+                    List<ScoreBoardPlayer> result = new List<ScoreBoardPlayer>();
+                    int order = (int)data.ChildrenCount;
+                    foreach (DataSnapshot item in data.Children)
                     {
-                        name = name,
-                        score = score,
-                        isMine = isMine
-                    };
-                    result.Add(newPlayer);
+                        ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(item.GetRawJsonValue());
+                        player.isMine = firebase_user.UserId == item.Key;
+                        player.order = order;
+                        result.Add(player);
+                        order--;
+                    }
+                    result.Reverse();
+                    _callback.Invoke(result.ToArray());
                 }
-                result.Reverse();
-                _callback.Invoke(result.ToArray());
+                else
+                {
+                    _callback.Invoke(null);
+                }
             }
         });
     }
@@ -256,9 +223,16 @@ public class FirebaseService : MonoBehaviour
             {
                 Debug.LogFormat("Task completed");
                 string data = task.Result.GetRawJsonValue();
-                ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(data);
-                player.isMine = true;
-                _callback.Invoke(player);
+                if (data != null)
+                {
+                    ScoreBoardPlayer player = JsonUtility.FromJson<ScoreBoardPlayer>(data);
+                    player.isMine = true;
+                    _callback.Invoke(player);
+                }
+                else
+                {
+                    _callback.Invoke(null);
+                }
             }
         });
     }

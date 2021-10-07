@@ -60,7 +60,7 @@ public class GameRouter : MonoBehaviour
     {
         if (cloud_db != null)
         {
-            EasyJson.SaveJsonToFile(cloud_db);
+            EasyJson.SaveJsonToFile(cloud_db, "GameData");
             f_service.GetMyScoreAsync((data) => { LoadedScoreboardPlayer(data); });
         }
     }
@@ -68,9 +68,9 @@ public class GameRouter : MonoBehaviour
     {
         if (_player != null)
         {
-            EasyJson.SaveJsonToFile(_player);
-            SceneManager.LoadScene(1);
+            EasyJson.SaveJsonToFile(_player,"ScoreboardData");
         }
+        SceneManager.LoadScene(1);
     }
     public void LoadLocalDatas()
     {

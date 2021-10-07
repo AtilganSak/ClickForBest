@@ -26,7 +26,7 @@ public static class EasyJson
     }
     public static void SaveJsonToFile(object _data,string _file_name, bool _is_crypto = false)
     {
-        string _path = Path.Combine(Application.persistentDataPath, _file_name);
+        string _path = Path.Combine(Application.persistentDataPath, _file_name + ".dat");
         string json_text = JsonUtility.ToJson(_data);
         if (_is_crypto)
             json_text = CryptoHelper.Encrypt(json_text, "-SakGames2021*-");
@@ -47,7 +47,7 @@ public static class EasyJson
     }
     public static T GetJsonToFile<T>(string _file_name, bool _is_crypto = false)
     {
-        string _path = Path.Combine(Application.persistentDataPath, _file_name);
+        string _path = Path.Combine(Application.persistentDataPath, _file_name + ".dat");
         if (File.Exists(_path))
         {
             string get_json_text = File.ReadAllText(_path);

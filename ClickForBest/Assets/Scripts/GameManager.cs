@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     int O;
     int N;
     int D;
-
     private void OnApplicationQuit()
     {
         ReportScore();
@@ -402,36 +401,38 @@ public class GameManager : MonoBehaviour
     {
         if (!save) return;
 
-        if (gameDB == null)
-            gameDB = new GameDB();
-        gameDB.score = new Score
+        if (HaveScore())
         {
-            underK = underK,
-            k = K,
-            m = M,
-            b = B,
-            t = T,
-            q = Q,
-            qt = QT,
-            s = S,
-            sp = SP,
-            o = O,
-            n = N,
-            d = D
-        };
-        EasyJson.SaveJsonToFile(gameDB);
+            if (gameDB == null)
+                gameDB = new GameDB();
+            gameDB.score = new Score
+            {
+                underK = underK,
+                k = K,
+                m = M,
+                b = B,
+                t = T,
+                q = Q,
+                qt = QT,
+                s = S,
+                sp = SP,
+                o = O,
+                n = N,
+                d = D
+            };
+            EasyJson.SaveJsonToFile(gameDB);
+            SaveToFirebase();
+        }
 
         SaveScore();
-
-        SaveToFirebase();
         SaveScoreToFirebase();
     }
     private void SaveScore()
     {
-        if (scoreBoardPlayer == null)
-            scoreBoardPlayer = new ScoreBoardPlayer();
-        scoreBoardPlayer.score = 0;
-        EasyJson.SaveJsonToFile(scoreBoardPlayer);
+        if (scoreBoardPlayer != null && scoreBoardPlayer.score > 0)
+        {
+            EasyJson.SaveJsonToFile(scoreBoardPlayer, "ScoreboardData");
+        }
     }
     private void SaveToFirebase()
     {
@@ -442,9 +443,12 @@ public class GameManager : MonoBehaviour
     }
     private void SaveScoreToFirebase()
     {
-        if (ReferenceKeeper.Instance.FirebaseService)
+        if (scoreBoardPlayer != null && scoreBoardPlayer.score > 0)
         {
-            ReferenceKeeper.Instance.FirebaseService.SetScoreAsync(scoreBoardPlayer);
+            if (ReferenceKeeper.Instance.FirebaseService)
+            {
+                ReferenceKeeper.Instance.FirebaseService.SetScoreAsync(scoreBoardPlayer);
+            }
         }
     }
     private void LoadGame()
@@ -469,7 +473,7 @@ public class GameManager : MonoBehaviour
             score_text.text = ScoreCalculate(0);
             ReferenceKeeper.Instance.RosetteController.LoadRosettes(K, M, B);
         }
-        scoreBoardPlayer = EasyJson.GetJsonToFile<ScoreBoardPlayer>();
+        scoreBoardPlayer = EasyJson.GetJsonToFile<ScoreBoardPlayer>("ScoreboardData");
         if (scoreBoardPlayer == null)
         {
             scoreBoardPlayer = new ScoreBoardPlayer { score = 0 };
@@ -491,6 +495,7 @@ public class GameManager : MonoBehaviour
         ReferenceKeeper.Instance.ClickButton.color = c;
         ReferenceKeeper.Instance.BottomCollider.SetActive(true);
     }
+    private bool HaveScore() => underK > 0 || K > 0 || M > 0 || B > 0 || T > 0 || Q > 0 || QT > 0 || S > 0 || SP > 0 || O > 0 || N > 0 || D > 0;
 
     /*Ekstra score basamagi eklenmek istenirse degisecek olan yerler:
      * ScoreCalculate()

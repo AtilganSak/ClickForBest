@@ -35,6 +35,7 @@ public class Scoreboard : MonoBehaviour
 
         if (!isopen)
         {
+            ClearItems();
             isopen = true;
             domove.DO();
             isMoving = true;
@@ -66,12 +67,11 @@ public class Scoreboard : MonoBehaviour
         {
             if (ReferenceKeeper.Instance.FirebaseService)
             {
-                ClearItems();
                 noscore.SetActive(false);
                 loading.gameObject.SetActive(true);
                 loading.DOLoop();
                 isLoading = true;
-                ReferenceKeeper.Instance.FirebaseService.GetScoresOrderLimitAsync((result) => { CompletedFetchDatas(result); });
+                ReferenceKeeper.Instance.FirebaseService.GetScoresOrderLimit5000Async((result) => { CompletedFetchDatas(result); });
             }
         }
     }
@@ -82,17 +82,37 @@ public class Scoreboard : MonoBehaviour
         loading.gameObject.SetActive(false);
         if (_players != null && _players.Length > 0)
         {
-            bool createdIsMine = false;
-            for (int i = 0; i < _players.Length; i++)
+            bool isHere = false;
+            for (int i = 0; i < 10; i++)
             {
+                if (i > _players.Length - 1) break;
+
                 ListItem newItem = Instantiate(item_prefab, content).GetComponent<ListItem>();
                 newItem.Init(_players[i]);
                 if (_players[i].isMine)
-                    createdIsMine = true;
+                    isHere = true;
             }
-            if (!createdIsMine)
+            if (!isHere)
             {
-                ReferenceKeeper.Instance.FirebaseService.GetFirst5000ScoresAsync((result) => CompletedGetFirst5000(result));
+                ScoreBoardPlayer myPlayer = null;
+                for (int i = 0; i < _players.Length; i++)
+                {
+                    if (_players[i].isMine)
+                    {
+                        myPlayer = _players[i];
+                        myPlayer.order = i + 1;
+                        isHere = true;
+                    }
+                }
+                if (isHere)
+                {
+                    ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
+                    lastItem.Init(myPlayer);
+                }
+                else
+                {
+                    ReferenceKeeper.Instance.FirebaseService.GetMyScoreAsync((result) => CompletedGetMyScore(result));
+                }
             }
         }
         else
@@ -100,32 +120,32 @@ public class Scoreboard : MonoBehaviour
             noscore.SetActive(true);
         }
     }
-    private void CompletedGetFirst5000(ScoreBoardPlayer[] _players)
-    {
-        if (_players != null)
-        {
-            ScoreBoardPlayer myPlayer = null;
-            bool isHere = false;
-            for (int i = 0; i < _players.Length; i++)
-            {
-                if (_players[i].isMine)
-                {
-                    myPlayer = _players[i];
-                    myPlayer.order = i + 1;
-                    isHere = true;
-                }
-            }
-            if (isHere)
-            {
-                ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
-                lastItem.Init(myPlayer);
-            }
-            else
-            {
-                ReferenceKeeper.Instance.FirebaseService.GetMyScoreAsync((result) => CompletedGetMyScore(result));
-            }
-        }
-    }
+    //private void CompletedGetFirst5000(ScoreBoardPlayer[] _players)
+    //{
+    //    if (_players != null)
+    //    {
+    //        ScoreBoardPlayer myPlayer = null;
+    //        bool isHere = false;
+    //        for (int i = 0; i < _players.Length; i++)
+    //        {
+    //            if (_players[i].isMine)
+    //            {
+    //                myPlayer = _players[i];
+    //                myPlayer.order = i + 1;
+    //                isHere = true;
+    //            }
+    //        }
+    //        if (isHere)
+    //        {
+    //            ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
+    //            lastItem.Init(myPlayer);
+    //        }
+    //        else
+    //        {
+    //            ReferenceKeeper.Instance.FirebaseService.GetMyScoreAsync((result) => CompletedGetMyScore(result));
+    //        }
+    //    }
+    //}
     private void CompletedGetMyScore(ScoreBoardPlayer _player)
     {
         if (_player != null)
