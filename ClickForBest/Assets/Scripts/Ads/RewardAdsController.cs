@@ -66,7 +66,7 @@ public class RewardAdsController : MonoBehaviour, IUnityAdsLoadListener, IUnityA
             onAdsShowComplete = null;
 
             // Load another ad:
-            Advertisement.Load(ad_id, this);
+            LoadAd();
         }
     }
 

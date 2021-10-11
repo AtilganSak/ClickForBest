@@ -1,4 +1,5 @@
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class Scoreboard : MonoBehaviour
@@ -8,6 +9,7 @@ public class Scoreboard : MonoBehaviour
     public PauseMenu pause_menu;
     public DORotate loading;
     public GameObject noscore;
+    public ParticleSystem bg_particle;
 
     private DOMove domove;
     private bool isopen;
@@ -54,11 +56,13 @@ public class Scoreboard : MonoBehaviour
     private void OpenedPanel()
     {
         isMoving = false;
+        bg_particle.Play();
         FetchDatas();
     }
     private void ClosedPanel()
     {
         isMoving = false;
+        bg_particle.Stop();
     }
     [EasyButtons.Button]
     private void FetchDatas()
@@ -120,32 +124,6 @@ public class Scoreboard : MonoBehaviour
             noscore.SetActive(true);
         }
     }
-    //private void CompletedGetFirst5000(ScoreBoardPlayer[] _players)
-    //{
-    //    if (_players != null)
-    //    {
-    //        ScoreBoardPlayer myPlayer = null;
-    //        bool isHere = false;
-    //        for (int i = 0; i < _players.Length; i++)
-    //        {
-    //            if (_players[i].isMine)
-    //            {
-    //                myPlayer = _players[i];
-    //                myPlayer.order = i + 1;
-    //                isHere = true;
-    //            }
-    //        }
-    //        if (isHere)
-    //        {
-    //            ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
-    //            lastItem.Init(myPlayer);
-    //        }
-    //        else
-    //        {
-    //            ReferenceKeeper.Instance.FirebaseService.GetMyScoreAsync((result) => CompletedGetMyScore(result));
-    //        }
-    //    }
-    //}
     private void CompletedGetMyScore(ScoreBoardPlayer _player)
     {
         if (_player != null)
@@ -175,4 +153,23 @@ public class Scoreboard : MonoBehaviour
             }
         }
     }
+#if UNITY_EDITOR
+    [EasyButtons.Button]
+    private void GenerateTestDatas()
+    {
+        int score = 1500;
+        for (int i = 0; i < 10; i++)
+        {
+            ListItem listItem = ((GameObject)PrefabUtility.InstantiatePrefab(item_prefab, content)).GetComponent<ListItem>();
+            ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
+            {
+                name = "Test Player" + i,
+                order = i + 1,
+                score = score,
+            };
+            score -= 100;
+            listItem.Init(newPlayer);
+        }
+    }
+#endif
 }

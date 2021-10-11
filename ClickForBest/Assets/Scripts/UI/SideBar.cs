@@ -38,7 +38,9 @@ public class SideBar : MonoBehaviour
         if (ReferenceKeeper.Instance.GooglePlayServices.internet)
         {
             if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
+            {
                 selected_power.Appear();
+            }
         }
         else
         {

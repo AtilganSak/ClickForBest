@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4160626046601388185}
-  - component: {fileID: 7654654928706219572}
   - component: {fileID: 4160626046601388184}
+  - component: {fileID: 6067891148792265279}
   m_Layer: 5
   m_Name: PF_AutoClickPower_60
   m_TagString: Untagged
@@ -40,21 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 350, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7654654928706219572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4160626046601388186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b603771e20aa607438121e0799fb3f3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 60
-  time_text: {fileID: 9008990542796684960}
-  click_interval: 0.5
 --- !u!114 &4160626046601388184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +85,26 @@ MonoBehaviour:
   startValue: {x: 349, y: 0, z: 0}
   endValue: {x: 0, y: 0, z: 0}
   local: 1
+--- !u!114 &6067891148792265279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4160626046601388186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b9add519870cb40ab0a99d1b2aae99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power_type: 0
+  click_interval: 0.3
+  score_value: 0
+  score_text: {fileID: 0}
+  boost_text: {fileID: 0}
+  boost_options: 
+  time: 60
+  time_text: {fileID: 9008990542796684960}
 --- !u!1 &4160626046698960656
 GameObject:
   m_ObjectHideFlags: 0

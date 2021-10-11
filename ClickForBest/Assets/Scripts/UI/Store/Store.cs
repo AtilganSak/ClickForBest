@@ -11,14 +11,12 @@ public class Store : MonoBehaviour
     [SerializeField] PauseMenu pause_menu;
     [SerializeField] MessagePanel message_panel;
     [SerializeField] MessagePanel noads_message_panel;
-    //[SerializeField] MessagePanel noscore_message_panel;
     [SerializeField] RewardItem reward_item_500;
     [SerializeField] RewardItem reward_item_1000;
     [SerializeField] RewardItem reward_item_1500;
     [SerializeField] RewardItem reward_item_2000;
     [SerializeField] TMPro.TMP_Text score_text;
 
-    //public System.Action<byte> onPurchase;
     public System.Action<int> onTakenReward;
 
     private StoreItem selected_item;
@@ -27,7 +25,6 @@ public class Store : MonoBehaviour
 
     private bool pressed_reward;
     private bool isopen;
-    private byte will_buy_item;
     private int will_taken_reward;
 
     [System.Serializable]
@@ -49,10 +46,6 @@ public class Store : MonoBehaviour
         {
             message_panel.Subscribe("Window", "Are you sure?", "Yes", "No", MessagePanelResult);
         }
-        //if (noscore_message_panel)
-        //{
-        //    noscore_message_panel.Subscribe("Window", "You don't have enough score!", "+1K", "OK", NoScoreMessagePanelResult);
-        //}
         if (noads_message_panel)
         {
             noads_message_panel.Subscribe("Window", "No ads available!", "OK", "OK", null);
@@ -68,7 +61,7 @@ public class Store : MonoBehaviour
             reward_item_2000.onClick += Pressed_Reward_Item;
 
         GetCurrentScore();
-        //Load();
+        LoadSelectedItem();
     }
 
     public void OpenCloseMenu()
@@ -120,20 +113,9 @@ public class Store : MonoBehaviour
                 };
                 ReferenceKeeper.Instance.RewardAdsController.ShowAd();
             }
-            //else
-            //{
-            //    if (onPurchase != null)
-            //    {
-            //        onPurchase.Invoke(will_buy_item);
-
-            //        PurchasedStoreItemDB(will_buy_item);
-            //    }
-            //}
-            //GetCurrentScore();
         }
         else
         {
-            will_buy_item = 0;
             will_taken_reward = 0;
             pressed_reward = false;
         }
@@ -185,6 +167,23 @@ public class Store : MonoBehaviour
     {
         score_text.text = "Score: " + ReferenceKeeper.Instance.GameManager.score_text.text;
     }
+    private void LoadSelectedItem()
+    {
+        if (ReferenceKeeper.Instance.GameManager.gameDB != null)
+        {
+            int selectedItemIndex = ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item;
+            StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+            if (items != null)
+            {
+                selected_item = items[selectedItemIndex];
+                items[selectedItemIndex].Select();
+                if (selected_item.coin_prefab != null)
+                    ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(selected_item.coin_prefab);
+                else
+                    ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(selected_item.coin_sprite);
+            }
+        }
+    }
 
     #region Editor
 #if UNITY_EDITOR
@@ -229,7 +228,6 @@ public class Store : MonoBehaviour
             }
         }
     }
-
     [EasyButtons.Button]
     private void ChangSilverItemsPrice(int _underK, int _k)
     {

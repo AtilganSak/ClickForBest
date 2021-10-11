@@ -29,8 +29,6 @@ public class StoreItem : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(Pressed_Button);
-
-        //ReferenceKeeper.Instance.Store.onPurchase += OnPurchased;
     }
     public void Init(byte _id, int _p_underK, int _p_k, int _p_m, Sprite _icon, Sprite _background, GameObject _prefab, Color _bgColor)
     {
@@ -70,23 +68,6 @@ public class StoreItem : MonoBehaviour
             ReferenceKeeper.Instance.Store.Pressed_Item_Select(this);
         }
     }
-    //private void OnPurchased(byte _id)
-    //{
-    //    if (_id == ID)
-    //    {
-    //        Purchased();
-    //    }
-    //}
-    //public void Purchased(bool _onStart = false)
-    //{
-    //    isActive = true;
-
-    //    price_text.enabled = false;
-    //    check_image.enabled = true;
-
-    //    if(!_onStart)
-    //        ReferenceKeeper.Instance.GameManager.RemoveScore(p_underK, p_K);
-    //}
     public void Activate()
     {
         isActive = true;

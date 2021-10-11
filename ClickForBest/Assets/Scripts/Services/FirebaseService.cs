@@ -20,6 +20,7 @@ public class FirebaseService : MonoBehaviour
     public Action<bool> onLogin;
 
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
+
     private void OnEnable()
     {
         google_play_service = FindObjectOfType<GooglePlayServices>();

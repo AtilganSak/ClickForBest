@@ -12,6 +12,7 @@ public class RosetteController : MonoBehaviour
         public int score_m;
         public int score_b;
         public bool earned;
+        public bool particle;
 
         public bool IsTrue(int _k, int _m, int _b)
         {
@@ -50,7 +51,7 @@ public class RosetteController : MonoBehaviour
     {
         if (items != null)
         {
-            for (int i = 0; i < items.Length; i++)
+            for (int i = items.Length - 1; i >= 0; i--)
             {
                 if (!items[i].earned)
                 {

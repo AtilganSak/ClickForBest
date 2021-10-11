@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "127.0.0.1:62001",
         "name": "com.SakGames.ClickForBest",
-        "processId": 7710,
+        "processId": 6520,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,55 +11,43 @@
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 8699,
+            "processId": 10076,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 9226,
+            "processId": 10928,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 9680,
+            "processId": 4297,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 10046,
+            "processId": 5160,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 5180,
+            "processId": 5423,
             "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
-            "name": "com.vphone.launcher",
-            "processId": 4129,
+            "name": "com.SakGames.ClickForBest",
+            "processId": 5810,
             "exited": false
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
-            "processId": 5981,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 6960,
-            "exited": false
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 7710,
+            "processId": 6520,
             "exited": false
         },
         {

@@ -7,6 +7,7 @@ using static RosetteController;
 public class RosetteSpawner : MonoBehaviour
 {
     [SerializeField] GameObject rosette_prefab;
+    [SerializeField] GameObject rosette_particle;
     [SerializeField] Transform content;
     [SerializeField] Transform spawn_point;
     [SerializeField] Transform placement_point;
@@ -20,6 +21,10 @@ public class RosetteSpawner : MonoBehaviour
         GameObject go = Instantiate(rosette_prefab, canvas_transform);
         go.GetComponent<Image>().sprite = _item.icon;
         go.transform.position = spawn_point.position;
+        if (_item.particle)
+        {
+            Instantiate(rosette_particle, go.transform);
+        }
         go.GetComponent<DOMove>().endTarget = placement_point;
         go.GetComponent<DOMove>().doComplete.AddListener(() => SetParent(go.transform));
         go.GetComponent<DOScale>().doComplete.AddListener(CompletedScale);
@@ -29,6 +34,10 @@ public class RosetteSpawner : MonoBehaviour
     {
         GameObject go = Instantiate(rosette_prefab, content);
         go.transform.localScale = Vector3.one;
+        if (_item.particle)
+        {
+            Instantiate(rosette_particle, go.transform);
+        }
         go.GetComponent<Image>().sprite = _item.icon;
     }
     private void CompletedScale()

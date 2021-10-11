@@ -397,8 +397,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8329008694960337103}
-  - component: {fileID: 8329008694960337097}
   - component: {fileID: 8329008694960337102}
+  - component: {fileID: 2267278515081658738}
   m_Layer: 5
   m_Name: PF_ScoreBoostPower_15
   m_TagString: Untagged
@@ -428,22 +428,6 @@ RectTransform:
   m_AnchoredPosition: {x: 350, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8329008694960337097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8329008694960337100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb9180f2a28b1945a9f1b601a949a54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 15
-  time_text: {fileID: 3975916740744195830}
-  boost_text: {fileID: 6202765924610427405}
-  boost_options: 020000000400000006000000080000000a000000
 --- !u!114 &8329008694960337102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,3 +473,23 @@ MonoBehaviour:
   startValue: {x: 349, y: 0, z: 0}
   endValue: {x: 0, y: 0, z: 0}
   local: 1
+--- !u!114 &2267278515081658738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8329008694960337100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b9add519870cb40ab0a99d1b2aae99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power_type: 1
+  click_interval: 0.1
+  score_value: 0
+  score_text: {fileID: 0}
+  boost_text: {fileID: 6202765924610427405}
+  boost_options: 020000000400000006000000080000000a000000
+  time: 15
+  time_text: {fileID: 3975916740744195830}

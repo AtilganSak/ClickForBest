@@ -164,6 +164,8 @@ public class GameManager : MonoBehaviour
         if (K >= 1)
         {
             if (underK < 10)
+                result = K + ".00" + underK + "K";
+            else if (underK < 100)
                 result = K + ".0" + underK + "K";
             else
                 result = K + "." + underK + "K";
@@ -176,6 +178,8 @@ public class GameManager : MonoBehaviour
         if (M >= 1)
         {
             if (K < 10)
+                result = M + ".00" + K + "M";
+            else if (K < 100)
                 result = M + ".0" + K + "M";
             else
                 result = M + "." + K + "M";
@@ -188,6 +192,8 @@ public class GameManager : MonoBehaviour
         if (B >= 1)
         {
             if (M < 10)
+                result = B + ".00" + M + "B";
+            else if (M < 100)
                 result = B + ".0" + M + "B";
             else
                 result = B + "." + M + "B";
@@ -200,6 +206,8 @@ public class GameManager : MonoBehaviour
         if (T >= 1)
         {
             if (B < 10)
+                result = T + ".00" + B + "T";
+            else if (B < 100)
                 result = T + ".0" + B + "T";
             else
                 result = T + "." + B + "T";
@@ -212,6 +220,8 @@ public class GameManager : MonoBehaviour
         if (Q >= 1)
         {
             if (T < 10)
+                result = Q + ".00" + T + "Q";
+            else if (T < 100)
                 result = Q + ".0" + T + "Q";
             else
                 result = Q + "." + T + "Q";
@@ -224,6 +234,8 @@ public class GameManager : MonoBehaviour
         if (QT >= 1)
         {
             if (Q < 10)
+                result = QT + ".00" + Q + "QT";
+            else if (Q < 100)
                 result = QT + ".0" + Q + "QT";
             else
                 result = QT + "." + Q + "QT";
@@ -236,6 +248,8 @@ public class GameManager : MonoBehaviour
         if (S >= 1)
         {
             if (QT < 10)
+                result = S + ".00" + QT + "S";
+            else if (QT < 100)
                 result = S + ".0" + QT + "S";
             else
                 result = S + "." + QT + "S";
@@ -248,6 +262,8 @@ public class GameManager : MonoBehaviour
         if (SP >= 1)
         {
             if (S < 10)
+                result = SP + ".00" + S + "SP";
+            else if (S < 100)
                 result = SP + ".0" + S + "SP";
             else
                 result = SP + "." + S + "SP";
@@ -260,6 +276,8 @@ public class GameManager : MonoBehaviour
         if (O >= 1)
         {
             if (SP < 10)
+                result = O + ".00" + SP + "O";
+            else if (SP < 100)
                 result = O + ".0" + SP + "O";
             else
                 result = O + "." + SP + "O";
@@ -272,6 +290,8 @@ public class GameManager : MonoBehaviour
         if (N >= 1)
         {
             if (O < 10)
+                result = N + ".00" + O + "N";
+            else if (O < 100)
                 result = N + ".0" + O + "N";
             else
                 result = N + "." + O + "N";
@@ -284,6 +304,8 @@ public class GameManager : MonoBehaviour
         if (D >= 1)
         {
             if (N < 10)
+                result = D + ".00" + N + "D";
+            else if (N < 100)
                 result = D + ".0" + N + "D";
             else
                 result = D + "." + N + "D";
