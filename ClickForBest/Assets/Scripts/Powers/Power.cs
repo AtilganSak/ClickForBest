@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 public class Power : MonoBehaviour
@@ -60,14 +61,14 @@ public class Power : MonoBehaviour
             button.onClick.AddListener(ClickedPower);
         }
 #if UNITY_ANDROID && !UNITY_EDITOR
+#endif
         ReferenceKeeper.Instance.AdsMessagePanel.Subscribe("Window", "Do you want to watch ads?", "Yes", "No",
             (state) => {
                 if (state)
                 {   
-                    ReferenceKeeper.Instance.RewardAdsController.ShowAd();
+                    ReferenceKeeper.Instance.RewardAdsController.ShowAd(Use);
                 }
             });
-#endif
 
         #region Auto Click
         if (power_type == PowerType.AutoClick)
@@ -98,36 +99,35 @@ public class Power : MonoBehaviour
     {
         ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
 #if UNITY_EDITOR
-        Use();
+        Use(ShowResult.Finished);
 #else
-        ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
-        {
-            Use();
-        };
+        //ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += Use;
         ReferenceKeeper.Instance.AdsMessagePanel.Show();
 #endif
     }
-    private void Use()
+    private void Use(ShowResult _callback)
     {
-        if (!used)
+        if (_callback == ShowResult.Finished)
         {
-            switch (power_type)
+            if (!used)
             {
-                case PowerType.AutoClick:
-                    UseForAutoClick();
-                    break;
-                case PowerType.ScoreBoost:
-                    UseForScoreBoost();
-                    break;
-                case PowerType.ExtraScore:
-                    UseForExtraScore();
-                    break;
+                switch (power_type)
+                {
+                    case PowerType.AutoClick:
+                        UseForAutoClick();
+                        break;
+                    case PowerType.ScoreBoost:
+                        UseForScoreBoost();
+                        break;
+                    case PowerType.ExtraScore:
+                        UseForExtraScore();
+                        break;
+                }
+
+                used = true;
+                Hide();
             }
-
-            used = true;
-            Hide();
         }
-
     }
     internal void TimeOver()
     {
@@ -147,21 +147,20 @@ public class Power : MonoBehaviour
     }
     private void UseForAutoClick()
     {
-        //StartCoroutine(ReferenceKeeper.Instance.UISound.PlaySoundMainThread(UISound.Sound.Time, true));
+        StartCoroutine(ReferenceKeeper.Instance.UISound.PlaySoundMainThread(UISound.Sound.Time, true));
         ReferenceKeeper.Instance.TimeCircle.StartTimer(counter);
         StartCoroutine(Timer());
         StartCoroutine(Process());
     }
     private void UseForExtraScore()
     {
-        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Time, true);
         ReferenceKeeper.Instance.GameManager.AddScore(score_value);
 
         TimeOver();
     }
     private void UseForScoreBoost()
     {
-        //StartCoroutine(ReferenceKeeper.Instance.UISound.PlaySoundMainThread(UISound.Sound.Time, true));
+        StartCoroutine(ReferenceKeeper.Instance.UISound.PlaySoundMainThread(UISound.Sound.Time, true));
         ReferenceKeeper.Instance.GameManager.SetBoost(selected_option);
         ReferenceKeeper.Instance.TimeCircle.StartTimer(time);
         Invoke("DeactivePower", time);

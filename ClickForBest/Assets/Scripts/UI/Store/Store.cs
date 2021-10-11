@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class Store : MonoBehaviour
 {
@@ -103,15 +104,15 @@ public class Store : MonoBehaviour
         {
             if (pressed_reward)
             {
-                ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
-                {
-                    if (onTakenReward != null)
-                    {
-                        onTakenReward.Invoke(will_taken_reward);
-                    }
-                    pressed_reward = false;
-                };
-                ReferenceKeeper.Instance.RewardAdsController.ShowAd();
+                //ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
+                //{
+                    //if (onTakenReward != null)
+                    //{
+                    //    onTakenReward.Invoke(will_taken_reward);
+                    //}
+                    //pressed_reward = false;
+                //};
+                ReferenceKeeper.Instance.RewardAdsController.ShowAd(AdsShowCompleted);
             }
         }
         else
@@ -140,6 +141,18 @@ public class Store : MonoBehaviour
                 ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Fail);
                 noads_message_panel.Show();
             }
+        }
+    }
+    private void AdsShowCompleted(ShowResult _result)
+    {
+        if (_result == ShowResult.Finished)
+        {
+            if (onTakenReward != null)
+            {
+                onTakenReward.Invoke(will_taken_reward);
+            }
+            GetCurrentScore();
+            pressed_reward = false;
         }
     }
     private void CheckAvailableStoreItems()

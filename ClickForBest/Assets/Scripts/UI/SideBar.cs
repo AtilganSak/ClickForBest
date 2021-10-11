@@ -28,7 +28,7 @@ public class SideBar : MonoBehaviour
         Power power = Instantiate(powers[Random.Range(0, powers.Length)], transform);
         power.timeIsOver += SelectPower;
         selected_power = power;
-        Invoke("ShowPower", Random.Range(3, 6));
+        Invoke("ShowPower", Random.Range(60, 120));
     }
     private void ShowPower()
     {

@@ -21,7 +21,7 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
 
     public void OnInitializationComplete()
     {
-        Debug.LogFormat("Unity Ads initialization complete.");
+        Debug.Log("Unity Ads initialization complete.");
 
         isActive = true;
 

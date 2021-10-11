@@ -43,12 +43,13 @@ public class RewardAdsController : MonoBehaviour, IUnityAdsLoadListener, IUnityA
     }
 
     // Implement a method to execute when the user clicks the button.
-    public void ShowAd()
+    public void ShowAd(Action<ShowResult> _callback)
     {
         if (ReferenceKeeper.Instance.AdsInitializer.isActive)
         {
-            Debug.Log("Unity Ads Showing");
-            Advertisement.Show(ad_id, this);
+            ShowOptions showOptions = new ShowOptions();
+            showOptions.resultCallback += _callback;
+            Advertisement.Show(ad_id, showOptions, this);
         }
     }
 
@@ -64,7 +65,6 @@ public class RewardAdsController : MonoBehaviour, IUnityAdsLoadListener, IUnityA
                 onAdsShowComplete.Invoke();
             }
             onAdsShowComplete = null;
-
             // Load another ad:
             LoadAd();
         }
