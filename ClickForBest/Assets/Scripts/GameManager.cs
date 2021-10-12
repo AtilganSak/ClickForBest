@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
+        CheckAchievements();
     }
     public void SetBoost(int _value)
     {
@@ -312,6 +313,73 @@ public class GameManager : MonoBehaviour
         }
 
         return result;
+    }
+    private void CheckAchievements()
+    {
+        if (K >= 5)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_5k_score);
+        }
+        if (K >= 50)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_50k_score);
+        }
+        if (K >= 100)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_100k_score);
+        }
+        if (K >= 125)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_125k_score);
+        }
+        if (K >= 150)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_150k_score);
+        }
+        if (K >= 175)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_175k_score);
+        }
+        if (K >= 200)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_200k_score);
+        }
+        if (K >= 250)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_250k_score);
+        }
+        if (K >= 300)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_300k_score);
+        }
+        if (K >= 400)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_400k_score);
+        }
+        if (M >= 1)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_1m_score);
+        }
+        if (M >= 5)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_5m_score);
+        }
+        if (M >= 10)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_10m_score);
+        }
+        if (M >= 15)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_15m_score);
+        }
+        if (M >= 25)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_25m_score);
+        }
+        if (M >= 100)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_100m_score);
+        }
     }
     private void WriteFullScore()
     {

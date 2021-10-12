@@ -13,9 +13,6 @@ public class Store : MonoBehaviour
     [SerializeField] MessagePanel message_panel;
     [SerializeField] MessagePanel noads_message_panel;
     [SerializeField] RewardItem reward_item_500;
-    [SerializeField] RewardItem reward_item_1000;
-    [SerializeField] RewardItem reward_item_1500;
-    [SerializeField] RewardItem reward_item_2000;
     [SerializeField] TMPro.TMP_Text score_text;
 
     public System.Action<int> onTakenReward;
@@ -54,12 +51,6 @@ public class Store : MonoBehaviour
 
         if (reward_item_500)
             reward_item_500.onClick += Pressed_Reward_Item;
-        if (reward_item_1000)
-            reward_item_1000.onClick += Pressed_Reward_Item;
-        if (reward_item_1500)
-            reward_item_1500.onClick += Pressed_Reward_Item;
-        if (reward_item_2000)
-            reward_item_2000.onClick += Pressed_Reward_Item;
 
         GetCurrentScore();
         LoadSelectedItem();

@@ -9,12 +9,27 @@ public class Scoreboard : MonoBehaviour
     public PauseMenu pause_menu;
     public DORotate loading;
     public GameObject noscore;
+    public GameObject noconnection;
     public ParticleSystem bg_particle;
 
     private DOMove domove;
     private bool isopen;
     private bool isMoving;
     private bool isLoading;
+
+    string[] names = new string[]
+    {
+        "Arthur",
+        "Nick",
+        "Hector",
+        "Jesus",
+        "Albert",
+        "Paul",
+        "Hope",
+        "Kevin",
+        "Michael",
+        "Jackson"
+    };
 
     private void OnEnable()
     {
@@ -69,13 +84,21 @@ public class Scoreboard : MonoBehaviour
     {
         if (!isLoading)
         {
-            if (ReferenceKeeper.Instance.FirebaseService)
+            noconnection.SetActive(false);
+            if (ReferenceKeeper.Instance.GooglePlayServices.internet)
             {
-                noscore.SetActive(false);
-                loading.gameObject.SetActive(true);
-                loading.DOLoop();
-                isLoading = true;
-                ReferenceKeeper.Instance.FirebaseService.GetScoresOrderLimit5000Async((result) => { CompletedFetchDatas(result); });
+                if (ReferenceKeeper.Instance.FirebaseService)
+                {
+                    noscore.SetActive(false);
+                    loading.gameObject.SetActive(true);
+                    loading.DOLoop();
+                    isLoading = true;
+                    ReferenceKeeper.Instance.FirebaseService.GetScoresOrderLimit5000Async((result) => { CompletedFetchDatas(result); });
+                }
+            }
+            else
+            {
+                noconnection.SetActive(true);
             }
         }
     }
@@ -163,7 +186,7 @@ public class Scoreboard : MonoBehaviour
             ListItem listItem = ((GameObject)PrefabUtility.InstantiatePrefab(item_prefab, content)).GetComponent<ListItem>();
             ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
             {
-                name = "Test Player" + i,
+                name = names[i],
                 order = i + 1,
                 score = score,
             };
