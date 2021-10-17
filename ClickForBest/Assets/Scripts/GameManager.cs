@@ -517,6 +517,7 @@ public class GameManager : MonoBehaviour
     {
         if (scoreBoardPlayer != null && scoreBoardPlayer.score > 0)
         {
+            scoreBoardPlayer.isMine = false;
             EasyJson.SaveJsonToFile(scoreBoardPlayer, "ScoreboardData");
         }
     }
@@ -533,6 +534,7 @@ public class GameManager : MonoBehaviour
         {
             if (ReferenceKeeper.Instance.FirebaseService)
             {
+                scoreBoardPlayer.isMine = false;
                 ReferenceKeeper.Instance.FirebaseService.SetScoreAsync(scoreBoardPlayer);
             }
         }

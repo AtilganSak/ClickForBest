@@ -8594,7 +8594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   google_play_id: 4367909
-  test_mode: 1
+  test_mode: 0
   enable_Per_Placement_Mode: 1
 --- !u!4 &663663936
 Transform:

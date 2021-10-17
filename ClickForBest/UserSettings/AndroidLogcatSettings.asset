@@ -3,29 +3,11 @@
     "m_SelectedPackage": {
         "deviceId": "127.0.0.1:62001",
         "name": "com.SakGames.ClickForBest",
-        "processId": 5644,
+        "processId": 7012,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 4377,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 5182,
-            "exited": true
-        },
-        {
-            "deviceId": "127.0.0.1:62001",
-            "name": "com.SakGames.ClickForBest",
-            "processId": 6118,
-            "exited": true
-        },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
@@ -42,12 +24,30 @@
             "deviceId": "127.0.0.1:62001",
             "name": "com.vphone.launcher",
             "processId": 1997,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "127.0.0.1:62001",
             "name": "com.SakGames.ClickForBest",
             "processId": 5644,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 6240,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.vphone.launcher",
+            "processId": 3122,
+            "exited": false
+        },
+        {
+            "deviceId": "127.0.0.1:62001",
+            "name": "com.SakGames.ClickForBest",
+            "processId": 7012,
             "exited": false
         },
         {
