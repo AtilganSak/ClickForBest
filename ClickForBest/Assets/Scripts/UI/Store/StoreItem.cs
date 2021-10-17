@@ -55,6 +55,14 @@ public class StoreItem : MonoBehaviour
         icon_image.sprite = _icon;
         background_image.sprite = _background;
         background_image.color = _bgColor;
+
+        if (_p_underK == 0 && _p_k == 0 && _p_m == 0)
+        {
+            price_text.gameObject.SetActive(false);
+            shadow_image.gameObject.SetActive(false);
+            lock_image.gameObject.SetActive(false);
+            check_image.enabled = true;
+        }
     }
     private void Pressed_Button()
     {

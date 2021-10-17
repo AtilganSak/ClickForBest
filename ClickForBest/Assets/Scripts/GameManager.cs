@@ -30,14 +30,12 @@ public class GameManager : MonoBehaviour
     int D;
     private void OnApplicationQuit()
     {
-        ReportScore();
         SaveGame();
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            ReportScore();
             SaveGame();
         }
     }
@@ -120,7 +118,7 @@ public class GameManager : MonoBehaviour
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
-        CheckAchievements();
+        //CheckAchievements();
     }
     public void SetBoost(int _value)
     {
@@ -513,9 +511,7 @@ public class GameManager : MonoBehaviour
             EasyJson.SaveJsonToFile(gameDB);
             SaveToFirebase();
         }
-
-        SaveScore();
-        SaveScoreToFirebase();
+        ReportScore();
     }
     private void SaveScore()
     {
