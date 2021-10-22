@@ -18,6 +18,7 @@ public class Store : MonoBehaviour
     public System.Action<int> onTakenReward;
 
     private StoreItem selected_item;
+    private StoreItem[] items;
 
     private DOMove domove;
 
@@ -39,6 +40,11 @@ public class Store : MonoBehaviour
     private void Start()
     {
         domove = GetComponent<DOMove>();
+        items = content.GetComponentsInChildren<StoreItem>();
+        if (items != null)
+        {
+            items[0].isActive = true;
+        }
 
         if (message_panel)
         {
@@ -88,6 +94,27 @@ public class Store : MonoBehaviour
         else
             ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(selected_item.coin_sprite);
         SelectStoreItemDB(_item.ID);
+    }
+    public void CheckAvailableStoreItems(bool _showNot = false)
+    {
+        if (items != null)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (!items[i].isActive)
+                {
+                    if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K, items[i].p_M))
+                    {
+                        items[i].Activate();
+                        if (_showNot)
+                        {
+                            ReferenceKeeper.Instance.CoinNotificationFlag.Adjust(items[i].coin_sprite);
+                            ReferenceKeeper.Instance.CoinNotificationFlag.ShowNotification();
+                        }
+                    }
+                }
+            }
+        }
     }
     private void MessagePanelResult(bool _result)
     {
@@ -144,20 +171,6 @@ public class Store : MonoBehaviour
             }
             GetCurrentScore();
             pressed_reward = false;
-        }
-    }
-    private void CheckAvailableStoreItems()
-    {
-        StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
-        if (items != null)
-        {
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K, items[i].p_M))
-                {
-                    items[i].Activate();
-                }
-            }
         }
     }
     public void SelectStoreItemDB(int _id)

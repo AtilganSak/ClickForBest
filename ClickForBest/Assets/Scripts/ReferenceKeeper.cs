@@ -37,6 +37,7 @@ public class ReferenceKeeper : MonoBehaviour
     public RosetteController RosetteController;
     public RosetteSpawner RosetteSpawner;
     public UISound UISound;
+    public CoinNotificationFlag CoinNotificationFlag;
 
     private void OnEnable()
     {
