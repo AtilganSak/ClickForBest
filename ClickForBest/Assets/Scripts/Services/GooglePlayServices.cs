@@ -4,12 +4,8 @@ using GooglePlayGames.BasicApi;
 #endif
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-#if UNITY_IOS
-using UnityEngine.SocialPlatforms.GameCenter;
-#endif
 
 public class GooglePlayServices : MonoBehaviour
 {
@@ -21,8 +17,6 @@ public class GooglePlayServices : MonoBehaviour
     public float try_connection_time=10f;
     public string authCode { get; set; }
 
-    bool isLoadedFrends;
-    bool profileImageIsLoaded;
     bool closingAccount;
 
     public bool TryingLogout { get; private set; }
@@ -42,8 +36,6 @@ public class GooglePlayServices : MonoBehaviour
             }
             return user;
         } }
-    public IUserProfile[] frends { get; private set; }
-    public IAchievement[] achievements { get; private set; }
 
     private void OnEnable()
     {
@@ -54,8 +46,6 @@ public class GooglePlayServices : MonoBehaviour
         .Build();
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
-#elif UNITY_IOS
-        GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 #endif
         internet_state = internet;
         StartCoroutine(CheckInternet());
@@ -81,7 +71,6 @@ public class GooglePlayServices : MonoBehaviour
                     Login();
                 }
             }
-            Debug.LogError("Login State :"+LoginState);
             yield return new WaitForSeconds(try_connection_time);
         }
     }
@@ -140,7 +129,6 @@ public class GooglePlayServices : MonoBehaviour
         closingAccount = false;
         LoginState = false;
         TryingLogout = false;
-        profileImageIsLoaded = false;
     }
     public void ShowAchievements()
     {
@@ -168,14 +156,6 @@ public class GooglePlayServices : MonoBehaviour
         ((PlayGamesPlatform)Social.Active).IncrementAchievement(id, steps, state => { });
 #endif
     }
-//    public void EarnScore(int score)
-//    {
-//        if (!internet || !LoginState) return;
-
-//#if UNITY_ANDROID
-//        Social.Active.ReportScore(score, GPGSIds., state => { });
-//#endif
-//    }
     public void EarnScore(string id, int score)
     {
         if (!internet || !LoginState) return;
@@ -183,32 +163,6 @@ public class GooglePlayServices : MonoBehaviour
 #if UNITY_ANDROID
         Social.Active.ReportScore(score, id, state => { });
 #endif
-    }
-    public void GetFrends()
-    {
-        if (!internet || !LoginState) return;
-
-#if UNITY_ANDROID
-        PlayGamesPlatform.Instance.LoadFriends(Social.localUser, GetFrendsCallback);
-#endif
-    }
-    private void GetFrendsCallback(bool state)
-    {
-        isLoadedFrends = state;
-        if (state)
-        {
-            frends = new IUserProfile[Social.localUser.friends.Length];
-            int i = 0;
-            foreach (IUserProfile profile in Social.localUser.friends)
-            {
-                frends[i] = profile;
-                i++;
-            }
-        }
-        if (onLoadedFrends != null)
-        {
-            onLoadedFrends.Invoke(state);
-        }
     }
     bool internet_state;
     private IEnumerator CheckInternet()

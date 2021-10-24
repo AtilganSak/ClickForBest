@@ -12,8 +12,15 @@ public class SideBar : MonoBehaviour
 
     private Power selected_power;
 
+    private bool trying_show;
+
     private void Start()
     {
+        if (ReferenceKeeper.Instance.GooglePlayServices != null)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
+        }
+
         powers.Shuffle();
 
         SelectPower();
@@ -32,9 +39,6 @@ public class SideBar : MonoBehaviour
     }
     private void ShowPower()
     {
-#if UNITY_EDITOR
-        selected_power.Appear();
-#else
         if (ReferenceKeeper.Instance.GooglePlayServices.internet)
         {
             if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
@@ -44,9 +48,12 @@ public class SideBar : MonoBehaviour
         }
         else
         {
-            StartCoroutine(TryShow());
+            if (!trying_show)
+            {
+                trying_show = true;
+                StartCoroutine(TryShow());
+            }
         }
-#endif
     }
     private IEnumerator TryShow()
     {
@@ -57,10 +64,27 @@ public class SideBar : MonoBehaviour
                 if (ReferenceKeeper.Instance.RewardAdsController.IsReadyAds())
                 {
                     selected_power.Appear();
+                    trying_show = false;
                     break;
                 }
             }
             yield return new WaitForSeconds(1);
+        }
+    }
+    private void ChangedInternetState(bool _state)
+    {
+        if (!_state)
+        {
+            if (selected_power != null)
+            {
+                if (selected_power.isShow)
+                {
+                    if (!selected_power.used)
+                    {
+                        SelectPower();
+                    }
+                }
+            }
         }
     }
 }

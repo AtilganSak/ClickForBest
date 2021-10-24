@@ -31,6 +31,8 @@ public class PauseMenu : MonoBehaviour
             google_connect_image.color = Color.green;
         else
             google_connect_image.color = Color.red;
+
+        ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
     }
 
     public void Pressed_Pause_Button()
@@ -112,6 +114,17 @@ public class PauseMenu : MonoBehaviour
         pause_button_domove.DORevert();
         DORotates(true);
         DOScales(true);
+    }
+    private void ChangedInternetState(bool _state)
+    {
+        if (_state)
+        {
+            google_connect_image.color = Color.green;
+        }
+        else
+        {
+            google_connect_image.color = Color.red;
+        }
     }
 
     private void DORotates(bool _stop = false)

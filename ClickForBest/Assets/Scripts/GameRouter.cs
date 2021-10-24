@@ -34,6 +34,7 @@ public class GameRouter : MonoBehaviour
             }
             else
             {
+                service.TryLogin();
                 SceneManager.LoadScene(1);
             }
         }

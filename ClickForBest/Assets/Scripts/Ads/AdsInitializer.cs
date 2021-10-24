@@ -13,16 +13,20 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     {
         InitializeAds();
     }
-
+    private void Start()
+    {
+        ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
+    }
     public void InitializeAds()
     {
-        Advertisement.Initialize(google_play_id, test_mode, enable_Per_Placement_Mode, this);
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+        {
+            Advertisement.Initialize(google_play_id, test_mode, enable_Per_Placement_Mode, this);
+        }
     }
 
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads initialization complete.");
-
         isActive = true;
 
         ReferenceKeeper.Instance.RewardAdsController.LoadAd();
@@ -30,8 +34,14 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.LogError($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-
         isActive = false;
+    }
+
+    private void ChangedInternetState(bool _state)
+    {
+        if (!isActive)
+        {
+            InitializeAds();
+        }
     }
 }

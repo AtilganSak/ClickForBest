@@ -44,10 +44,11 @@ public class Power : MonoBehaviour
     public Action timeIsOver;
     public Action onUse;
 
+    public bool isShow { get; private set; }
+    public bool used { get; private set; }
+
     private DOMove doMove;
     private Button button;
-
-    private bool used;
 
     private void OnEnable()
     {
@@ -95,15 +96,13 @@ public class Power : MonoBehaviour
         }
         #endregion
     }
-    internal virtual void ClickedPower()
+    private void ClickedPower()
     {
-        ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
-#if UNITY_EDITOR
-        Use(ShowResult.Finished);
-#else
-        //ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += Use;
-        ReferenceKeeper.Instance.AdsMessagePanel.Show();
-#endif
+        if (ReferenceKeeper.Instance.GooglePlayServices.internet)
+        {
+            ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
+            ReferenceKeeper.Instance.AdsMessagePanel.Show();
+        }
     }
     private void Use(ShowResult _callback)
     {
@@ -123,13 +122,12 @@ public class Power : MonoBehaviour
                         UseForExtraScore();
                         break;
                 }
-
                 used = true;
                 Hide();
             }
         }
     }
-    internal void TimeOver()
+    private void TimeOver()
     {
         ReferenceKeeper.Instance.UISound.StopSound();
         if (timeIsOver != null)
@@ -139,10 +137,12 @@ public class Power : MonoBehaviour
     }
     public void Appear()
     {
+        isShow = true;
         doMove.DO();
     }
     public void Hide()
     {
+        isShow = false;
         doMove.DORevert();
     }
     private void UseForAutoClick()

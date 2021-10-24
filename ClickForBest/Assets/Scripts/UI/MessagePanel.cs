@@ -23,20 +23,23 @@ public class MessagePanel : MonoBehaviour
     private bool dont_show_again;
     private string player_key;
 
-    private void Start()
+    private void OnEnable()
     {
         player_key = "mp_" + name;
 
         doScale = GetComponent<DOScale>();
-        dimed.enabled = false;
 
-        if(yes_button)
+        dimed.enabled = false;
+    }
+    private void Start()
+    {
+        if(yes_button && yes_button.gameObject.activeInHierarchy)
             yes_button.onClick.AddListener(Pressed_Yes);
-        if (no_button)
+        if (no_button && no_button.gameObject.activeInHierarchy)
             no_button.onClick.AddListener(Pressed_No);
-        if (exit_button)
+        if (exit_button && exit_button.gameObject.activeInHierarchy)
             exit_button.onClick.AddListener(Pressed_No);
-        if (dont_show_toggle)
+        if (dont_show_toggle && dont_show_toggle.gameObject.activeInHierarchy)
         {
             dont_show_toggle.onValueChanged.AddListener(ChangedDontShow);
             if (PlayerPrefs.HasKey(player_key))

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public TMP_Text score_text;
     [SerializeField] TMP_Text full_score_text;
+    [SerializeField] MessagePanel no_internet_message_panel;
     public bool save = true;
     public GameDB gameDB { get; private set; }
     public ScoreBoardPlayer scoreBoardPlayer { get; private set; }
@@ -59,6 +60,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt(PlayerKeys.SCREEN_SLEEP_TIME, Screen.sleepTimeout);
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        CheckInternet();
     }
 
     public void ReportScore()
@@ -378,6 +381,16 @@ public class GameManager : MonoBehaviour
         if (M >= 100)
         {
             ReferenceKeeper.Instance.GooglePlayServices.UnlockAchievement(GPGSIds.achievement_100m_score);
+        }
+    }
+    private void CheckInternet()
+    {
+        if (ReferenceKeeper.Instance.GooglePlayServices != null && !ReferenceKeeper.Instance.GooglePlayServices.internet)
+        {
+            if (no_internet_message_panel)
+            {
+                no_internet_message_panel.Show();
+            }
         }
     }
     private void WriteFullScore()
