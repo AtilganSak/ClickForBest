@@ -14,6 +14,7 @@ public class StoreItem : MonoBehaviour
     [SerializeField] DOFade frame_image;
     [SerializeField] Image shadow_image;
     [SerializeField] Image lock_image;
+    [SerializeField] GameObject notification_icon;
 
     public GameObject coin_prefab;
     public Sprite coin_sprite;
@@ -76,7 +77,7 @@ public class StoreItem : MonoBehaviour
             ReferenceKeeper.Instance.Store.Pressed_Item_Select(this);
         }
     }
-    public void Activate()
+    public void Activate(bool _showNotIcon = false)
     {
         isActive = true;
 
@@ -85,9 +86,13 @@ public class StoreItem : MonoBehaviour
         lock_image.enabled = false;
         check_image.enabled = true;
         button.interactable = true;
+        if(_showNotIcon)
+            notification_icon.SetActive(true);
     }
     public void Select()
     {
+        if(notification_icon.activeInHierarchy)
+            notification_icon.SetActive(false);
         frame_image.DOLoop();
     }
     public void UnSelect()

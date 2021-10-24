@@ -56,6 +56,11 @@ public class Power : MonoBehaviour
             time_text.text = time.ToString() + "s";
 
         doMove = GetComponent<DOMove>();
+        if (doMove)
+        {
+            doMove.doComplete.AddListener(CompletedDOAppear);
+            doMove.doRevertComplete.AddListener(CompletedDOHide);
+        }
         button = GetComponentInChildren<Button>();
         if (button)
         {
@@ -123,6 +128,10 @@ public class Power : MonoBehaviour
                         break;
                 }
                 used = true;
+                if (IsInvoking("Hide"))
+                {
+                    CancelInvoke("Hide");
+                }
                 Hide();
             }
         }
@@ -144,6 +153,17 @@ public class Power : MonoBehaviour
     {
         isShow = false;
         doMove.DORevert();
+    }
+    private void CompletedDOAppear()
+    {
+        Invoke("Hide", 60);
+    }
+    private void CompletedDOHide()
+    {
+        if (!used)
+        {
+            TimeOver();
+        }
     }
     private void UseForAutoClick()
     {

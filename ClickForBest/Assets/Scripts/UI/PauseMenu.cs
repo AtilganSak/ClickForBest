@@ -32,7 +32,8 @@ public class PauseMenu : MonoBehaviour
         else
             google_connect_image.color = Color.red;
 
-        ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
+        if(ReferenceKeeper.Instance.GooglePlayServices != null)
+            ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
     }
 
     public void Pressed_Pause_Button()

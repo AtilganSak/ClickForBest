@@ -15,7 +15,10 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
     }
     private void Start()
     {
-        ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
+        if (ReferenceKeeper.Instance.GooglePlayServices != null)
+        {
+            ReferenceKeeper.Instance.GooglePlayServices.onInternetChanged += ChangedInternetState;
+        }
     }
     public void InitializeAds()
     {

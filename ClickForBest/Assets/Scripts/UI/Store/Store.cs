@@ -105,7 +105,7 @@ public class Store : MonoBehaviour
                 {
                     if (ReferenceKeeper.Instance.GameManager.HaveScore(items[i].p_underK, items[i].p_K, items[i].p_M))
                     {
-                        items[i].Activate();
+                        items[i].Activate(_showNot);
                         if (_showNot)
                         {
                             ReferenceKeeper.Instance.CoinNotificationFlag.Adjust(items[i].coin_sprite);
