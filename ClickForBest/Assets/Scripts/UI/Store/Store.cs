@@ -186,20 +186,29 @@ public class Store : MonoBehaviour
     }
     private void LoadSelectedItem()
     {
+        int selectedItemIndex = 0;
+        StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
         if (ReferenceKeeper.Instance.GameManager.gameDB != null)
         {
-            int selectedItemIndex = ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item;
-            StoreItem[] items = content.GetComponentsInChildren<StoreItem>();
+            selectedItemIndex = ReferenceKeeper.Instance.GameManager.gameDB.selected_store_item;
             if (items != null)
             {
-                selected_item = items[selectedItemIndex];
-                items[selectedItemIndex].Select();
-                if (selected_item.coin_prefab != null)
-                    ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(selected_item.coin_prefab);
-                else
-                    ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(selected_item.coin_sprite);
+                SelectStoreItem(selectedItemIndex);
             }
         }
+        else
+        {
+            SelectStoreItem(selectedItemIndex);
+        }
+    }
+    private void SelectStoreItem(int _index)
+    {
+        selected_item = items[_index];
+        selected_item.Select();
+        if (selected_item.coin_prefab != null)
+            ReferenceKeeper.Instance.CoinSpawner.SetCoinPrefab(selected_item.coin_prefab);
+        else
+            ReferenceKeeper.Instance.CoinSpawner.SetCoinSprite(selected_item.coin_sprite);
     }
 
     #region Editor
