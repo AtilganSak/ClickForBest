@@ -136,4 +136,22 @@ public static class UtilitiesMethods
     {
         return Mathf.Max(Screen.width, Screen.height) / Mathf.Min(Screen.width, Screen.height);
     }
+    public static string ShortenString(string str, int limit)
+    {
+        if (str != null && str != "" && str.Length > 1)
+        {
+            if (limit > 0)
+            {
+                if (limit < str.Length)
+                {
+                    return str.Substring(0, limit) + "...";
+                }
+                else
+                {
+                    return str;
+                }
+            }
+        }
+        return "";
+    }
 }

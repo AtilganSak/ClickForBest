@@ -16,7 +16,7 @@ public class ListItem : MonoBehaviour
 
     public void Init(ScoreBoardPlayer _player)
     {
-        name_text.text = _player.name;
+        name_text.text = UtilitiesMethods.ShortenString(_player.name, 11);
         score_text.text = _player.score.ToString();
         if(_player.order == -1)
             order_text.text = "5000+";
