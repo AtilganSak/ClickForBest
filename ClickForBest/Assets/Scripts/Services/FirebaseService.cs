@@ -176,7 +176,7 @@ public class FirebaseService : MonoBehaviour
     {
         if (firebase_user == null || !google_play_service.internet) return;
 
-        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").LimitToLast(100).GetValueAsync().ContinueWithOnMainThread(task =>
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SCOREBOARD).OrderByChild("score").LimitToLast(500).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted || task.IsCanceled)
             {

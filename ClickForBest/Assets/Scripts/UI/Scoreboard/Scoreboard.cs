@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Scoreboard : MonoBehaviour
 {
@@ -11,11 +12,15 @@ public class Scoreboard : MonoBehaviour
     public GameObject noscore;
     public GameObject noconnection;
     public ParticleSystem bg_particle;
+    public Transform limitTransform;
+    public ListItem tempListItem;
 
     private DOMove domove;
     private bool isopen;
     private bool isMoving;
     private bool isLoading;
+
+    private Transform mineItem;
 
     string[] names = new string[]
     {
@@ -28,9 +33,31 @@ public class Scoreboard : MonoBehaviour
         "Hope",
         "Kevin",
         "Michael",
+        "Jackson",
+        "Hector",
+        "Jesus",
+        "Albert",
+        "Paul",
+        "Hope",
+        "Kevin",
+        "Michael",
         "Jackson"
     };
 
+    private void Update()
+    {
+        if (mineItem != null)
+        {
+            if ((limitTransform.position.y - mineItem.position.y) < 0.05F)
+            {
+                limitTransform.gameObject.SetActive(false);
+            }
+            else
+            {
+                limitTransform.gameObject.SetActive(true);
+            }
+        }
+    }
     private void OnEnable()
     {
         domove = GetComponent<DOMove>();
@@ -110,14 +137,17 @@ public class Scoreboard : MonoBehaviour
         if (_players != null && _players.Length > 0)
         {
             bool isHere = false;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 if (i > _players.Length - 1) break;
 
                 ListItem newItem = Instantiate(item_prefab, content).GetComponent<ListItem>();
                 newItem.Init(_players[i]);
                 if (_players[i].isMine)
+                {
+                    mineItem = newItem.transform;
                     isHere = true;
+                }
             }
             if (!isHere)
             {
@@ -133,8 +163,11 @@ public class Scoreboard : MonoBehaviour
                 }
                 if (isHere)
                 {
-                    ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
-                    lastItem.Init(myPlayer);
+                    ListItem newItem = Instantiate(item_prefab, content).GetComponent<ListItem>();
+                    newItem.Init(myPlayer);
+                    mineItem = newItem.transform;
+                    limitTransform.gameObject.SetActive(true);
+                    tempListItem.Init(myPlayer);
                 }
                 else
                 {
@@ -152,8 +185,8 @@ public class Scoreboard : MonoBehaviour
         if (_player != null)
         {
             _player.order = -1;
-            ListItem lastItem = content.GetChild(content.childCount - 1).GetComponent<ListItem>();
-            lastItem.Init(_player);
+            limitTransform.gameObject.SetActive(true);
+            tempListItem.Init(_player);
         }
     }
     [EasyButtons.Button]
@@ -181,7 +214,7 @@ public class Scoreboard : MonoBehaviour
     private void GenerateTestDatas()
     {
         int score = 1500;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < names.Length; i++)
         {
             ListItem listItem = ((GameObject)PrefabUtility.InstantiatePrefab(item_prefab, content)).GetComponent<ListItem>();
             ScoreBoardPlayer newPlayer = new ScoreBoardPlayer
