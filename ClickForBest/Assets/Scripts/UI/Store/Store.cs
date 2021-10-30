@@ -58,6 +58,7 @@ public class Store : MonoBehaviour
         if (reward_item_500)
             reward_item_500.onClick += Pressed_Reward_Item;
 
+        CheckAvailableStoreItems();
         GetCurrentScore();
         LoadSelectedItem();
     }
