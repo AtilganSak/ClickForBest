@@ -103,31 +103,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.services.core": {
-      "version": "1.1.0-pre.8",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.services.mediation": {
-      "version": "file:C:/Users/Atılgan/Downloads/334e812a3ab8a49e2856e0f90624d70c36c1b14b.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.unity.settings-manager": "1.0.3",
-        "com.unity.services.core": "1.1.0-pre.8"
-      }
-    },
-    "com.unity.settings-manager": {
-      "version": "1.0.3",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.shadergraph": {
       "version": "11.0.0",
       "depth": 1,
