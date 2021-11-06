@@ -125,11 +125,11 @@ public class Store : MonoBehaviour
             {
                 //ReferenceKeeper.Instance.RewardAdsController.onAdsShowComplete += () =>
                 //{
-                    //if (onTakenReward != null)
-                    //{
-                    //    onTakenReward.Invoke(will_taken_reward);
-                    //}
-                    //pressed_reward = false;
+                //if (onTakenReward != null)
+                //{
+                //    onTakenReward.Invoke(will_taken_reward);
+                //}
+                //pressed_reward = false;
                 //};
                 ReferenceKeeper.Instance.RewardAdsController.ShowAd(AdsShowCompleted);
             }
@@ -237,7 +237,7 @@ public class Store : MonoBehaviour
             for (int i = 0; i < _items.Length; i++)
             {
                 StoreItem item_instance = (StoreItem)PrefabUtility.InstantiatePrefab(item_prefab, content);
-                item_instance.Init(_id, _items[i].price_underK,_items[i].price_k, _items[i].price_m, _items[i].icon, _items[i].background, _items[i].prefab, _bgColor);
+                item_instance.Init(_id, _items[i].price_underK, _items[i].price_k, _items[i].price_m, _items[i].icon, _items[i].background, _items[i].prefab, _bgColor);
                 _id++;
             }
         }

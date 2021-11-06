@@ -9,4 +9,5 @@ public static class PlayerKeys
     public static string FIREBASE_SCOREBOARD = "Scoreboard";
     public static string SCREEN_SLEEP_TIME = "Screen_sleep_time";
     public static string SFX = "Sfx";
+    public static string FIREBASE_SYSTEM = "System";
 }

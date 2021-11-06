@@ -26,7 +26,7 @@ public class StoreItem : MonoBehaviour
 
     private Button button;
 
-    private void Start()
+    private void OnEnable()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(Pressed_Button);

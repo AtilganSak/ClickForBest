@@ -237,6 +237,33 @@ public class FirebaseService : MonoBehaviour
             }
         });
     }
+    public void GetSystemDBAsync(Action<SystemDB> _callback)
+    {
+        if (!google_play_service.internet) return;
+
+        firebase_database.GetReference(PlayerKeys.FIREBASE_SYSTEM).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.LogError("Task failud: " + task.Exception);
+                _callback.Invoke(null);
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.LogFormat("Task completed");
+                string data = task.Result.GetRawJsonValue();
+                if (data != null)
+                {
+                    SystemDB systemdb = JsonUtility.FromJson<SystemDB>(data);
+                    _callback.Invoke(systemdb);
+                }
+                else
+                {
+                    _callback.Invoke(null);
+                }
+            }
+        });
+    }
     public void SetStoreItemsAsync(int[] _values, Action<bool> firebaseSetStoreItemsCallBack = null)
     {
         if (firebase_user == null || !google_play_service.internet) return;
