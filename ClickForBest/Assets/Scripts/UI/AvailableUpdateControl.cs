@@ -14,9 +14,12 @@ public class AvailableUpdateControl : MonoBehaviour
     }
     private void CompletedGetSystemDB(SystemDB _result)
     {
-        if (applicationInfo.BundleVersion != _result.BundleVersion)
+        if (_result.AvailableUpdate)
         {
-            messagePanel.Show();
+            if (applicationInfo.BundleVersion != _result.BundleVersion)
+            {
+                messagePanel.Show();
+            }
         }
     }
 }
