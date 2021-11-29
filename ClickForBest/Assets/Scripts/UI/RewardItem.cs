@@ -73,6 +73,7 @@ public class RewardItem : MonoBehaviour
         if (_value == reward_value)
         {
             ReferenceKeeper.Instance.GameManager.AddScore(_value);
+            ReferenceKeeper.Instance.MessageNotificationFlag.ShowNotification($"+{reward_value}");
 
             ads_icon.enabled = false;
             check_icon.enabled = true;
