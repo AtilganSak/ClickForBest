@@ -83,6 +83,12 @@ public class RewardAdsController : MonoBehaviour, IUnityAdsLoadListener, IUnityA
         // Use the error details to determine whether to try to load another ad.
     }
 
-    public void OnUnityAdsShowStart(string adUnitId) { }
-    public void OnUnityAdsShowClick(string adUnitId) { }
+    public void OnUnityAdsShowStart(string adUnitId) 
+    {
+        ReferenceKeeper.Instance.GameAnalyticsService.RewardAdsEvent(GameAnalyticsSDK.GAAdAction.Show, adUnitId);
+    }
+    public void OnUnityAdsShowClick(string adUnitId) 
+    {
+        ReferenceKeeper.Instance.GameAnalyticsService.RewardAdsEvent(GameAnalyticsSDK.GAAdAction.Clicked, adUnitId);
+    }
 }

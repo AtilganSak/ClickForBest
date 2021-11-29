@@ -39,6 +39,7 @@ public class ReferenceKeeper : MonoBehaviour
     public UISound UISound;
     public CoinNotificationFlag CoinNotificationFlag;
     public SideBar SideBar;
+    public GameAnalyticsService GameAnalyticsService;
 
     private void OnEnable()
     {

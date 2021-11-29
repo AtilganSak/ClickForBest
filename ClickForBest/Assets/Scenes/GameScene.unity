@@ -14296,6 +14296,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29344ed47ec034a46ab61467aab07231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1055739910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1055739912}
+  - component: {fileID: 1055739911}
+  m_Layer: 0
+  m_Name: GameAnalyticsService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1055739911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055739910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207310c501b19b44ebe01e6b783f8ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1055739912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055739910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10979297, y: -0.24954124, z: -5.1217113}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1061382884
 GameObject:
   m_ObjectHideFlags: 0
@@ -22075,6 +22118,7 @@ MonoBehaviour:
   UISound: {fileID: 1742860539}
   CoinNotificationFlag: {fileID: 1696351904}
   SideBar: {fileID: 433619400}
+  GameAnalyticsService: {fileID: 1055739911}
 --- !u!4 &1602860877
 Transform:
   m_ObjectHideFlags: 0
