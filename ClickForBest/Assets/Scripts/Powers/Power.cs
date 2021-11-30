@@ -105,6 +105,7 @@ public class Power : MonoBehaviour
     {
         if (ReferenceKeeper.Instance.GooglePlayServices.internet)
         {
+            ReferenceKeeper.Instance.GameManager.click_ad_count++;
             ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Button);
             ReferenceKeeper.Instance.AdsMessagePanel.Show();
         }

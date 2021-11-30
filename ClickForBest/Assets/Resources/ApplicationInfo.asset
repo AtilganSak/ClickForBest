@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7eeb33cf022cc6408f2a5717a5fd4ee, type: 3}
   m_Name: ApplicationInfo
   m_EditorClassIdentifier: 
-  _version: 0.0.5
-  _bundleVersion: 25
+  _version: 0.0.6
+  _bundleVersion: 27

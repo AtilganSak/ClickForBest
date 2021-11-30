@@ -11,9 +11,16 @@ public class GameManager : MonoBehaviour
     public GameDB gameDB { get; private set; }
     public ScoreBoardPlayer scoreBoardPlayer { get; private set; }
 
+    public int click_ad_count;
+    public int click_count;
+
     private int boost = 1;
     private int total_coin_count;
     private int earning_current_score;
+
+    private bool pause;
+    
+    private float session_timer;
 
     private DOScale handle_doscale;
 
@@ -29,12 +36,14 @@ public class GameManager : MonoBehaviour
     int O;
     int N;
     int D;
+
     private void OnApplicationQuit()
     {
         SaveGame();
     }
     private void OnApplicationPause(bool pause)
     {
+        this.pause = pause;
         if (pause)
         {
             SaveGame();
@@ -62,6 +71,13 @@ public class GameManager : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
         CheckInternet();
+    }
+    private void Update()
+    {
+        if (!pause)
+        {
+            session_timer += Time.deltaTime;
+        }
     }
 
     public void ReportScore()
@@ -117,6 +133,7 @@ public class GameManager : MonoBehaviour
     [EasyButtons.Button]
     public void AddScore(int _value)
     {
+        click_count++;
         earning_current_score += _value;
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
@@ -522,6 +539,10 @@ public class GameManager : MonoBehaviour
                 n = N,
                 d = D
             };
+            gameDB.last_session_time = session_timer;
+            gameDB.last_session_click_ad_count = click_ad_count;
+            gameDB.last_session_click_count = click_count;
+
             EasyJson.SaveJsonToFile(gameDB);
             SaveToFirebase();
         }
