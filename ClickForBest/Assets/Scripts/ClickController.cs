@@ -22,6 +22,10 @@ public class ClickController : MonoBehaviour
         PlayClickSound();
 
         coin_spawner.SpawnCoin();
+
+        ReferenceKeeper.Instance.GameManager.AddScore();
+        ReferenceKeeper.Instance.GameManager.AddCoin();
+        ReferenceKeeper.Instance.GameManager.LookAtRandomToken();
     }
     private void Update()
     {
@@ -31,7 +35,7 @@ public class ClickController : MonoBehaviour
             if (counter >= interval)
             {
                 counter = 0;
-                coin_spawner.SpawnCoin();
+                Pressed_Click_Button();
             }
         }
     }

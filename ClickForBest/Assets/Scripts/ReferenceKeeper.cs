@@ -41,6 +41,7 @@ public class ReferenceKeeper : MonoBehaviour
     public MessageNotificationFlag MessageNotificationFlag;
     public SideBar SideBar;
     public GameAnalyticsService GameAnalyticsService;
+    public Canvas Canvas3;
 
     private void OnEnable()
     {

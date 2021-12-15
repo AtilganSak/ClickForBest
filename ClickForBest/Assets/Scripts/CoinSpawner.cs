@@ -10,9 +10,6 @@ public class CoinSpawner : MonoBehaviour
     {
         GameObject coin_instance = Instantiate(coin_prefab);
         coin_instance.transform.position = Vector3.zero;
-
-        ReferenceKeeper.Instance.GameManager.AddScore();
-        ReferenceKeeper.Instance.GameManager.AddCoin();
     }
     public void SetCoinPrefab(GameObject _go)
     {

@@ -11,10 +11,13 @@ public class GameRouter : MonoBehaviour
     public CanvasGroup loading_part;
     public TMP_Text local_score_text;
     public TMP_Text local_purchased_text;
+    public TMP_Text local_token_text;
     public TMP_Text cloud_score_text;
     public TMP_Text cloud_purchased_text;
+    public TMP_Text cloud_token_text;
     public TMP_Text cloud_score_text2;
     public TMP_Text cloud_purchased_text2;
+    public TMP_Text cloud_token_text2;
 
     private FirebaseService f_service;
     private GameDB cloud_db;
@@ -89,6 +92,7 @@ public class GameRouter : MonoBehaviour
                 info_part2.alpha = 1;
                 loading_part.alpha = 0;
                 cloud_score_text2.text = cloud_db.score.Calculate(0);
+                cloud_token_text2.text = cloud_db.token.ToString();
             }
             else
             {
@@ -121,6 +125,22 @@ public class GameRouter : MonoBehaviour
                         cloud_score_text.color = Color.red;
 
                         diff = true;
+                    }
+                }
+                if (cloud_db.token != local_db.token)
+                {
+                    diff = true;
+                    cloud_token_text.text = cloud_db.token.ToString();
+                    local_token_text.text = local_db.token.ToString();
+                    if (cloud_db.token > local_db.token)
+                    {
+                        cloud_token_text.color = Color.green;
+                        local_token_text.color = Color.red;
+                    }
+                    else
+                    {
+                        cloud_token_text.color = Color.red;
+                        local_token_text.color = Color.green;
                     }
                 }
                 if (!diff)

@@ -8,6 +8,7 @@ public class GameDB
     public float last_session_time;
     public int last_session_click_ad_count;
     public int last_session_click_count;
+    public int token;
 }
 [System.Serializable]
 public class ScoreBoardPlayer

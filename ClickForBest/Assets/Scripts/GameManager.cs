@@ -5,15 +5,23 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TMP_Text score_text;
+    public TMP_Text token_text;
     [SerializeField] TMP_Text full_score_text;
     [SerializeField] MessagePanel no_internet_message_panel;
     public bool save = true;
     public GameDB gameDB { get; private set; }
     public ScoreBoardPlayer scoreBoardPlayer { get; private set; }
 
+    [Header("Token")]
+    [SerializeField] GameObject token_prefab;
+    [SerializeField] Transform token_ui_target;
+    [Range(0, 100)]
+    [SerializeField] float token_change = 10;
+
     public int click_ad_count;
     public int click_count;
 
+    private float normalized_change;
     private int boost = 1;
     private int total_coin_count;
     private int earning_current_score;
@@ -23,6 +31,9 @@ public class GameManager : MonoBehaviour
     private float session_timer;
 
     private DOScale handle_doscale;
+    private DummyCounter token_dummy;
+
+    public int token;
 
     int underK;
     int K;
@@ -37,6 +48,10 @@ public class GameManager : MonoBehaviour
     int N;
     int D;
 
+    private void OnValidate()
+    {
+        normalized_change = token_change / 100;
+    }
     private void OnApplicationQuit()
     {
         SaveGame();
@@ -55,7 +70,11 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        normalized_change = token_change / 100;
+
         handle_doscale = ReferenceKeeper.Instance.Handle.GetComponent<DOScale>();
+        token_dummy = token_text.gameObject.GetComponent<DummyCounter>();
+        token_dummy.SetPoint(token);
 
         Application.targetFrameRate = 90;
 
@@ -123,6 +142,12 @@ public class GameManager : MonoBehaviour
             GC.Collect();
         }
     }
+    public void AddToken(bool _updateUI = true)
+    {
+        token++;
+        if(_updateUI)
+            token_text.text = token.ToString();
+    }
     public void AddScore()
     {
         if (boost > 1)
@@ -170,6 +195,24 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+    
+    [EasyButtons.Button]
+    public void LookAtRandomToken()
+    {
+        if (token_change >= 1)
+        {
+            if (UnityEngine.Random.value < normalized_change)
+            {
+                AddToken(false);
+                GameObject go = Instantiate(token_prefab, ReferenceKeeper.Instance.Canvas3.transform);
+                go.transform.position = Vector3.zero;
+                DOMove doMove = go.GetComponent<DOMove>();
+                doMove.doComplete.AddListener(() => { token_dummy.Add(1); });
+                doMove.endTarget = token_ui_target;
+                doMove.DO();
+            }
+        }
     }
     private string ScoreCalculate(int _value)
     {
@@ -542,6 +585,7 @@ public class GameManager : MonoBehaviour
             gameDB.last_session_time = session_timer;
             gameDB.last_session_click_ad_count = click_ad_count;
             gameDB.last_session_click_count = click_count;
+            gameDB.token = token;
 
             EasyJson.SaveJsonToFile(gameDB);
             SaveToFirebase();
@@ -593,6 +637,8 @@ public class GameManager : MonoBehaviour
             N = score.n;
             D = score.d;
 
+            token = gameDB.token;
+            token_text.text = token.ToString();
             score_text.text = ScoreCalculate(0);
             ReferenceKeeper.Instance.RosetteController.LoadRosettes(K, M, B);
         }
