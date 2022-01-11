@@ -29,7 +29,8 @@ public class ReferenceKeeper : MonoBehaviour
     public BoostTextControl BoostTextControl;
     public GooglePlayServices GooglePlayServices;
     public FirebaseService FirebaseService;
-    public Store Store;
+    public CoinStore CoinStore;
+    public ClickerStore ClickerStore;
     public AdsInitializer AdsInitializer;
     public RewardAdsController RewardAdsController;
     public MessagePanel AdsMessagePanel;

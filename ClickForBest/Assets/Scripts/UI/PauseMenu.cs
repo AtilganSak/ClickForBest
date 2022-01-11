@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Store store_menu;
+    public CoinStore store_menu;
     public Scoreboard scoreboard;
 
     public Button pause_button;

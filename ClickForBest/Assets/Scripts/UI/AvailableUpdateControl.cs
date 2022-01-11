@@ -10,7 +10,7 @@ public class AvailableUpdateControl : MonoBehaviour
     {
         applicationInfo = Resources.Load<ApplicationInfo>("ApplicationInfo");
 
-        ReferenceKeeper.Instance.FirebaseService.GetSystemDBAsync(CompletedGetSystemDB);
+        ReferenceKeeper.Instance.FirebaseService?.GetSystemDBAsync(CompletedGetSystemDB);
     }
     private void CompletedGetSystemDB(SystemDB _result)
     {

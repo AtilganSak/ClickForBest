@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
         score_text.text = ScoreCalculate(_value);
         WriteFullScore();
         ReferenceKeeper.Instance.RosetteController.CheckOut(K, M, B);
-        ReferenceKeeper.Instance.Store.CheckAvailableStoreItems(true);
+        ReferenceKeeper.Instance.CoinStore.CheckAvailableStoreItems(true);
         //CheckAchievements();
     }
     public void SetBoost(int _value)

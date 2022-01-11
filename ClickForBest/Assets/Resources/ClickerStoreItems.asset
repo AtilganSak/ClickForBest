@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c9aa7ddf4651143af2423c81ce7401, type: 3}
+  m_Name: ClickerStoreItems
+  m_EditorClassIdentifier: 
+  items:
+  - price: 0
+    sprite: {fileID: 21300000, guid: 0835c361a5acc9a43a146249d2f1ae26, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 59201308fd384ea4c93135de683200bd, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: c1544f9c2de9c074ca12b25f9cad4ad4, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 078b4af1b14493649ba3068d109c5c7f, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 2f5041c07fd3cf54797a38d229c886cd, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 82f8ba5eb5a84964caa338baa81ca48b, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: e3b97ceb8df77ed45aa91979409c7b96, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 044db051183ce1644b7485e1ab4c2e45, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: f6ac57cf5fa4e0040813487745c91a27, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: a551eee4385f0a64b94dde1fe181b1c4, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 573f622828420eb428d1351b96020fd3, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 9e110fcef101a314fa82416020778223, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 7e993caceb3962549a16d7de9b4fe923, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: 0575a47976835c94d8ef2424f5d8e25f, type: 3}
+  - price: 500
+    sprite: {fileID: 21300000, guid: bdb721cfe43dbb5478e22b0a7cc0f4a1, type: 3}

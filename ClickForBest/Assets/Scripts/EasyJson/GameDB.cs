@@ -5,6 +5,7 @@ public class GameDB
 {
     public Score score;
     public int selected_store_item;
+    public int selected_clicker_store_item;
     public float last_session_time;
     public int last_session_click_ad_count;
     public int last_session_click_count;

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class Store : MonoBehaviour
+public class CoinStore : MonoBehaviour
 {
     [SerializeField] StoreItem item_prefab;
     [SerializeField] Transform content;
@@ -220,7 +217,7 @@ public class Store : MonoBehaviour
     {
         ClearAllItems();
 
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
 
         _id = 0;
         GenerateItem(data.silver_items, Color.white);
@@ -258,37 +255,37 @@ public class Store : MonoBehaviour
     [EasyButtons.Button]
     private void ChangSilverItemsPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.silver_items, _underK, _k);
     }
     [EasyButtons.Button]
     private void ChangeGreenItemsPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.green_items, _underK, _k);
     }
     [EasyButtons.Button]
     private void ChangRedItemsPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.red_items, _underK, _k);
     }
     [EasyButtons.Button]
     private void ChangGoldItemsPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.gold_items, _underK, _k);
     }
     [EasyButtons.Button]
     private void ChangGemItemsPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.gem_items, _underK, _k);
     }
     [EasyButtons.Button]
     private void ChangSpecialPrice(int _underK, int _k)
     {
-        StoreItemData data = Resources.Load<StoreItemData>("StoreItems");
+        StoreItemData data = Resources.Load<StoreItemData>("CoinStoreItems");
         ChangeItemsPrice(data.special_items, _underK, _k);
         EditorUtility.SetDirty(data);
         AssetDatabase.SaveAssets();

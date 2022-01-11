@@ -74,7 +74,7 @@ public class StoreItem : MonoBehaviour
         else
         {
             ReferenceKeeper.Instance.UISound.PlaySound(UISound.Sound.Select);
-            ReferenceKeeper.Instance.Store.Pressed_Item_Select(this);
+            ReferenceKeeper.Instance.CoinStore.Pressed_Item_Select(this);
         }
     }
     public void Activate(bool _showNotIcon = false)

@@ -59,7 +59,7 @@ public class RewardItem : MonoBehaviour
 
         price_text.text = "+" + reward_value.ToString();
 
-        ReferenceKeeper.Instance.Store.onTakenReward += RewardTaken;
+        ReferenceKeeper.Instance.CoinStore.onTakenReward += RewardTaken;
     }
     private void Pressed_Button()
     {

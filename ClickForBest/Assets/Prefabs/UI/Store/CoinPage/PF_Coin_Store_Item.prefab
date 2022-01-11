@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 5986291970715537015}
   - component: {fileID: 3494857421688516125}
   m_Layer: 5
-  m_Name: PF_Store_Item
+  m_Name: PF_Coin_Store_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
