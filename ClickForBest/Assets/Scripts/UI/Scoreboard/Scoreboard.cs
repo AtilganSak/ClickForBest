@@ -44,20 +44,6 @@ public class Scoreboard : MonoBehaviour
         "Jackson"
     };
 
-    private void Update()
-    {
-        if (mineItem != null)
-        {
-            if ((limitTransform.position.y - mineItem.position.y) < 0.05F)
-            {
-                limitTransform.gameObject.SetActive(false);
-            }
-            else
-            {
-                limitTransform.gameObject.SetActive(true);
-            }
-        }
-    }
     private void OnEnable()
     {
         domove = GetComponent<DOMove>();
@@ -72,6 +58,20 @@ public class Scoreboard : MonoBehaviour
     private void Start()
     {
         //ReferenceKeeper.Instance.FirebaseService.FirebaseLoginTest();
+    }
+    private void Update()
+    {
+        if (mineItem != null)
+        {
+            if ((limitTransform.position.y - mineItem.position.y) < 0.05F)
+            {
+                limitTransform.gameObject.SetActive(false);
+            }
+            else
+            {
+                limitTransform.gameObject.SetActive(true);
+            }
+        }
     }
     public void OpenCloseMenu()
     {
@@ -136,6 +136,7 @@ public class Scoreboard : MonoBehaviour
         loading.gameObject.SetActive(false);
         if (_players != null && _players.Length > 0)
         {
+            ScoreBoardPlayer myPlayer = null;
             bool isHere = false;
             for (int i = 0; i < 50; i++)
             {
@@ -145,13 +146,14 @@ public class Scoreboard : MonoBehaviour
                 newItem.Init(_players[i]);
                 if (_players[i].isMine)
                 {
+                    myPlayer = _players[i];
                     mineItem = newItem.transform;
                     isHere = true;
                 }
             }
             if (!isHere)
             {
-                ScoreBoardPlayer myPlayer = null;
+                myPlayer = null;
                 for (int i = 0; i < _players.Length; i++)
                 {
                     if (_players[i].isMine)
@@ -167,13 +169,14 @@ public class Scoreboard : MonoBehaviour
                     newItem.Init(myPlayer);
                     mineItem = newItem.transform;
                     limitTransform.gameObject.SetActive(true);
-                    tempListItem.Init(myPlayer);
                 }
                 else
                 {
                     ReferenceKeeper.Instance.FirebaseService.GetMyScoreAsync((result) => CompletedGetMyScore(result));
                 }
             }
+            if(myPlayer != null)
+                tempListItem.Init(myPlayer);
         }
         else
         {
@@ -186,7 +189,6 @@ public class Scoreboard : MonoBehaviour
         {
             _player.order = -1;
             limitTransform.gameObject.SetActive(true);
-            tempListItem.Init(_player);
         }
     }
     [EasyButtons.Button]

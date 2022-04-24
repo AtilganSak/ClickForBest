@@ -563,33 +563,31 @@ public class GameManager : MonoBehaviour
     {
         if (!save) return;
 
+        if (gameDB == null)
+        {
+            gameDB = new GameDB();
+            gameDB.score = new Score();
+        }
         if (HaveScore())
         {
-            if (gameDB == null)
-                gameDB = new GameDB();
-            gameDB.score = new Score
-            {
-                underK = underK,
-                k = K,
-                m = M,
-                b = B,
-                t = T,
-                q = Q,
-                qt = QT,
-                s = S,
-                sp = SP,
-                o = O,
-                n = N,
-                d = D
-            };
-            gameDB.last_session_time = session_timer;
-            gameDB.last_session_click_ad_count = click_ad_count;
-            gameDB.last_session_click_count = click_count;
-            gameDB.token = token;
-
-            EasyJson.SaveJsonToFile(gameDB);
-            SaveToFirebase();
+            gameDB.score.underK = underK;
+            gameDB.score.k = K;
+            gameDB.score.m = M;
+            gameDB.score.b = B;
+            gameDB.score.t = T;
+            gameDB.score.q = Q;
+            gameDB.score.qt = QT;
+            gameDB.score.s = S;
+            gameDB.score.sp = SP;
+            gameDB.score.o = O;
+            gameDB.score.n = N;
+            gameDB.score.d = D;
         }
+        gameDB.last_session_time = session_timer;
+        gameDB.last_session_click_ad_count = click_ad_count;
+        gameDB.last_session_click_count = click_count;
+        EasyJson.SaveJsonToFile(gameDB);
+        SaveToFirebase();
         ReportScore();
     }
     private void SaveScore()
